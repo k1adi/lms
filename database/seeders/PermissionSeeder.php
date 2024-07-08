@@ -2,26 +2,26 @@
 
 namespace Database\Seeders;
 
-use App\Models\Permissions;
+use App\Models\Permission;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class PermissionSeeder extends Seeder
+class Permissioneeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Permissions::create([
+        Permission::create([
             'name' => 'create course'
         ]);
         
-        Permissions::create([
+        Permission::create([
             'name' => 'edit course'
         ]);
 
-        Permissions::create([
+        Permission::create([
             'name' => 'delete course'
         ]);
     }

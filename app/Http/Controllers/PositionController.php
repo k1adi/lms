@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreatePositionRequest;
 use App\Http\Requests\UpdatePositionRequest;
-use App\Models\Positions;
+use App\Models\Position;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
@@ -18,7 +18,7 @@ class PositionController extends Controller
     public function index(): Response
     {
         return Inertia::render('Position/Index', [
-            'positions' => Positions::paginate()
+            'positions' => Position::paginate()
         ]);
     }
 
@@ -36,7 +36,7 @@ class PositionController extends Controller
     public function store(CreatePositionRequest $request): RedirectResponse
     {
         try{
-            Positions::create($request->validated());
+            Position::create($request->validated());
 
             return Redirect::route('positions.index');
         } catch (\Exception $e) {
@@ -57,7 +57,7 @@ class PositionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Positions $position): Response
+    public function edit(Position $position): Response
     {
         return Inertia::render('Position/Edit', [
             'position' => $position
@@ -67,7 +67,7 @@ class PositionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePositionRequest $request, Positions $position): RedirectResponse
+    public function update(UpdatePositionRequest $request, Position $position): RedirectResponse
     {
         try {
             $position->fill($request->validated());
@@ -84,7 +84,7 @@ class PositionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Positions $position): RedirectResponse
+    public function destroy(Position $position): RedirectResponse
     {
         $position->delete();
         return Redirect::back();

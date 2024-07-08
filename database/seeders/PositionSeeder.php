@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Positions;
+use App\Models\Position;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,15 +13,15 @@ class PositionSeeder extends Seeder
      */
     public function run(): void
     {
-        Positions::create([
+        Position::create([
             'name' => 'Dept. Head'
         ]);
         
-        Positions::create([
+        Position::create([
             'name' => 'Manager'
         ]);
         
-        Positions::create([
+        Position::create([
             'name' => 'Operational'
         ]);
     }

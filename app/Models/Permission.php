@@ -5,9 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Bus extends Model
+class Permission extends Model
 {
     use HasFactory;
-    protected $table = 'bus';
-    protected $fillable = ['code','name'];
+    protected $fillable = ['name'];
 }

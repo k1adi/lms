@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Bus;
+use App\Models\Bu;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,12 +13,12 @@ class BuSeeder extends Seeder
      */
     public function run(): void
     {
-        Bus::create([
+        Bu::create([
             'code' => 'BU1',
             'name' => "Business Unit 1"
         ]);
 
-        Bus::create([
+        Bu::create([
             'code' => 'BU2',
             'name' => "Business Unit 2"
         ]);

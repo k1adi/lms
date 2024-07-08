@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreatePermissionRequest;
 use App\Http\Requests\UpdatePermissionRequest;
-use App\Models\Permissions;
+use App\Models\Permission;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
@@ -18,7 +18,7 @@ class PermissionController extends Controller
     public function index(): Response
     {
         return Inertia::render('Permission/Index', [
-            'permissions' => Permissions::paginate()
+            'permissions' => Permission::paginate()
         ]);
     }
 
@@ -36,7 +36,7 @@ class PermissionController extends Controller
     public function store(CreatePermissionRequest $request): RedirectResponse
     {
         try{
-            Permissions::create($request->validated());
+            Permission::create($request->validated());
 
             return Redirect::route('permissions.index');
         } catch (\Exception $e) {
@@ -57,7 +57,7 @@ class PermissionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Permissions $permission): Response
+    public function edit(Permission $permission): Response
     {
         return Inertia::render('Permission/Edit', [
             'permission' => $permission
@@ -67,7 +67,7 @@ class PermissionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePermissionRequest $request, Permissions $permission): RedirectResponse
+    public function update(UpdatePermissionRequest $request, Permission $permission): RedirectResponse
     {
         try {
             $permission->fill($request->validated());
@@ -84,7 +84,7 @@ class PermissionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Permissions $permission): RedirectResponse
+    public function destroy(Permission $permission): RedirectResponse
     {
         $permission->delete();
         return Redirect::back();

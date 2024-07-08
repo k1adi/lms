@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateRoleRequest;
-use App\Http\Requests\UpdateRoleRequest;
-use App\Models\Roles;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\CreateRoleRequest;
+use App\Http\Requests\UpdateRoleRequest;
+use App\Models\Role;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -18,7 +18,7 @@ class RoleController extends Controller
     public function index(): Response
     {
         return Inertia::render('Role/Index', [
-            'roles' => Roles::paginate()
+            'roles' => Role::paginate()
         ]);
     }
 
@@ -36,7 +36,7 @@ class RoleController extends Controller
     public function store(CreateRoleRequest $request): RedirectResponse
     {
         try{
-            Roles::create($request->validated());
+            Role::create($request->validated());
 
             return Redirect::route('roles.index');
         } catch (\Exception $e) {
@@ -57,7 +57,7 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Roles $role): Response
+    public function edit(Role $role): Response
     {
         return Inertia::render('Role/Edit', [
             'role' => $role
@@ -67,7 +67,7 @@ class RoleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRoleRequest $request, Roles $role): RedirectResponse
+    public function update(UpdateRoleRequest $request, Role $role): RedirectResponse
     {
         try {
             $role->fill($request->validated());
@@ -84,7 +84,7 @@ class RoleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Roles $role): RedirectResponse
+    public function destroy(Role $role): RedirectResponse
     {
         $role->delete();
         return Redirect::back();

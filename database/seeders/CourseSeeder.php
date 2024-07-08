@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Courses;
+use App\Models\Course;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,7 +13,7 @@ class CourseSeeder extends Seeder
      */
     public function run(): void
     {
-        Courses::create([
+        Course::create([
             'name' => 'Course 1',
             'type' => 'Online',
             'trainer' => 'Trainer 1',

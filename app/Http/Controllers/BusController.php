@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateBuRequest;
 use App\Http\Requests\UpdateBuRequest;
-use App\Models\Bus;
+use App\Models\Bu;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
@@ -18,7 +18,7 @@ class BusController extends Controller
     public function index(): Response
     {
         return Inertia::render('Bu/Index', [
-            'bus' => Bus::paginate()
+            'bus' => Bu::paginate()
         ]);
     }
 
@@ -36,7 +36,7 @@ class BusController extends Controller
     public function store(CreateBuRequest $request)
     {
         try{
-            Bus::create($request->validated());
+            Bu::create($request->validated());
 
             return Redirect::route('bus.index');
         } catch (\Exception $e) {
@@ -49,7 +49,7 @@ class BusController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Bus $bu)
+    public function show(Bu $bu)
     {
         //
     }
@@ -57,7 +57,7 @@ class BusController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Bus $bu)
+    public function edit(Bu $bu)
     {
         return Inertia::render('Bu/Edit', [
             'bu' => $bu
@@ -67,7 +67,7 @@ class BusController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBuRequest $request, Bus $bu)
+    public function update(UpdateBuRequest $request, Bu $bu)
     {
         try {
             $bu->fill($request->validated());
@@ -84,7 +84,7 @@ class BusController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Bus $bu): RedirectResponse
+    public function destroy(Bu $bu): RedirectResponse
     {
         $bu->delete();
         return Redirect::back();
