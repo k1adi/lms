@@ -1,3 +1,8 @@
+@charset "UTF-8";
+
+@import 'components/table';
+@import 'components/button';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
