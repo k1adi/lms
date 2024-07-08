@@ -6,24 +6,24 @@ import TextInput from '@/Components/TextInput';
 import PrimaryButton from '@/Components/PrimaryButton';
 import { Head, useForm } from '@inertiajs/react';
 
-export default function Index({ auth }) {
-	const { data, setData, post, errors, processing } = useForm({
-		code: '',
-		name: '',
+export default function Index({ auth, bu }) {
+	const { data, setData, patch, errors, processing } = useForm({
+		code: bu.code,
+		name: bu.name,
 	});
 
 	const submit = (e) => {
 		e.preventDefault();
 
-		post(route('bus.store'))
+		patch(route('bus.update', bu));
 	}
 
 	return (
 		<AuthenticatedLayout
 			user={auth.user}
-			header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Business Unit Create</h2>}
+			header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Business Unit Edit</h2>}
 		>
-			<Head title="Business Unit Create" />
+			<Head title="Business Unit Edit" />
 
 			<div className="py-12">
 				<div className="max-w-7xl mx-auto sm:px-6 lg:px-8">

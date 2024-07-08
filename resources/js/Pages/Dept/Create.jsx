@@ -8,6 +8,7 @@ import { Head, useForm } from '@inertiajs/react';
 
 export default function Index({ auth }) {
 	const { data, setData, post, errors, processing } = useForm({
+		bu_id: '',
 		code: '',
 		name: '',
 	});
@@ -15,20 +16,24 @@ export default function Index({ auth }) {
 	const submit = (e) => {
 		e.preventDefault();
 
-		post(route('bus.store'))
+		post(route('depts.store'))
 	}
 
 	return (
 		<AuthenticatedLayout
 			user={auth.user}
-			header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Business Unit Create</h2>}
+			header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Department Create</h2>}
 		>
-			<Head title="Business Unit Create" />
+			<Head title="Department Create" />
 
 			<div className="py-12">
 				<div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
 					<div className="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
 						<form onSubmit={submit} className="space-y-6 max-w-xl">
+							<div>
+								<InputLabel htmlFor="bu" value="Business Unit" />
+								
+							</div>
 							<div>
 								<InputLabel htmlFor="code" value="Code" />
 
