@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BusController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\PositionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use Illuminate\Foundation\Application;
@@ -36,6 +37,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::resources([
         'bus' => BusController::class,
         'roles' => RoleController::class,
+        'positions' => PositionController::class,
         'permissions' => PermissionController::class,
     ]);
 });
