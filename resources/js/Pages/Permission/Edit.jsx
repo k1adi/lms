@@ -7,8 +7,6 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import { Head, useForm } from '@inertiajs/react';
 
 export default function Index({ auth, permission }) {
-	console.log(permission, 'permission');
-
 	const { data, setData, patch, errors, processing } = useForm({
 		name: permission.name,
 	});

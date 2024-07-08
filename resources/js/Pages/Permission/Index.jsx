@@ -17,6 +17,7 @@ export default function Index({ auth, permissions }) {
 			<Head title="Permission" />
 
 			<div className="py-12">
+				<Link className="text-gray-800 dark:text-gray-200 px-6" href={route('permissions.create')}>Create</Link>
 				<div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
 					<div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
 						<div className="table-wrapper">
@@ -29,7 +30,7 @@ export default function Index({ auth, permissions }) {
 									</tr>
 								</thead>
 								<tbody>
-									{permissions.data.lenth !== 0 ?
+									{permissions.data.length !== 0 ?
 									 permissions.data.map((key, index) => (
 											<tr key={index}>
 												<td>{index + 1}</td>
