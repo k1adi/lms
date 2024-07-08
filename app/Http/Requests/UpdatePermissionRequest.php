@@ -22,7 +22,7 @@ class UpdatePermissionRequest extends FormRequest
      */
     public function rules(): array
     {
-        $id = $this->route('permissions');
+        $id = $this->route('permission');
 
         return [
             'name' => ['required', 'string', Rule::unique('permissions')->ignore($id)],

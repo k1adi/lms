@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreatePermissionRequest;
 use App\Http\Requests\UpdatePermissionRequest;
 use App\Models\Permissions;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -33,7 +33,7 @@ class PermissionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreatePermissionRequest $request)
+    public function store(CreatePermissionRequest $request): RedirectResponse
     {
         try{
             Permissions::create($request->validated());
@@ -57,7 +57,7 @@ class PermissionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Permissions $permission)
+    public function edit(Permissions $permission): Response
     {
         return Inertia::render('Permission/Edit', [
             'permission' => $permission
@@ -67,7 +67,7 @@ class PermissionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePermissionRequest $request, Permissions $permission)
+    public function update(UpdatePermissionRequest $request, Permissions $permission): RedirectResponse
     {
         try {
             $permission->fill($request->validated());
@@ -84,7 +84,7 @@ class PermissionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Permissions $permission)
+    public function destroy(Permissions $permission): RedirectResponse
     {
         $permission->delete();
         return Redirect::back();
