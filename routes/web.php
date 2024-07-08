@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BusController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
@@ -33,6 +34,7 @@ Route::get('/dashboard', function () {
 
 Route::middleware(['auth', 'verified'])->group(function() {
     Route::resources([
+        'bus' => BusController::class,
         'roles' => RoleController::class,
         'permissions' => PermissionController::class,
     ]);
