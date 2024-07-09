@@ -13,9 +13,9 @@ export default function SelectOption({
         className
       }
     >
-      {options.map((item, index) => (
-        <option key={index} value={+item.id}>
-          {item.name}
+      {options?.map(({value, label}, index) => (
+        <option key={index} value={value}>
+          {label}
         </option>
       ))}
     </select>

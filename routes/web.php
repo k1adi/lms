@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BusController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DeptController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PositionController;
@@ -41,6 +42,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
         'roles' => RoleController::class,
         'positions' => PositionController::class,
         'permissions' => PermissionController::class,
+        'courses' => CourseController::class,
     ]);
 });
 

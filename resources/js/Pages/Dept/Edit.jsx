@@ -39,7 +39,9 @@ export default function EditDept({ auth, dept, bus }) {
 									className="mt-1 block w-full"
 									currentValue={data.bu_id}
 									onChange={(e) => setData('bu_id', +e.target.value)}
-									options={bus}
+									options={bus?.map(key => (
+										{value: key.id, label: key.name}
+									))}
 									required
 								/>
 								<InputError className="mt-2" message={errors.bu_id} />
