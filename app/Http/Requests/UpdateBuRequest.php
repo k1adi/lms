@@ -25,8 +25,8 @@ class UpdateBuRequest extends FormRequest
         $id = $this->route('bu');
 
         return [
-            'code' => ['required', 'string', Rule::unique('bus')->ignore($id)],
-            'name' => ['required', 'string', Rule::unique('bus')->ignore($id)],
+            'code' => ['required', 'string', 'max:7', Rule::unique('bus')->ignore($id)],
+            'name' => ['required', 'string', 'max:50', Rule::unique('bus')->ignore($id)],
         ];
     }
 }

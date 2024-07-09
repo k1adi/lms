@@ -25,7 +25,7 @@ class UpdatePositionRequest extends FormRequest
         $id = $this->route('position');
 
         return [
-            'name' => ['required', 'string', Rule::unique('positions')->ignore($id)],
+            'name' => ['required', 'string', 'max:50', Rule::unique('positions')->ignore($id)],
         ];
     }
 }

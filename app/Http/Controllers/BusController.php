@@ -25,7 +25,7 @@ class BusController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): Response
     {
         return Inertia::render('Bu/Create');
     }
@@ -33,7 +33,7 @@ class BusController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateBuRequest $request)
+    public function store(CreateBuRequest $request): RedirectResponse
     {
         try{
             Bu::create($request->validated());
@@ -57,7 +57,7 @@ class BusController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Bu $bu)
+    public function edit(Bu $bu): Response
     {
         return Inertia::render('Bu/Edit', [
             'bu' => $bu
@@ -67,7 +67,7 @@ class BusController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBuRequest $request, Bu $bu)
+    public function update(UpdateBuRequest $request, Bu $bu): RedirectResponse
     {
         try {
             $bu->fill($request->validated());
