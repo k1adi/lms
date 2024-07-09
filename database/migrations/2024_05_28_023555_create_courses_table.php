@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100);
+            $table->string('name', 150);
             $table->enum('type', ['offline', 'online']);
-            $table->string('trainer', 100);
+            $table->string('trainer', 120);
             $table->string('thumbnail')->nullable();
             $table->text('url_attachment');
             $table->string('prerequisite')->nullable();
