@@ -2,7 +2,7 @@ import React from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, router } from '@inertiajs/react';
 
-export default function Index({ auth, roles }) {
+export default function IndexRole({ auth, roles }) {
 	function onDelete(id) {
     if (confirm('Are you sure you want to delete this role?')) {
       router.delete(route('roles.destroy', id));

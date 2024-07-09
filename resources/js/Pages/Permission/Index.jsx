@@ -2,7 +2,7 @@ import React from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, router } from '@inertiajs/react';
 
-export default function Index({ auth, permissions }) {
+export default function IndexPermission({ auth, permissions }) {
 	function onDelete(id) {
     if (confirm('Are you sure you want to delete this permission?')) {
       router.delete(route('permissions.destroy', id));

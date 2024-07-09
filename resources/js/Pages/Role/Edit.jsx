@@ -6,7 +6,7 @@ import TextInput from '@/Components/TextInput';
 import PrimaryButton from '@/Components/PrimaryButton';
 import { Head, useForm } from '@inertiajs/react';
 
-export default function Index({ auth, role }) {
+export default function EditRole({ auth, role }) {
 	const { data, setData, patch, errors, processing } = useForm({
 		name: role.name,
 	});

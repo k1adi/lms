@@ -2,7 +2,7 @@ import React from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, router } from '@inertiajs/react';
 
-export default function Index({ auth, bus }) {
+export default function IndexBU({ auth, bus }) {
 	function onDelete(id) {
     if (confirm('Are you sure you want to delete this business unit?')) {
       router.delete(route('bus.destroy', id));

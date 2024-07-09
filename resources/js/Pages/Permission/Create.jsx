@@ -6,7 +6,7 @@ import TextInput from '@/Components/TextInput';
 import PrimaryButton from '@/Components/PrimaryButton';
 import { Head, useForm } from '@inertiajs/react';
 
-export default function Index({ auth }) {
+export default function CreatePermission({ auth }) {
 	const { data, setData, post, errors, processing } = useForm({
 		name: '',
 	});
