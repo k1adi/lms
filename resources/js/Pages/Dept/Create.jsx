@@ -3,12 +3,13 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
+import SelectOption from '@/Components/SelectOption';
 import PrimaryButton from '@/Components/PrimaryButton';
 import { Head, useForm } from '@inertiajs/react';
 
-export default function Index({ auth }) {
+export default function CreateDept({ auth, bus }) {	
 	const { data, setData, post, errors, processing } = useForm({
-		bu_id: '',
+		bu_id: bus[0].id,
 		code: '',
 		name: '',
 	});
@@ -33,6 +34,15 @@ export default function Index({ auth }) {
 							<div>
 								<InputLabel htmlFor="bu" value="Business Unit" />
 								
+								<SelectOption 
+									id="bu"
+									className="mt-1 block w-full"
+									currentValue={+data.bu_id}
+									onChange={(e) => setData('bu_id', +e.target.value)}
+									options={bus}
+									required
+								/>
+								<InputError className="mt-2" message={errors.bu_id} />
 							</div>
 							<div>
 								<InputLabel htmlFor="code" value="Code" />
@@ -43,7 +53,6 @@ export default function Index({ auth }) {
 									value={data.code}
 									onChange={(e) => setData('code', e.target.value)}
 									required
-									isFocused
 									autoComplete="code"
 									placeholder="Business Unit Code"
 								/>
@@ -59,7 +68,6 @@ export default function Index({ auth }) {
 									value={data.name}
 									onChange={(e) => setData('name', e.target.value)}
 									required
-									isFocused
 									autoComplete="name"
 									placeholder="Business Unit Name"
 								/>

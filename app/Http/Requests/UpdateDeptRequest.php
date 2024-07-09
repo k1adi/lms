@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateDeptRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class UpdateDeptRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +22,12 @@ class UpdateDeptRequest extends FormRequest
      */
     public function rules(): array
     {
+        $id = $this->route('dept');
+
         return [
-            //
+            'bu_id' => ['required', 'integer', 'exists:bus,id'],
+            'code' => ['required', 'string', 'max:7', Rule::unique('depts')->ignore($id)],
+            'name' => ['required', 'string', 'max:50'],
         ];
     }
 }

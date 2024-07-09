@@ -3,32 +3,47 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
+import SelectOption from '@/Components/SelectOption';
 import PrimaryButton from '@/Components/PrimaryButton';
 import { Head, useForm } from '@inertiajs/react';
 
-export default function Index({ auth, bu }) {
+export default function EditDept({ auth, dept, bus }) {	
 	const { data, setData, patch, errors, processing } = useForm({
-		code: bu.code,
-		name: bu.name,
+		bu_id: dept.bu_id,
+		code: dept.code,
+		name: dept.name,
 	});
 
 	const submit = (e) => {
 		e.preventDefault();
 
-		patch(route('bus.update', bu));
+		patch(route('depts.update', dept));
 	}
 
 	return (
 		<AuthenticatedLayout
 			user={auth.user}
-			header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Business Unit Edit</h2>}
+			header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Department Update</h2>}
 		>
-			<Head title="Business Unit Edit" />
+			<Head title="Department Update" />
 
 			<div className="py-12">
 				<div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
 					<div className="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
 						<form onSubmit={submit} className="space-y-6 max-w-xl">
+							<div>
+								<InputLabel htmlFor="bu" value="Business Unit" />
+								
+								<SelectOption 
+									id="bu"
+									className="mt-1 block w-full"
+									currentValue={data.bu_id}
+									onChange={(e) => setData('bu_id', +e.target.value)}
+									options={bus}
+									required
+								/>
+								<InputError className="mt-2" message={errors.bu_id} />
+							</div>
 							<div>
 								<InputLabel htmlFor="code" value="Code" />
 
@@ -38,7 +53,6 @@ export default function Index({ auth, bu }) {
 									value={data.code}
 									onChange={(e) => setData('code', e.target.value)}
 									required
-									isFocused
 									autoComplete="code"
 									placeholder="Business Unit Code"
 								/>
@@ -54,7 +68,6 @@ export default function Index({ auth, bu }) {
 									value={data.name}
 									onChange={(e) => setData('name', e.target.value)}
 									required
-									isFocused
 									autoComplete="name"
 									placeholder="Business Unit Name"
 								/>

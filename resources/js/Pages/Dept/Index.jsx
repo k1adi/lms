@@ -2,8 +2,7 @@ import React from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, router } from '@inertiajs/react';
 
-export default function Index({ auth, depts }) {
-	console.log(depts, 'test depts');
+export default function IndexDept({ auth, depts }) {
 	function onDelete(id) {
     if (confirm('Are you sure you want to delete this department?')) {
       router.delete(route('depts.destroy', id));
@@ -39,6 +38,7 @@ export default function Index({ auth, depts }) {
 												<td>{index + 1}</td>
 												<td>{key.code}</td>
 												<td>{key.name}</td>
+												<td>{key.bu.name}</td>
 												<td>
 													<Link href={route('depts.edit', key.id)}>Edit</Link>
 													<button className="text-red-600 focus:outline-none hover:underline" type="button" tabIndex={-1} onClick={() => onDelete(key.id)}>
