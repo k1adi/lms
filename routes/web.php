@@ -7,6 +7,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -43,6 +44,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
         'positions' => PositionController::class,
         'permissions' => PermissionController::class,
         'courses' => CourseController::class,
+        'users' => UserController::class
     ]);
 });
 
