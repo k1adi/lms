@@ -17,10 +17,14 @@ return new class extends Migration
             $table->enum('type', ['offline', 'online']);
             $table->string('trainer', 120);
             $table->string('thumbnail')->nullable();
-            $table->text('url_attachment');
-            $table->string('prerequisite')->nullable();
+            $table->text('url_attachment')->nullable();
+            // $table->string('prerequisite')->nullable();
+            $table->unsignedBigInteger('prerequisite')->nullable();
             $table->text('description');
             $table->timestamps();
+
+            // Added foreign key constraint
+            $table->foreign('prerequisite')->references('id')->on('courses')->onDelete('set null');
         });
     }
 

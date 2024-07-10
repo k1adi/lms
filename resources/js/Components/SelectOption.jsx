@@ -2,6 +2,7 @@ export default function SelectOption({
   className = '',
   currentValue = '',
   options = [],
+  defaultOption = false,
   ...props}
 ){
   return (
@@ -13,6 +14,9 @@ export default function SelectOption({
         className
       }
     >
+      {defaultOption && (
+        <option value="">Select option</option>
+      )}
       {options?.map(({value, label}, index) => (
         <option key={index} value={value}>
           {label}

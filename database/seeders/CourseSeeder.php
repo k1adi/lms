@@ -15,12 +15,21 @@ class CourseSeeder extends Seeder
     {
         Course::create([
             'name' => 'Course 1',
-            'type' => 'Online',
+            'type' => 'online',
             'trainer' => 'Trainer 1',
             'thumbnail' => 'www.youtube.com/',
             'url_attachment' => 'www.drive.com/',
             'prerequisite' => null,
             'description' => 'Lorem ipsum dolor sit amet'
+        ]);
+        Course::create([
+            'name' => 'Course 2',
+            'type' => 'offline',
+            'trainer' => 'Trainer 2',
+            'thumbnail' => 'www.youtube.com/',
+            'url_attachment' => 'www.drive.com/',
+            'prerequisite' => 1,
+            'description' => 'Lorem ipsum dolor sit amet asd'
         ]);
     }
 }

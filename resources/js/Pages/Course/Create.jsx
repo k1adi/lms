@@ -3,6 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
+import TextArea from '@/Components/TextArea';
 import SelectOption from '@/Components/SelectOption';
 import PrimaryButton from '@/Components/PrimaryButton';
 import { Head, useForm } from '@inertiajs/react';
@@ -14,7 +15,7 @@ export default function CreateCourse({ auth, courses }) {
     trainer: '',
     thumbnail: '',
     url_attachment: '',
-    req_course: '',
+    prerequisite: '',
     description: ''
 	});
 
@@ -83,21 +84,6 @@ export default function CreateCourse({ auth, courses }) {
 								<InputError className="mt-2" message={errors.trainer} />
 							</div>
               <div>
-								<InputLabel htmlFor="trainer" value="Trainer" />
-
-								<TextInput
-									id="trainer"
-									className="mt-1 block w-full"
-									value={data.trainer}
-									onChange={(e) => setData('trainer', e.target.value)}
-									required
-									autoComplete="trainer"
-									placeholder="Trainer Name"
-								/>
-
-								<InputError className="mt-2" message={errors.trainer} />
-							</div>
-              <div>
 								<InputLabel htmlFor="thumbnail" value="Thumbnail" />
 
 								<TextInput
@@ -117,13 +103,42 @@ export default function CreateCourse({ auth, courses }) {
 								<TextInput
 									id="urL_attachment"
 									className="mt-1 block w-full"
-									value={data.thumbnail}
-									onChange={(e) => setData('thumbnail', e.target.value)}
-									autoComplete="thumbnail"
-									placeholder="Thumbnail"
+									value={data.url_attachment}
+									onChange={(e) => setData('url_attachment', e.target.value)}
+									autoComplete="url_attachment"
+									placeholder="URL Attachment"
 								/>
 
-								<InputError className="mt-2" message={errors.thumbnail} />
+								<InputError className="mt-2" message={errors.url_attachment} />
+							</div>
+							<div>
+								<InputLabel htmlFor="prerequisite" value="Require Course" />
+								
+								<SelectOption 
+									id="prerequisite"
+									className="mt-1 block w-full"
+									currentValue={data.prerequisite}
+									onChange={(e) => setData('prerequisite', e.target.value)}
+									defaultOption={true}
+									options={courses?.map(key => (
+										{value: key.id, label: key.name}
+									))}
+								/>
+								<InputError className="mt-2" message={errors.prerequisite} />
+							</div>
+							<div>
+								<InputLabel htmlFor="description" value="Description" />
+								
+								<TextArea
+									id="description"
+									className="mt-1 block w-full"
+									value={data.description}
+									onChange={(e) => setData('description', e.target.value)}
+									autoComplete="description"
+									placeholder="Description"
+									rows={3}
+								/>
+								<InputError className="mt-2" message={errors.description} />
 							</div>
 							<PrimaryButton disabled={processing}>
 								Submit
