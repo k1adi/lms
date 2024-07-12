@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('trainer', 120);
             $table->string('thumbnail')->nullable();
             $table->text('url_attachment')->nullable();
-            // $table->string('prerequisite')->nullable();
             $table->unsignedBigInteger('prerequisite')->nullable();
             $table->text('description');
             $table->timestamps();
