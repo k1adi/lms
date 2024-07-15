@@ -17,15 +17,20 @@ class Course extends Model
         $query = self::where('type', $type);
 
         if($type == 'offline') {
-            $query = $query->with('schedule');
+            $query = $query->with('schedules');
         }
 
         return $query->get();
     }
 
-    public function schedule(): HasMany
+    public function schedules(): HasMany
     {
-        return $this->hasMany(Schedule::class, 'course_id'. 'id');     
+        return $this->hasMany(Schedule::class, 'course_id', 'id');     
+    }
+
+    public function sections(): HasMany
+    {
+        return $this->hasMany(Section::class, 'course_id', 'id');
     }
 
     // Self-referential relationship

@@ -17,16 +17,16 @@ class CourseSeeder extends Seeder
             'name' => 'Course 1',
             'type' => 'online',
             'trainer' => 'Trainer 1',
-            'thumbnail' => 'www.youtube.com/',
-            'url_attachment' => 'www.drive.com/',
-            'description' => 'Lorem ipsum dolor sit amet qwe'
+            'thumbnail' => 'https://www.youtube.com/',
+            'url_attachment' => 'https://www.drive.com/',
+            'description' => 'Online Course 01'
         ]);
 
         Course::create([
             'name' => 'Course 2',
             'type' => 'offline',
             'trainer' => 'Trainer 2',
-            'description' => 'Lorem ipsum dolor sit amet asd'
+            'description' => 'Offline Course 01'
         ]);
 
         Course::create([
@@ -34,7 +34,16 @@ class CourseSeeder extends Seeder
             'type' => 'offline',
             'trainer' => 'Trainer 3',
             'prerequisite' => 1,
-            'description' => 'Lorem ipsum dolor sit amet zxc'
+            'description' => 'Offline Course 02'
+        ]);
+
+        Course::create([
+            'name' => 'Course 4',
+            'type' => 'online',
+            'trainer' => 'Trainer 4',
+            'thumbnail' => 'https://www.youtube.com/',
+            'url_attachment' => 'https://www.drive.com/',
+            'description' => 'Online Course 02'
         ]);
     }
 }

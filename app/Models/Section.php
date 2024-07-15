@@ -5,20 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Schedule extends Model
+class Section extends Model
 {
     use HasFactory;
-    protected $fillable = ['course_id', 'start_time', 'end_time'];
+    protected $fillable = ['course_id', 'name'];
 
     public function course(): BelongsTo
     {
         return $this->belongsTo(Course::class, 'course_id', 'id');
     }
 
-    public function assignUser(): BelongsToMany
+    public function subSection(): HasMany
     {
-        return $this->belongsToMany(User::class, 'schedules_access', 'schedule_id', 'user_id');
+        return $this->hasMany(SubSection::class, 'section_id', 'id');
     }
 }
