@@ -36,6 +36,10 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/new-dashboard', function() {
+    return Inertia::render('NewDashboard');
+})->middleware(['auth', 'verified'])->name('new-dashboard');
+
 Route::middleware(['auth', 'verified'])->group(function() {
     Route::resources([
         'bus' => BusController::class,

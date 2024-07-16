@@ -1,0 +1,32 @@
+.nav {
+  @apply md:flex
+}
+
+.nav__logo {
+  @apply
+  flex
+  items-center
+  justify-between
+  px-4 py-4 
+  md:flex-shrink-0 
+  md:w-56 
+  md:justify-center
+  text-xl
+  text-sky-400
+  font-bold
+  bg-white
+  dark:bg-slate-800
+}
+
+.nav__section {
+  @apply
+    flex
+    items-center
+    justify-between
+    w-full
+    p-4
+    text-sm
+    bg-white
+    md:py-0
+    md:px-9
+}

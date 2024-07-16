@@ -1,0 +1,48 @@
+.app {
+  @apply
+    flex
+    flex-col
+}
+
+.main {
+  @apply
+    flex
+    flex-col
+    h-screen
+}
+
+.main__navbar {
+  @apply 
+    md:flex
+}
+
+.main__wrapper {
+  @apply 
+    flex
+    flex-grow
+    overflow-hidden
+}
+
+.main__sidebar {
+  @apply 
+    w-56
+    p-8
+    hidden
+    md:block
+    flex-shrink-0
+    overflow-y-auto
+    bg-gray-50
+    dark:bg-gray-700
+}
+
+.main__content {
+  @apply 
+    w-full
+    px-4
+    py-8
+    md:p-9
+    overflow-hidden
+    overflow-y-auto
+    bg-sky-300
+    dark:bg-sky-700
+}

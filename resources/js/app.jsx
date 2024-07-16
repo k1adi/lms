@@ -14,13 +14,9 @@ createInertiaApp({
     setup({ el, App, props }) {
         const root = createRoot(el);
 
-        root.render(
-            <React.StrictMode>
-                <App {...props} />
-            </React.StrictMode>
-        );
+        root.render(<App {...props} />);
     },
     progress: {
-        color: '#ff3380',
+        color: '#C1E2FF',
     },
 });
