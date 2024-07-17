@@ -1,0 +1,27 @@
+.sidebar__header {
+  @apply
+    flex
+    items-center
+    justify-between
+    gap-2
+    px-6
+    py-4
+    lg:py-5
+}
+
+.sidebar__logo {
+  @apply
+  text-2xl
+  text-sky-400
+
+}
+
+.sidebar__content {
+  @apply
+    no-scrollbar
+    flex
+    flex-col
+    overflow-y-auto
+    duration-300
+    ease-linear
+}

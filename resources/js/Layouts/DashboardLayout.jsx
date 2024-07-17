@@ -1,36 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Head } from '@inertiajs/react';
-import MainNav from '@/Components/Navbar/MainNav';
+import Header from '@/Components/Header/Header';
+import Sidebar from '@/Components/Sidebar/Sidebar';
 
 export default function DashboardLayout({ title, children }){
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   return (
     <>
       <Head title={title} />
-
-      <main className='app'>
-        <div className='main'>
-          {/* Navbar */}
-          <header className='main__navbar'>
-            <MainNav />
-          </header>
-
-          <div className='main__wrapper'>
-            {/* Sidebar */}
-            <aside className='main__sidebar'>
-              <p>sidebar</p>
-            </aside>
-
-            {/* Main Content */}
-            <section 
-              className='main__content'
-              scroll-region='true'
-            >
-              <p>content</p>
+      <div className='app'>
+        <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+        <div className='app__content'>
+          <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+          <main>
+            <div className='content'>
               {children}
-            </section>
-          </div>
+            </div>
+          </main>
         </div>
-      </main>
+      </div>
     </>
   );
 }
