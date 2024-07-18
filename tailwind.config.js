@@ -21,11 +21,15 @@ export default {
 			colors: {
 				current: 'currentColor',
         transparent: 'transparent',
+        primary: '#38bdf8',
+        'primary-2': '#7dd3fc',
         white: '#FFFFFF',
         black: '#1C2434',
         'black-2': '#010101',
         boxdark: '#24303F',
         'boxdark-2': '#1A222C',
+        stroke: '#E2E8F0',
+        strokedark: '#2E3A47',
 				...defaultTheme.colors,
       },
 			fontFamily: {

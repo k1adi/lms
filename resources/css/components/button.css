@@ -1,11 +1,11 @@
-.btn-spinner,
-.btn-spinner:after {
+.btn--spinner,
+.btn--spinner:after {
   border-radius: 50%;
   width: 1.5em;
   height: 1.5em;
 }
 
-.btn-spinner {
+.btn--spinner {
   font-size: 10px;
   position: relative;
   text-indent: -9999em;
@@ -24,4 +24,19 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+.btn--toogle-sidebar {
+  @apply
+    z-99999
+    block
+    rounded-sm
+    p-1.5
+    shadow-sm
+    border
+    border-stroke
+    dark:border-strokedark
+    lg:hidden
+    bg-white
+    dark:bg-boxdark
 }

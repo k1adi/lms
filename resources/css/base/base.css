@@ -20,8 +20,6 @@
     duration-300
     ease-linear
     dark:bg-boxdark
-    lg:static
-    lg:translate-x-0
 }
 
 .app__content {
@@ -35,41 +33,14 @@
 }
 
 .app__header {
-
-}
-
-/* .main__navbar {
   @apply 
-    md:flex
-}
-
-.main__wrapper {
-  @apply 
+    sticky
+    top-0
+    z-999
     flex
-    flex-grow
-    overflow-hidden
-}
-
-.main__sidebar {
-  @apply 
-    w-56
-    p-8
-    hidden
-    md:block
-    flex-shrink-0
-    overflow-y-auto
-    bg-gray-50
-    dark:bg-gray-700
-}
-
-.main__content {
-  @apply 
     w-full
-    px-4
-    py-8
-    md:p-9
-    overflow-hidden
-    overflow-y-auto
-    bg-sky-300
-    dark:bg-sky-700
-} */
+    bg-white
+    drop-shadow-1
+    dark:bg-boxdark
+    dark:drop-shadow-none
+}

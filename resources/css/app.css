@@ -6,8 +6,9 @@
 @import 'layout/header';
 @import 'layout/sidebar';
 
-@import 'components/table';
+/* @import 'components/table'; */
 @import 'components/button';
+@import 'components/dropdown';
 
 @import 'pages/login';
 

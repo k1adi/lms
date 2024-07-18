@@ -1,16 +1,17 @@
+import MyProfile from "./MyProfile";
 
 export default function Header({ sidebarOpen, setSidebarOpen }) {
   return (
-    <header className='header'>
+    <header className='app__header'>
       <div className='header__wrapper'>
         <div className='header__toggle'>
         <button
             aria-controls="sidebar"
             onClick={(e) => {
               e.stopPropagation();
-              setSidebarOpen(sidebarOpen);
+              setSidebarOpen(!sidebarOpen);
             }}
-            className="z-99999 block rounded-sm border border-stroke bg-white p-1.5 shadow-sm dark:border-strokedark dark:bg-boxdark lg:hidden"
+            className="btn--toggle-sidebar"
           >
             <span className="relative block h-5 w-5 cursor-pointer">
               <span className="du-block absolute right-0 h-full w-full">
@@ -45,12 +46,17 @@ export default function Header({ sidebarOpen, setSidebarOpen }) {
             </span>
           </button>
         </div>
-        <div className='header__form'>
-
+        
+        <div className='block'>
+          <form action="">
+            <select name="" id="">
+              <option value="" selected disabled>Select BU</option>
+              <option value="">BU 1</option>
+            </select>
+          </form>
         </div>
-        <div className='header__menu'>
 
-        </div>
+        <MyProfile />
       </div>
     </header>
   );
