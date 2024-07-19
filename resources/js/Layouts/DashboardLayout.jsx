@@ -13,7 +13,7 @@ export default function DashboardLayout({ title, children }){
         <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         <div className='app__content'>
           <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-          <main>
+          <main className='min-h-full'>
             <div className='content'>
               {children}
             </div>

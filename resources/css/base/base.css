@@ -16,9 +16,9 @@
     h-screen
     w-72
     overflow-y-hidden
-    bg-black 
-    duration-300
+    duration-150
     ease-linear
+    bg-white
     dark:bg-boxdark
 }
 
@@ -39,8 +39,10 @@
     z-999
     flex
     w-full
-    bg-white
     drop-shadow-1
+    duration-150
+    ease-linear
+    bg-white
     dark:bg-boxdark
     dark:drop-shadow-none
 }

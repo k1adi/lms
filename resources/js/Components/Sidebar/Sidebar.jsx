@@ -1,8 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
+import NavMenu from './NavMenu';
 import { GraduationCap, ChevronsLeft } from 'lucide-react';
 
 export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
+  const { url: inertiaUrl } = usePage();
+  const windowUrl = window.location.href;
+
+  console.log(inertiaUrl, 'inertiaUrl');
+  console.log(windowUrl, 'windowUrl');
   const trigger = useRef();
   const sidebar = useRef();
 
@@ -68,7 +74,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
       </div>
 
       <div className='sidebar__menu'>
-
+        <NavMenu sidebarExpand={sidebarExpanded} setSidebarExpand={setSidebarExpanded} />
       </div>
     </aside>
   );

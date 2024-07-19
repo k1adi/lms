@@ -1,0 +1,48 @@
+.nav {
+  @apply
+    mt-1
+    py-4
+    px-4
+    lg:px-6
+}
+
+.nav__list {
+  @apply
+    mb-6
+    flex
+    flex-col
+    gap-1.5
+}
+
+.nav__link {
+  @apply 
+    relative
+    flex
+    items-center
+    gap-2.5
+    rounded-sm
+    px-4
+    py-3
+    font-medium
+    text-gray-400
+    duration-300
+    ease-in-out
+    hover:bg-primary-lighter
+    hover:text-primary
+}
+
+.nav__link.active {
+  @apply
+    text-primary
+    bg-primary-lighter
+}
+
+.nav__dropdown__list {
+  @apply
+    mt-4
+    mb-5
+    flex
+    flex-col
+    gap-2.5
+    pl-6
+}
