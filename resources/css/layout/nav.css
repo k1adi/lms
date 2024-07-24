@@ -12,6 +12,19 @@
     flex
     flex-col
     gap-1.5
+    relative
+}
+
+.nav__list.top::after{
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -13px;
+  width: 60%;
+  height: 1px;
+  transform: translateX(-50%);
+
+  @apply bg-gray-100 dark:bg-gray-700
 }
 
 .nav__link {

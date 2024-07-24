@@ -1,12 +1,43 @@
 import React from 'react';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import DashboardLayout from '@/Layouts/DashboardLayout';
+import { useForm } from '@inertiajs/react';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import TextArea from '@/Components/TextArea';
 import SelectOption from '@/Components/SelectOption';
 import PrimaryButton from '@/Components/PrimaryButton';
-import { Head, useForm } from '@inertiajs/react';
+
+// const Create = () => {
+// 	const { data, setData, post, errors, processing } = useForm({
+// 		name: '',
+// 		type: '',
+// 		trainer: '',
+// 		thumbnail: '',
+// 		url_attachment: '',
+// 		prerequisite: '',
+// 		description: ''
+// 	});
+
+// 	const submit = (e) => {
+// 		e.preventDefault();
+
+// 		post(route('courses.store'))
+// 	}
+
+// 	return (
+// 		<div className='content-box'>
+// 			<Breadcrumb pageName='Course Create' prevPage={prevPage} />
+
+// 		</div>
+// 	);
+// }
+
+// Create.layout = (page) => (
+// 	<DashboardLayout title='Courses' children={page} />
+// );
+
+// export default Create;
 
 export default function CreateCourse({ auth, courses }) {	
 	const { data, setData, post, errors, processing } = useForm({

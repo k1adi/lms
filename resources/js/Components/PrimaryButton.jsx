@@ -9,7 +9,7 @@ export default function PrimaryButton({ className = '', disabled, children, ...p
             }
             disabled={disabled}
         >
-            {children}
+            {children} {disabled && <div className="ml-2 btn--spinner" />}
         </button>
     );
 }

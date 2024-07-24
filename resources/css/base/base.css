@@ -3,6 +3,8 @@
     flex
     h-screen
     overflow-hidden
+    text-gray-800
+    dark:text-gray-200
 }
 
 .app__sidebar {

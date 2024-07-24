@@ -1,0 +1,6 @@
+.text--title {
+  @apply
+    text-title-xsm
+    lg:text-title-sm
+    font-bold
+}

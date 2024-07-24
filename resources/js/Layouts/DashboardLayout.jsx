@@ -9,6 +9,7 @@ export default function DashboardLayout({ title, children }){
   return (
     <>
       <Head title={title} />
+      
       <div className='app'>
         <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         <div className='app__content'>

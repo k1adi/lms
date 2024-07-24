@@ -14,9 +14,11 @@ export default function DropdownProfile() {
           <User /> My Account
         </Link>
       </ul>
-      <button className='dropdown__log-out'>
-        <LogOut /> Log Out
-      </button>
+      <Link href={route('logout')} method="post" as="button" className='dropdown__log-out'>
+        <LogOut /> Log Out      
+      </Link>
+      {/* <button className='dropdown__log-out'>
+      </button> */}
     </div>
   );
 }
