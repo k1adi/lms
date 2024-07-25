@@ -25,7 +25,8 @@ class DatabaseSeeder extends Seeder
             CourseSeeder::class,
             SectionSeeder::class,
             SubSectionSeeder::class,
-            ScheduleSeeder::class
+            ScheduleSeeder::class,
+            BuPositionSeeder::class
         ]);
     }
 }
