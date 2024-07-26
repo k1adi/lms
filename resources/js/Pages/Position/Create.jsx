@@ -48,7 +48,6 @@ const Create = () => {
 					Submit
 				</PrimaryButton>
 			</form>
-
 		</div>
 	);
 }
