@@ -19,7 +19,6 @@ const Index = ({ depts }) => {
 	return (
 		<div className='content-box'>
 			<Breadcrumb pageName='Department' prevPage={prevPage} />
-
 			<Link className="btn btn--primary" href={route('depts.create')}> Create </Link>
 
 			<div className='overflow-x-auto'>
