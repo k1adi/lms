@@ -27,7 +27,7 @@ class CreateUserRequest extends FormRequest
             'email' => ['required', 'email', 'unique:users,email'],
             'no_hp' => ['required', 'string', 'max:16', 'unique:users,no_hp'],
             'no_nik' => ['required', 'string', 'max:16', 'unique:users,no_nik'],
-            'password' => ['required', 'string'],
+            'password' => ['required', 'string', 'min:8'],
         ];
     }
 }

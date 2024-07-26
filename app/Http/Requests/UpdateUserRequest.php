@@ -30,7 +30,7 @@ class UpdateUserRequest extends FormRequest
             'email' => ['required', 'email', Rule::unique('users')->ignore($id)],
             'no_hp' => ['required', 'string', 'max:16', Rule::unique('users')->ignore($id)],
             'no_nik' => ['required', 'string', 'max:16', Rule::unique('users')->ignore($id)],
-            'password' => ['required', 'string'],
+            'password' => ['nullable', 'string', 'min:8'],
         ];
     }
 }
