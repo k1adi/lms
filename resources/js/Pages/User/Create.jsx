@@ -1,12 +1,14 @@
 import React from 'react';
+import Select from 'react-select';
 import { useForm } from '@inertiajs/react';
 import DashboardLayout from '@/Layouts/DashboardLayout';
 import Breadcrumb from '@/Components/Acessibility/Breadcrumb';
 import FieldGroup from '@/Components/Form/FieldGroup';
 import TextInput from '@/Components/TextInput';
 import PrimaryButton from '@/Components/PrimaryButton';
+import convertOptions from '@/Utils/ReactSelectOption';
 
-const Create = () => {
+const Create = ({ roles }) => {
 	const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
 		{ link: route('users.index'), text: 'User' },
@@ -15,11 +17,16 @@ const Create = () => {
 	const { data, setData, post, errors, processing } = useForm({
 		full_name: '',
     username: '',
+		roles: [],
     email: '',
     no_hp: '',
     no_nik: '',
     password: '',
 	});
+
+	const handleSelectedRoles = selectedOption => {
+		setData('roles', selectedOption);
+	}
 
 	const submit = (e) => {
 		e.preventDefault();
@@ -63,6 +70,20 @@ const Create = () => {
 						autoComplete="username"
 						placeholder="Username..."
 					/>
+				</FieldGroup>
+				
+				<FieldGroup 
+					label='Roles'
+					name='role'
+					error={errors.role}
+					isPrimary={true}
+				>
+					<Select
+            isMulti
+            options={convertOptions(roles)}
+            value={data.roles}
+            onChange={handleSelectedRoles}
+          />
 				</FieldGroup>
 
 				<FieldGroup 

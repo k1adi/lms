@@ -12,3 +12,24 @@
     bg-gray-50
     dark:bg-gray-600
 }
+
+.label--admin {
+    @apply
+      bg-pastel-danger
+      text-white
+      font-semibold
+}
+
+.label--instructor {
+    @apply
+      bg-pastel-warning
+      text-white
+      font-semibold
+}
+
+.label--user {
+    @apply
+      bg-pastel-success
+      text-white
+      font-semibold
+}

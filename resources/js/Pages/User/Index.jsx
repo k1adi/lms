@@ -5,6 +5,7 @@ import Breadcrumb from '@/Components/Acessibility/Breadcrumb';
 import { Pencil, Trash2 } from 'lucide-react';
 
 const Index = ({ users }) => {
+	console.log(users);
 	const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
 		{ link: '#', text: 'Setting' },
@@ -25,11 +26,12 @@ const Index = ({ users }) => {
 				<table className='table'>
 					<thead>
 						<tr>
-							<th className="table__column--number">No.</th>
+							<th className='table--number'>No.</th>
 							<th>Name</th>
 							<th>Username</th>
 							<th>Email</th>
-							<th>Action</th>
+							<th>Role</th>
+							<th className="table--action">Action</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -40,7 +42,12 @@ const Index = ({ users }) => {
 										<td>{key.full_name}</td>
 										<td>{key.username}</td>
 										<td>{key.email}</td>
-									<td>
+										<td className='break-word'>
+											{key.has_role.map(list => (
+												<span className={`label label--${list.name.toLowerCase()}`} key={list.name}> {list.name} </span>
+											))}
+										</td>
+									<td  className='table--action'>
 										<Link href={route('users.edit', key.id)} className='text-warning'> 
 											<Pencil className='inline-block mb-1' size={14} /> Edit
 										</Link>

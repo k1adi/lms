@@ -4,8 +4,6 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\Roles;
-use App\Models\Section;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -28,6 +26,7 @@ class DatabaseSeeder extends Seeder
             ScheduleSeeder::class,
             BuPositionSeeder::class,
             RolePermissionSeeder::class,
+            UserRoleSeeder::class,
         ]);
     }
 }

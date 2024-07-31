@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class UserController extends Controller
     public function index(): Response
     {
         return Inertia::render('User/Index', [
-            'users' => User::paginate()
+            'users' => User::with(['hasRole'])->paginate()
         ]);
     }
 
@@ -28,16 +29,29 @@ class UserController extends Controller
      */
     public function create(): Response
     {
-        return Inertia::render('User/Create');
+        return Inertia::render('User/Create', [
+            'roles' => Role::all(),
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateUserRequest $request)
+    public function store(CreateUserRequest $request): RedirectResponse
     {
         try{
-            User::create($request->validated());
+            // User::create($request->validated());
+            $validated = $request->validated();
+
+            // Check the structure of the 'roles' field
+            $roles = array_map(function($role) {
+                return $role['value'];
+            }, $validated['roles']);
+            
+            // Insert role name to role table
+            $user = User::create($validated);
+            // Sync role_id and permission_id to role_permission
+            $user->hasRole()->sync($roles);
 
             return Redirect::route('users.index');
         } catch (\Exception $e) {
@@ -60,19 +74,35 @@ class UserController extends Controller
      */
     public function edit(User $user): Response
     {
+        $user->load('hasRole');
+
         return Inertia::render('User/Edit', [
-            'user' => $user
+            'user' => $user,
+            'roles' => Role::all(),
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(UpdateUserRequest $request, User $user): RedirectResponse
     {
         try {
-            $user->fill($request->validated());
+            // $user->fill($request->validated());
+            // $user->save();
+
+            $validated = $request->validated();
+
+            // Check the structure of the 'roles' field
+            $roles = array_map(function($role) {
+                return $role['value'];
+            }, $validated['roles']);
+            
+            // Update role name to role table
+            $user->fill($validated);
             $user->save();
+            // Sync role_id and permission_id to role_permission
+            $user->hasRole()->sync($roles);
 
             return Redirect::route('users.index');
         } catch (\Exception $e) {

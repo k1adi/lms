@@ -34,6 +34,9 @@ export default {
         success: '#219653',
         danger: '#D34053',
         warning: '#FFA70B',
+        'pastel-danger': '#F7A4A4',
+        'pastel-warning': '#FFCF96',
+        'pastel-success': '#90EE90',
 				...defaultTheme.colors,
       },
 			fontFamily: {

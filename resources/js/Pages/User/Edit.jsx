@@ -1,12 +1,16 @@
 import React from 'react';
+import Select from 'react-select';
 import { useForm } from '@inertiajs/react';
 import DashboardLayout from '@/Layouts/DashboardLayout';
 import Breadcrumb from '@/Components/Acessibility/Breadcrumb';
 import FieldGroup from '@/Components/Form/FieldGroup';
 import TextInput from '@/Components/TextInput';
 import PrimaryButton from '@/Components/PrimaryButton';
+import convertOptions from '@/Utils/ReactSelectOption';
 
-const Edit = ({ user }) => {
+const Edit = ({ user, roles }) => {
+	console.log(user);
+
 	const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
 		{ link: route('users.index'), text: 'User' },
@@ -15,11 +19,16 @@ const Edit = ({ user }) => {
 	const { data, setData, patch, errors, processing } = useForm({
 		full_name: user.full_name,
 		username: user.username,
+		roles: convertOptions(user.has_role),
 		email: user.email,
 		no_hp: user.no_hp,
 		no_nik: user.no_nik,
 		password: '',
 	});
+
+	const handleSelectedRoles = selectedOption => {
+		setData('roles', selectedOption);
+	}
 
 	const submit = (e) => {
 		e.preventDefault();
@@ -64,6 +73,20 @@ const Edit = ({ user }) => {
 						autoComplete="username"
 						placeholder="Username..."
 					/>
+				</FieldGroup>
+
+				<FieldGroup 
+					label='Roles'
+					name='role'
+					error={errors.role}
+					isPrimary={true}
+				>
+					<Select
+            isMulti
+            options={convertOptions(roles)}
+            value={data.roles}
+            onChange={handleSelectedRoles}
+          />
 				</FieldGroup>
 
 				<FieldGroup 
