@@ -8,10 +8,10 @@
 @import 'layout/sidebar';
 @import 'layout/nav';
 
-/* @import 'components/table'; */
+@import 'components/label';
+@import 'components/table';
 @import 'components/button';
 @import 'components/dropdown';
-@import 'components/table.css';
 @import 'components/breadcrumb';
 
 @import 'pages/login';

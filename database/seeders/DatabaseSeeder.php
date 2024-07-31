@@ -26,7 +26,8 @@ class DatabaseSeeder extends Seeder
             SectionSeeder::class,
             SubSectionSeeder::class,
             ScheduleSeeder::class,
-            BuPositionSeeder::class
+            BuPositionSeeder::class,
+            RolePermissionSeeder::class,
         ]);
     }
 }

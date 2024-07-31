@@ -12,7 +12,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                         <Link
                             href={route('dashboard')}
                             className="btn btn--primary"
-                            tabindex="0" role="button"
+                            tabIndex="0" role="button"
                         >
                             Dashboard
                         </Link>
@@ -20,7 +20,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                         <Link
                             href={route('login')}
                             className="btn btn--primary"
-                            tabindex="0" role="button"
+                            tabIndex="0" role="button"
                         >
                             Log in
                         </Link>

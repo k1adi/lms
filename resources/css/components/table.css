@@ -2,7 +2,7 @@
   @apply
     mt-4
     w-full
-    whitespace-nowrap
+    /* whitespace-pre */
 }
 
 .table thead > tr {
@@ -37,9 +37,11 @@
     dark:border-strokedark
 }
 
-
-
 .table--number {
   width: 50px;
-  max-width: 100%;
+}
+
+.table--action {
+  width: 150px;
+  @apply whitespace-nowrap
 }

@@ -1,7 +1,7 @@
 .content {
   @apply
     mx-auto
-    max-w-screen-2xl
+    w-full
     p-4
     min-h-full
     md:p-7

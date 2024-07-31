@@ -6,6 +6,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\CreateRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
+use App\Models\Permission;
 use App\Models\Role;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -18,7 +19,7 @@ class RoleController extends Controller
     public function index(): Response
     {
         return Inertia::render('Role/Index', [
-            'roles' => Role::paginate()
+            'roles' => Role::with(['hasPermission'])->paginate()
         ]);
     }
 
@@ -27,7 +28,9 @@ class RoleController extends Controller
      */
     public function create(): Response
     {
-        return Inertia::render('Role/Create');
+        return Inertia::render('Role/Create', [
+            'permissions' => Permission::all(),
+        ]);
     }
 
     /**
@@ -36,7 +39,17 @@ class RoleController extends Controller
     public function store(CreateRoleRequest $request): RedirectResponse
     {
         try{
-            Role::create($request->validated());
+            $validated = $request->validated();
+
+            // Check the structure of the 'permissions' field
+            $permissions = array_map(function($permission) {
+                return $permission['value'];
+            }, $validated['permissions']);
+            
+            // Insert role name to role table
+            $role = Role::create(['name' => $validated['name']]);
+            // Sync role_id and permission_id to role_permission
+            $role->hasPermission()->sync($permissions);
 
             return Redirect::route('roles.index');
         } catch (\Exception $e) {
@@ -59,8 +72,11 @@ class RoleController extends Controller
      */
     public function edit(Role $role): Response
     {
+        $role->load('hasPermission');
+
         return Inertia::render('Role/Edit', [
-            'role' => $role
+            'role' => $role,
+            'permissions' => Permission::all(),
         ]);
     }
 
@@ -70,8 +86,21 @@ class RoleController extends Controller
     public function update(UpdateRoleRequest $request, Role $role): RedirectResponse
     {
         try {
-            $role->fill($request->validated());
+            // $role->fill($request->validated());
+            // $role->save();
+
+            $validated = $request->validated();
+
+            // Check the structure of the 'permissions' field
+            $permissions = array_map(function($permission) {
+                return $permission['value'];
+            }, $validated['permissions']);
+            
+            // Update role name to role table
+            $role->fill(['name' => $validated['name']]);
             $role->save();
+            // Sync role_id and permission_id to role_permission
+            $role->hasPermission()->sync($permissions);
 
             return Redirect::route('roles.index');
         } catch (\Exception $e) {
