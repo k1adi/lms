@@ -11,7 +11,16 @@ class Position extends Model
     use HasFactory;
     protected $fillable = ['name'];
 
-    public function BuRelated(): BelongsToMany
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($position) {
+            $position->relatedBU()->detach();
+        });
+    }
+
+    public function relatedBU(): BelongsToMany
     {
         return $this->belongsToMany(Bu::class, 'bu_position', 'position_id', 'bu_id');
     }

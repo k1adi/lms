@@ -19,7 +19,7 @@ const Edit = ({ role, permissions }) => {
 		permissions: convertOptions(role.has_permission)
 	});
 
-	const handleSelectedPermission = selectedOption => {
+	const handleReactSelect = selectedOption => {
 		setData('permissions', selectedOption);
 	}
 
@@ -61,7 +61,7 @@ const Edit = ({ role, permissions }) => {
             isMulti
             options={convertOptions(permissions)}
             value={data.permissions}
-            onChange={handleSelectedPermission}
+            onChange={handleReactSelect}
           />
 				</FieldGroup>
 

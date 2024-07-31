@@ -11,7 +11,16 @@ class Permission extends Model
     use HasFactory;
     protected $fillable = ['name'];
 
-    public function RoleRelated(): BelongsToMany
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($permission) {
+            $permission->relatedRole()->detach();
+        });
+    }
+
+    public function relatedRole(): BelongsToMany
     {
         return $this->belongsToMany(Role::class, 'role_permission', 'permission_id', 'role_id');
     }

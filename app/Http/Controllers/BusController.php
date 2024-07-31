@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateBuRequest;
 use App\Http\Requests\UpdateBuRequest;
 use App\Models\Bu;
+use App\Models\Position;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
@@ -18,7 +19,7 @@ class BusController extends Controller
     public function index(): Response
     {
         return Inertia::render('Bu/Index', [
-            'bus' => Bu::paginate()
+            'bus' => Bu::with(['hasPositions'])->paginate()
         ]);
     }
 
@@ -27,7 +28,9 @@ class BusController extends Controller
      */
     public function create(): Response
     {
-        return Inertia::render('Bu/Create');
+        return Inertia::render('Bu/Create', [
+            'positions' => Position::all()
+        ]);
     }
 
     /**
@@ -36,7 +39,18 @@ class BusController extends Controller
     public function store(CreateBuRequest $request): RedirectResponse
     {
         try{
-            Bu::create($request->validated());
+            // Bu::create($request->validated());
+            $validated = $request->validated();
+
+            // Check the structure of the 'positions' field
+            $positions = array_map(function($position) {
+                return $position['value'];
+            }, $validated['positions']);
+            
+            // Insert bu data to bu table
+            $bu = Bu::create($validated);
+            // Sync bu_id and position_id to bu_position
+            $bu->hasPositions()->sync($positions);
 
             return Redirect::route('bus.index');
         } catch (\Exception $e) {
@@ -59,8 +73,11 @@ class BusController extends Controller
      */
     public function edit(Bu $bu): Response
     {
+        $bu->load('hasPositions');
+
         return Inertia::render('Bu/Edit', [
-            'bu' => $bu
+            'bu' => $bu,
+            'positions' => Position::all(),
         ]);
     }
 
@@ -70,8 +87,21 @@ class BusController extends Controller
     public function update(UpdateBuRequest $request, Bu $bu): RedirectResponse
     {
         try {
-            $bu->fill($request->validated());
+            // $bu->fill($request->validated());
+            // $bu->save();
+
+            $validated = $request->validated();
+
+            // Check the structure of the 'positions' field
+            $positions = array_map(function($position) {
+                return $position['value'];
+            }, $validated['positions']);
+            
+            // Update bu data to bu table
+            $bu->fill($validated);
             $bu->save();
+            // Sync bu_id and position_id to bu_position
+            $bu->hasPositions()->sync($positions);
 
             return Redirect::route('bus.index');
         } catch (\Exception $e) {

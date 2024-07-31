@@ -30,7 +30,7 @@ class UserController extends Controller
     public function create(): Response
     {
         return Inertia::render('User/Create', [
-            'roles' => Role::all(),
+            'roles' => Role::all()
         ]);
     }
 
@@ -40,7 +40,6 @@ class UserController extends Controller
     public function store(CreateUserRequest $request): RedirectResponse
     {
         try{
-            // User::create($request->validated());
             $validated = $request->validated();
 
             // Check the structure of the 'roles' field
@@ -48,9 +47,9 @@ class UserController extends Controller
                 return $role['value'];
             }, $validated['roles']);
             
-            // Insert role name to role table
+            // Insert user data to user table
             $user = User::create($validated);
-            // Sync role_id and permission_id to role_permission
+            // Sync user_id and role_id to user_role
             $user->hasRole()->sync($roles);
 
             return Redirect::route('users.index');
@@ -88,9 +87,6 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user): RedirectResponse
     {
         try {
-            // $user->fill($request->validated());
-            // $user->save();
-
             $validated = $request->validated();
 
             // Check the structure of the 'roles' field
@@ -98,10 +94,10 @@ class UserController extends Controller
                 return $role['value'];
             }, $validated['roles']);
             
-            // Update role name to role table
+            // Update user data to user table
             $user->fill($validated);
             $user->save();
-            // Sync role_id and permission_id to role_permission
+            // Sync user_id and role_id to user_role
             $user->hasRole()->sync($roles);
 
             return Redirect::route('users.index');

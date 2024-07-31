@@ -46,8 +46,8 @@ class RoleController extends Controller
                 return $permission['value'];
             }, $validated['permissions']);
             
-            // Insert role name to role table
-            $role = Role::create(['name' => $validated['name']]);
+            // Insert role data to role table
+            $role = Role::create($validated);
             // Sync role_id and permission_id to role_permission
             $role->hasPermission()->sync($permissions);
 
@@ -86,9 +86,6 @@ class RoleController extends Controller
     public function update(UpdateRoleRequest $request, Role $role): RedirectResponse
     {
         try {
-            // $role->fill($request->validated());
-            // $role->save();
-
             $validated = $request->validated();
 
             // Check the structure of the 'permissions' field
@@ -96,8 +93,8 @@ class RoleController extends Controller
                 return $permission['value'];
             }, $validated['permissions']);
             
-            // Update role name to role table
-            $role->fill(['name' => $validated['name']]);
+            // Update role data to role table
+            $role->fill($validated);
             $role->save();
             // Sync role_id and permission_id to role_permission
             $role->hasPermission()->sync($permissions);

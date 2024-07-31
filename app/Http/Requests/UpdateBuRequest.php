@@ -27,6 +27,8 @@ class UpdateBuRequest extends FormRequest
         return [
             'code' => ['required', 'string', 'max:7', Rule::unique('bus')->ignore($id)],
             'name' => ['required', 'string', 'max:50', Rule::unique('bus')->ignore($id)],
+            'positions' => ['required', 'array'],
+            'positions.*.value' => ['integer', 'exists:positions,id'],
         ];
     }
 }

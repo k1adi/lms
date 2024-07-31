@@ -20,32 +20,32 @@ const Index = ({ bus }) => {
 		<div className='content-box'>
 			<Breadcrumb pageName='Business Unit' prevPage={prevPage} />
 
-			<Link className="btn btn--primary" href={route('bus.create')}> Create </Link>
+			<Link className='btn btn--primary' href={route('bus.create')}> Create </Link>
 
 			<div className='overflow-x-auto'>
 				<table className='table'>
 					<thead>
 						<tr>
-							<th className="table--number">No.</th>
+							<th className='table--number'>No.</th>
 							<th>Code</th>
 							<th>Name</th>
-							<th>Action</th>
+							<th>Position</th>
+							<th className='table--action'>Action</th>
 						</tr>
 					</thead>
 					<tbody>
 						{bus.data.length !== 0 ?
 							bus.data.map((key, index) => (
-								<tr key={index} className='py-2'>
-									<td className=''>
-										{index + 1}
+								<tr key={index} className='group py-2'>
+									<td className='group-hover:text-sky-400'> {index + 1} </td>
+									<td className='group-hover:text-sky-400'> {key.code} </td>
+									<td className='group-hover:text-sky-400'> {key.name} </td>
+									<td className='break-word'>
+										{key.has_positions.map(list => (
+											<span className='label label--secondary group-hover:bg-sky-100 group-hover:dark:bg-sky-400' key={list.name}> {list.name} </span>
+										))}
 									</td>
-									<td>
-										{key.code}
-									</td>
-									<td>
-										{key.name}
-									</td>
-									<td>
+									<td className='table--action'>
 										<Link href={route('bus.edit', key.id)} className='text-warning'> 
 											<Pencil className='inline-block mb-1' size={14} /> Edit
 										</Link>

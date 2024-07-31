@@ -24,7 +24,7 @@ const Create = ({ roles }) => {
     password: '',
 	});
 
-	const handleSelectedRoles = selectedOption => {
+	const handleReactSelect = selectedOption => {
 		setData('roles', selectedOption);
 	}
 
@@ -82,7 +82,7 @@ const Create = ({ roles }) => {
             isMulti
             options={convertOptions(roles)}
             value={data.roles}
-            onChange={handleSelectedRoles}
+            onChange={handleReactSelect}
           />
 				</FieldGroup>
 

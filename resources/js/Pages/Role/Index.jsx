@@ -35,13 +35,13 @@ const Index = ({ roles }) => {
 						{roles.data.length !== 0 ?
 							roles.data.map((key, index) => (
 								<tr key={index} className='group py-2'>
-										<td>{index + 1}</td>
-										<td className='group-hover:text-sky-400'>{key.name}</td>
-										<td className='break-word'>
-											{key.has_permission.map(list => (
-												<span className='label label--secondary group-hover:bg-sky-100 group-hover:dark:bg-sky-400' key={list.name}> {list.name} </span>
-											))}
-										</td>
+									<td className='group-hover:text-sky-400'>{index + 1}</td>
+									<td className='group-hover:text-sky-400'>{key.name}</td>
+									<td className='break-word'>
+										{key.has_permission.map(list => (
+											<span className='label label--secondary group-hover:bg-sky-100 group-hover:dark:bg-sky-400' key={list.name}> {list.name} </span>
+										))}
+									</td>
 									<td className='table--action'>
 										<Link href={route('roles.edit', key.id)} className='text-warning'> 
 											<Pencil className='inline-block mb-1' size={14} /> Edit

@@ -12,6 +12,15 @@ class Schedule extends Model
     use HasFactory;
     protected $fillable = ['course_id', 'start_time', 'end_time'];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($schedule) {
+            $schedule->assignUser()->detach();
+        });
+    }
+
     public function course(): BelongsTo
     {
         return $this->belongsTo(Course::class, 'course_id', 'id');

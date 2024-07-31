@@ -1,12 +1,14 @@
 import React from 'react';
+import Select from 'react-select';
 import { useForm } from '@inertiajs/react';
 import DashboardLayout from '@/Layouts/DashboardLayout';
 import Breadcrumb from '@/Components/Acessibility/Breadcrumb';
 import FieldGroup from '@/Components/Form/FieldGroup';
 import TextInput from '@/Components/TextInput';
 import PrimaryButton from '@/Components/PrimaryButton';
+import convertOptions from '@/Utils/ReactSelectOption';
 
-const Edit = ({ bu }) => {
+const Edit = ({ bu, positions }) => {
 	const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
 		{ link: route('bus.index'), text: 'BU' },
@@ -15,7 +17,12 @@ const Edit = ({ bu }) => {
 	const { data, setData, patch, errors, processing } = useForm({
 		code: bu.code,
 		name: bu.name,
+		positions: convertOptions(bu.has_positions)
 	});
+
+	const handleReactSelect = selectedOption => {
+		setData('positions', selectedOption);
+	}
 
 	const submit = (e) => {
 		e.preventDefault();
@@ -61,6 +68,20 @@ const Edit = ({ bu }) => {
 						autoComplete="name"
 						placeholder="Name..."
 					/>
+				</FieldGroup>
+
+				<FieldGroup 
+					label='Positions'
+					name='positions'
+					error={errors.positions}
+					isPrimary={true}
+				>
+					<Select
+            isMulti
+            options={convertOptions(positions)}
+            value={data.positions}
+            onChange={handleReactSelect}
+          />
 				</FieldGroup>
 
 				<PrimaryButton disabled={processing}>

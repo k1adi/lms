@@ -44,6 +44,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($user) {
+            $user->hasRole()->detach();
+            $user->hasSchedule()->detach();
+        });
+    }
+
     public function setPasswordAttribute($value)
     {
         if ($value) {
