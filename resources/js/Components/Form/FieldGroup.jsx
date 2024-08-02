@@ -1,6 +1,6 @@
-export default function FieldGroup({ label, name, error, isPrimary, children }) {
+export default function FieldGroup({ label, name, error, isPrimary, children, className }) {
   return (
-    <div className='mb-3'>
+    <div className={'mb-3 ' + className}>
       {label && (
         <label className='block text-gray-800 select-none' htmlFor={name}>
           {label} {isPrimary && <span className='text-danger font-bold'>*</span> }

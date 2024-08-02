@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from "@inertiajs/react";
 
-export default function Breadcrumb({ title = '', pageName, prevPage }) {
+export default function Breadcrumb({ title = '', className='', pageName, prevPage}) {
   return (
-    <div className='breadcrumb'>
+    <div className={'breadcrumb ' + className}>
       <h1 className='text--title'>{ title ? title : pageName }</h1>
 
       <nav>

@@ -43,10 +43,10 @@ const Index = ({ roles }) => {
 										))}
 									</td>
 									<td className='table--action'>
-										<Link href={route('roles.edit', key.id)} className='text-warning'> 
+										<Link href={route('roles.edit', key.id)} className='text-warning mr-2'> 
 											<Pencil className='inline-block mb-1' size={14} /> Edit
 										</Link>
-										<button className="text-red-600 ml-2" type="button" tabIndex={-1} onClick={() => onDelete(key.id)}>
+										<button className="text-red-600" type="button" tabIndex={-1} onClick={() => onDelete(key.id)}>
 											<Trash2 className='inline-block mb-1' size={14} /> Delete
 										</button>
 									</td>

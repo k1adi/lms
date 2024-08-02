@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccessController;
 use App\Http\Controllers\BusController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DeptController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -40,12 +42,17 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::resources([
         'bus' => BusController::class,
         'depts' => DeptController::class,
-        'roles' => RoleController::class,
         'positions' => PositionController::class,
+
+        'users' => UserController::class,
+        'roles' => RoleController::class,
         'permissions' => PermissionController::class,
+        
         'courses' => CourseController::class,
-        'users' => UserController::class
+        'schedules' => ScheduleController::class,
     ]);
+
+    Route::get('/access', [AccessController::class, 'index'])->name('access.index');
 });
 
 Route::middleware('auth')->group(function () {

@@ -8,6 +8,7 @@
 @import 'layout/sidebar';
 @import 'layout/nav';
 
+@import 'components/form';
 @import 'components/label';
 @import 'components/table';
 @import 'components/button';

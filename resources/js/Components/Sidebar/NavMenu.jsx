@@ -1,6 +1,6 @@
 import NavGroup from './NavGroup';
 import NavLink from './NavLink';
-import { LayoutDashboard, CalendarClock, ClipboardList, Settings, UserCog, LibraryBig, ChevronDown, Building2, BriefcaseBusiness, SquareUser, BookCopy, BookLock, MonitorSmartphone, ScrollText, Bug, MessageSquareText, User, Users, ShieldOff, KeyRound, BadgeCheck, VenetianMask, Bolt, Fingerprint, MonitorCog, Settings2 } from 'lucide-react';
+import { LayoutDashboard, CalendarClock, ClipboardList, Settings, UserCog, LibraryBig, ChevronDown, Building2, BriefcaseBusiness, SquareUser, BookCopy, BookLock, MonitorSmartphone, ScrollText, Bug, MessageSquareText, Users, KeyRound, Settings2 } from 'lucide-react';
 
 export default function NavMenu({ sidebarExpand, setSidebarExpand}) {
   return (
@@ -8,8 +8,9 @@ export default function NavMenu({ sidebarExpand, setSidebarExpand}) {
       <ul className='nav__list top'>
         {/* Dashboard */}
         <NavLink
-          link='dashboard'
+          link={route('dashboard')}
           icon={<LayoutDashboard />}
+          name='dashboard'
           text='Dashboard'
         />
 
@@ -50,8 +51,9 @@ export default function NavMenu({ sidebarExpand, setSidebarExpand}) {
         
         {/* Schedule */}
         <NavLink
-          link='#'
+          link={route('schedules.index')}
           icon={<CalendarClock />}
+          name='schedules'
           text='Schedule'
         />
 
@@ -83,26 +85,31 @@ export default function NavMenu({ sidebarExpand, setSidebarExpand}) {
                     <NavLink
                       link={route('bus.index')}
                       icon={<Building2 />}
+                      name='bus'
                       text='Business Unit'
                     />
                     <NavLink
                       link={route('depts.index')}
                       icon={<BriefcaseBusiness />}
+                      name='depts'
                       text='Department'
                     />
                     <NavLink
                       link={route('positions.index')}
                       icon={<SquareUser />}
+                      name='positions'
                       text='Positions'
                     />
                     <NavLink
                       link={route('courses.index')}
                       icon={<BookCopy />}
+                      name='courses'
                       text='Courses'
                     />
                     <NavLink
-                      link='#'
+                      link={route('access.index')}
                       icon={<BookLock />}
+                      name='access'
                       text='Access'
                     />
                   </ul>
@@ -133,16 +140,19 @@ export default function NavMenu({ sidebarExpand, setSidebarExpand}) {
                     <NavLink
                       link={route('users.index')}
                       icon={<Users />}
+                      name='users'
                       text='Users'
                     />
                     <NavLink
                       link={route('roles.index')}
                       icon={<Settings2 />}
+                      name='roles'
                       text='Roles'
                     />
                     <NavLink
                       link={route('permissions.index')}
                       icon={<KeyRound />}
+                      name='permissions'
                       text='Permission'
                     />
                   </ul>
@@ -157,11 +167,13 @@ export default function NavMenu({ sidebarExpand, setSidebarExpand}) {
         <NavLink
           link='#'
           icon={<MessageSquareText />}
+          name='feedback'
           text='Feedback'
         />
         <NavLink
           link={route('depts.index')}
           icon={<Bug />}
+          name='bug-issues'
           text='Report Bug/Issue'
         />
       </ul>
