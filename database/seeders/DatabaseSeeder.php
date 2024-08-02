@@ -27,6 +27,8 @@ class DatabaseSeeder extends Seeder
             BuPositionSeeder::class,
             RolePermissionSeeder::class,
             UserRoleSeeder::class,
+            CourseAccessSeeder::class,
+            ScheduleAccessSeeder::class,
         ]);
     }
 }

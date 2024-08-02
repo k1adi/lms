@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
             'full_name' => 'Rizki Adi',
             'username' => 'kiadi',
             'email' => 'rizki@email.com',
-            'no_hp' => '081384406530',
+            'no_hp' => '081284416531',
             'no_nik' => 'PRI-001',
             'password' => Hash::make('password')
         ]);
@@ -26,7 +26,7 @@ class UserSeeder extends Seeder
             'full_name' => 'Budi doremi',
             'username' => 'dido',
             'email' => 'dido@email.com',
-            'no_hp' => '081234567890',
+            'no_hp' => '081234567891',
             'no_nik' => 'PRI-002',
             'password' => Hash::make('password')
         ]);
@@ -36,6 +36,14 @@ class UserSeeder extends Seeder
             'email' => 'asep@email.com',
             'no_hp' => '081098765432',
             'no_nik' => 'PRI-003',
+            'password' => Hash::make('password')
+        ]);
+        User::create([
+            'full_name' => 'Admin',
+            'username' => 'admin',
+            'email' => 'admin@email.com',
+            'no_hp' => '081234567890',
+            'no_nik' => 'PRI-000',
             'password' => Hash::make('password')
         ]);
     }

@@ -16,6 +16,8 @@ class UserRoleSeeder extends Seeder
         DB::table('user_role')->insert([
             // Rizki -> admin
             ['user_id' => 1, 'role_id' => 1],
+            // Admin -> admin
+            ['user_id' => 4, 'role_id' => 1],
 
             // Budi -> instructor
             ['user_id' => 2, 'role_id' => 2],

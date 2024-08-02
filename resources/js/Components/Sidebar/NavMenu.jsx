@@ -171,7 +171,7 @@ export default function NavMenu({ sidebarExpand, setSidebarExpand}) {
           text='Feedback'
         />
         <NavLink
-          link={route('depts.index')}
+          link='#'
           icon={<Bug />}
           name='bug-issues'
           text='Report Bug/Issue'

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class ScheduleAccess extends Pivot
 {
-    protected $table = 'schedules_access';
+    protected $table = 'schedule_accesses';
     protected $foreignKey = 'user_id';
     protected $relatedKey = 'schedule_id';
     public $timestamps = false;

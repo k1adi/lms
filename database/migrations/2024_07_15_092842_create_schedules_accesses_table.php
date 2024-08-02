@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('schedules_access', function (Blueprint $table) {
+        Schema::create('schedule_accesses', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('schedule_id');
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('schedules_access');
+        Schema::dropIfExists('schedule_accesses');
     }
 };
