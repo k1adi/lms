@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Schedule extends Model
 {
     use HasFactory;
-    protected $fillable = ['course_id', 'start_time', 'end_time'];
+    protected $fillable = ['course_id', 'start_time', 'end_time', 'desc'];
 
     public static function boot()
     {
@@ -28,6 +28,6 @@ class Schedule extends Model
 
     public function assignUser(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'schedules_access', 'schedule_id', 'user_id');
+        return $this->belongsToMany(User::class, 'schedule_accesses', 'schedule_id', 'user_id');
     }
 }

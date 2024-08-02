@@ -26,6 +26,7 @@ class CreateScheduleRequest extends FormRequest
             'course_id.value' => ['required', 'integer', 'exists:courses,id'],
             'start_time' => ['required', 'date_format:Y-m-d\TH:i:s.v\Z'],
             'end_time' => ['required', 'date_format:Y-m-d\TH:i:s.v\Z', 'after_or_equal:start_time'],
+            'desc' => ['nullable', 'string']
         ];
     }
 

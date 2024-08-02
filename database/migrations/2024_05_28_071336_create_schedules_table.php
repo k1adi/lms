@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('course_id');
             $table->dateTime('start_time');
             $table->dateTime('end_time');
+            $table->text('desc')->nullable();
             $table->timestamps();
 
             // Added foreign key constraint

@@ -17,18 +17,21 @@ class ScheduleSeeder extends Seeder
             'course_id' => 2,
             'start_time' => '2024-07-12 16:10:31',
             'end_time' => '2024-07-14 20:10:31',
+            'desc' => 'Schedule course 2 - 1',
         ]);
 
         Schedule::create([
             'course_id' => 2,
             'start_time' => '2024-07-14 16:10:31',
             'end_time' => '2024-07-16 20:10:31',
+            'desc' => 'Schedule course 2 - 2',
         ]);
 
         Schedule::create([
             'course_id' => 3,
             'start_time' => '2024-07-10 10:10:31',
             'end_time' => '2024-07-15 20:10:31',
+            'desc' => 'Schedule course 3 - 1',
         ]);
     }
 }

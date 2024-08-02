@@ -3,6 +3,7 @@ import Select from 'react-select';
 import { useForm } from '@inertiajs/react';
 import DashboardLayout from '@/Layouts/DashboardLayout';
 import Breadcrumb from '@/Components/Acessibility/Breadcrumb';
+import TextArea from '@/Components/TextArea';
 import FieldGroup from '@/Components/Form/FieldGroup';
 import PrimaryButton from '@/Components/PrimaryButton';
 import convertOptions from '@/Utils/ReactSelectOption';
@@ -17,7 +18,8 @@ const Create = ({ courses }) => {
 	const { data, setData, post, errors, processing } = useForm({
 		course_id: '',
 		start_time: '',
-    end_time: ''
+    end_time: '',
+		desc: ''
 	});
 
 	const handleReactSelect = selectedOption => {
@@ -33,7 +35,7 @@ const Create = ({ courses }) => {
     <div className='content-box'>
 			<Breadcrumb title='Create Schedule' pageName='Create' prevPage={prevPage} />
 
-			<form onSubmit={submit} className="w-full">
+			<form onSubmit={submit} className='w-full'>
         <FieldGroup 
 					label='Course'
 					name='course'
@@ -57,9 +59,9 @@ const Create = ({ courses }) => {
 						minDate='today'
             value={data.start_time}
             onChange={(value) => setData('start_time', value)}
-            className="mt-1 block w-full"
+            className='mt-1 block w-full'
             name='start_time'
-            placeholder='Select start datetime'
+            placeholder='Select start datetime...'
             required
           />
 				</FieldGroup>
@@ -74,11 +76,28 @@ const Create = ({ courses }) => {
 						minDate='today'
             value={data.end_time}
             onChange={(value) => setData('end_time', value)}
-            className="mt-1 block w-full" 
+            className='mt-1 block w-full' 
             name='end_time'
-            placeholder='Select end datetime'
+            placeholder='Select end datetime...'
             required
           />
+				</FieldGroup>
+
+				<FieldGroup 
+					label='Description'
+					name='desc'
+					error={errors.desc}
+				>
+          <TextArea
+						id='desc'
+						name='desc'
+						className='mt-1 block w-full'
+						value={data.desc}
+						onChange={(e) => setData('desc', e.target.value)}
+						autoComplete='desc'
+						placeholder='Schedule Description...'
+						rows={3}
+					/>
 				</FieldGroup>
 
 				<PrimaryButton disabled={processing}>

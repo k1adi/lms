@@ -29,6 +29,7 @@ const Index = ({ schedules }) => {
 						<tr>
 							<th className="table--number">No.</th>
 							<th>Course</th>
+							<th>Description</th>
 							<th>Start Time</th>
 							<th>End Time</th>
 							<th>Action</th>
@@ -40,6 +41,7 @@ const Index = ({ schedules }) => {
 								<tr key={index} className='py-2'>
 									<td>{index + 1}</td>
 									<td>{key.course.name}</td>
+									<td>{key.desc}</td>
 									<td>{LocalizationDate(key.start_time, 'en')}</td>
 									<td>{LocalizationDate(key.end_time, 'en')}</td>
 									<td>

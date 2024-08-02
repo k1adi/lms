@@ -121,7 +121,8 @@ class ScheduleController extends Controller
         return [
             'course_id' => $input['course_id']['value'],
             'start_time' => convertToJakartaTime($input['start_time']),
-            'end_time' => convertToJakartaTime($input['end_time'])
+            'end_time' => convertToJakartaTime($input['end_time']),
+            'desc' => $input['desc']
         ];
     }
 }

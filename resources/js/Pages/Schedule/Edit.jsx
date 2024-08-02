@@ -4,6 +4,7 @@ import { useForm } from '@inertiajs/react';
 import DashboardLayout from '@/Layouts/DashboardLayout';
 import Breadcrumb from '@/Components/Acessibility/Breadcrumb';
 import FieldGroup from '@/Components/Form/FieldGroup';
+import TextArea from '@/Components/TextArea';
 import PrimaryButton from '@/Components/PrimaryButton';
 import convertOptions from '@/Utils/ReactSelectOption';
 import DateTimePicker from '@/Components/Form/DateTimePicker';
@@ -26,7 +27,8 @@ const Edit = ({ schedule, courses }) => {
       label: schedule.course.name
     },
 		start_time: startTime.toISOString(),
-    end_time: endTime.toISOString()
+    end_time: endTime.toISOString(),
+    desc: schedule.desc
 	});
 
 	const handleReactSelect = selectedOption => {
@@ -88,6 +90,23 @@ const Edit = ({ schedule, courses }) => {
             placeholder='Select end datetime'
             required
           />
+				</FieldGroup>
+
+        <FieldGroup 
+					label='Description'
+					name='desc'
+					error={errors.desc}
+				>
+          <TextArea
+						id='desc'
+						name='desc'
+						className='mt-1 block w-full'
+						value={data.desc}
+						onChange={(e) => setData('desc', e.target.value)}
+						autoComplete='desc'
+						placeholder='Schedule Description...'
+						rows={3}
+					/>
 				</FieldGroup>
 
 				<PrimaryButton disabled={processing}>
