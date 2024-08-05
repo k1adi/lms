@@ -25,7 +25,8 @@ class UpdateDeptRequest extends FormRequest
         $id = $this->route('dept');
 
         return [
-            'bu_id' => ['required', 'integer', 'exists:bus,id'],
+            'bu_id' => ['required', 'array'],
+            'bu_id.value' => ['integer', 'exists:bus,id'],
             'code' => ['required', 'string', 'max:7', Rule::unique('depts')->ignore($id)],
             'name' => ['required', 'string', 'max:50'],
         ];

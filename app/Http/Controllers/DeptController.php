@@ -38,9 +38,13 @@ class DeptController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(CreateDeptRequest $request): RedirectResponse
-    {
+    {        
         try{
-            Dept::create($request->validated());
+            $validated = $request->validated();
+            $validated['bu_id'] = $validated['bu_id']['value'];
+            
+            // Insert dept data to dept table
+            Dept::create($validated);
 
             return Redirect::route('depts.index');
         } catch (\Exception $e) {
@@ -63,6 +67,8 @@ class DeptController extends Controller
      */
     public function edit(Dept $dept)
     {
+        $dept->load('bu');
+
         return Inertia::render('Dept/Edit', [
             'dept' => $dept,
             'bus' => Bu::all(),
@@ -75,7 +81,10 @@ class DeptController extends Controller
     public function update(UpdateDeptRequest $request, Dept $dept): RedirectResponse
     {
         try {
-            $dept->fill($request->validated());
+            $validated = $request->validated();
+            $validated['bu_id'] = $validated['bu_id']['value'];
+
+            $dept->fill($validated);
             $dept->save();
 
             return Redirect::route('depts.index');

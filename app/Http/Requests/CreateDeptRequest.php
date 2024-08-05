@@ -22,7 +22,8 @@ class CreateDeptRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'bu_id' => ['required', 'integer', 'exists:bus,id'],
+            'bu_id' => ['required', 'array'],
+            'bu_id.value' => ['integer', 'exists:bus,id'],
             'code' => ['required', 'string', 'max:7', 'unique:depts,code'],
             'name' => ['required', 'string', 'max:50'],
         ];

@@ -1,4 +1,5 @@
 import React from 'react';
+import Select from 'react-select';
 import { useForm } from '@inertiajs/react';
 import DashboardLayout from '@/Layouts/DashboardLayout';
 import Breadcrumb from '@/Components/Acessibility/Breadcrumb';
@@ -6,18 +7,28 @@ import FieldGroup from '@/Components/Form/FieldGroup';
 import TextInput from '@/Components/TextInput';
 import SelectOption from '@/Components/SelectOption';
 import PrimaryButton from '@/Components/PrimaryButton';
+import convertOptions from '@/Utils/ReactSelectOption';
 
 const Edit = ({ dept, bus }) => {
+	console.log(dept);
+	
   const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
 		{ link: route('depts.index'), text: 'Depts' },
 	];
 
   const { data, setData, patch, errors, processing } = useForm({
-    bu_id: dept.bu_id,
+		bu_id: {
+      value: dept.bu.id,
+      label: dept.bu.name
+    },
     code: dept.code,
     name: dept.name,
   });
+
+	const handleReactSelect = selectedOption => {
+		setData('bu_id', selectedOption);
+	}
 
   const submit = (e) => {
     e.preventDefault();
@@ -36,17 +47,13 @@ const Edit = ({ dept, bus }) => {
 					error={errors.bu_id}
 					isPrimary={true}
 				>
-					<SelectOption 
-						id="bu"
+					<Select
+            options={convertOptions(bus)}
+            value={data.bu_id}
+            onChange={handleReactSelect}
 						className="mt-1 block w-full"
-						currentValue={+data.bu_id}
-						onChange={(e) => setData('bu_id', +e.target.value)}
-						options={bus?.map(key => (
-							{value: key.id, label: key.name}
-						))}
-						isFocused
 						required
-					/>
+          />
 				</FieldGroup>
 
 				<FieldGroup 
