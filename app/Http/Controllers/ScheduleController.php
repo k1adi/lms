@@ -9,10 +9,8 @@ use App\Http\Requests\UpdateScheduleRequest;
 use App\Models\Course;
 use App\Models\Schedule;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
-use PhpParser\Node\Expr\Cast\Array_;
 
 class ScheduleController extends Controller
 {
