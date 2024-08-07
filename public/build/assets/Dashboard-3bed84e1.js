@@ -1,0 +1,1 @@
+import{j as a}from"./app-213b7f9d.js";import{D as o}from"./DashboardLayout-553715ec.js";import"./graduation-cap-2330f257.js";function r(){return a.jsx("div",{className:"content-box",children:a.jsx("h1",{className:"text--title",children:"Dashboard"})})}r.layout=t=>a.jsx(o,{title:"Dashboard",children:t});export{r as default};
