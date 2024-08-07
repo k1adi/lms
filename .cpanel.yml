@@ -1,3 +1,4 @@
+---
 deployment:
   tasks:
     - source /home/$MY_CPanel_USER/private/deploy_config.sh
