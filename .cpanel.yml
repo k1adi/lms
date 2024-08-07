@@ -1,9 +1,0 @@
----
-deployment:
-  tasks:
-    - source /home/$MY_CPanel_USER/private/deploy_config.sh
-    - /bin/cp -r $REPO_DIR/* /home/$MY_CPanel_USER/public_html/lms
-    - cd /home/$MY_CPanel_USER/public_html/lms
-    - composer install --no-dev --optimize-autoloader
-    - php artisan migrate:refersh
-    - php artisan db:seed
