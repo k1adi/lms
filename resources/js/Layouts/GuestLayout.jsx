@@ -9,7 +9,6 @@ export default function Guest({ children }) {
                 <Link href="/">
                     <GraduationCap className='text-center mx-auto text-primary dark:text-white w-28 h-28 sm:w-36 sm:h-36' />
                 </Link>
-                <p>test</p>
             </div>
 
             <div className="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
