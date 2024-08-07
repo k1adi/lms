@@ -33,12 +33,12 @@ export default function NavMenu({ sidebarExpand, setSidebarExpand}) {
                 >
                   <ul className='mt-1 mb-5.5 flex flex-col gap-2.5 pl-6'>
                     <NavLink
-                      link={route('courses.index')}
+                      link='#'
                       icon={<MonitorSmartphone />}
                       text='Online'
                     />
                     <NavLink
-                      link={route('courses.index')}
+                      link='#'
                       icon={<ScrollText />}
                       text='Offline'
                     />
@@ -68,12 +68,12 @@ export default function NavMenu({ sidebarExpand, setSidebarExpand}) {
                 >
                   <ul className='mt-1 mb-5.5 flex flex-col gap-2.5 pl-6'>
                     <NavLink
-                      link={route('courses.index')}
+                      link='#'
                       icon={<PencilLine />}
                       text='Test'
                     />
                     <NavLink
-                      link={route('courses.index')}
+                      link='#'
                       icon={<TextSearch />}
                       text='TNA'
                     />
