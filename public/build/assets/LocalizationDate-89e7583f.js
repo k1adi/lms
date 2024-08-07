@@ -1,0 +1,1 @@
+function i(e,t){const n={weekday:"long",year:"numeric",month:"long",day:"numeric",hour:"2-digit",minute:"2-digit"};if(t=="id")return new Date(e).toLocaleDateString("id-ID",n);if(t=="en")return new Date(e).toLocaleDateString("en-US",n)}export{i as L};
