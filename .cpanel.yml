@@ -7,3 +7,4 @@ deployment:
     - composer install --no-dev --optimize-autoloader
     - php artisan migrate:refersh
     - php artisan db:seed
+    -- php artisan optimize:clear
