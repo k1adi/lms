@@ -1,5 +1,12 @@
 .text--title {
   @apply
+    text-title-sm
+    lg:text-title-md
+    font-bold
+}
+
+.text--sub-heading {
+  @apply
     text-title-xsm
     lg:text-title-sm
     font-bold

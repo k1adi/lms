@@ -19,10 +19,6 @@ const Edit = ({ schedule, users }) => {
 		users: convertOptions(schedule.assign_user, 'full_name')
 	});
 
-	const handleReactSelect = selectedOption => {
-		setData('users', selectedOption);
-	}
-
 	const submit = (e) => {
 		e.preventDefault();
 
@@ -64,7 +60,7 @@ const Edit = ({ schedule, users }) => {
             isMulti
             options={convertOptions(users, 'full_name')}
             value={data.users}
-            onChange={handleReactSelect}
+            onChange={(option) => setData('users', option)}
           />
 				</FieldGroup>
 

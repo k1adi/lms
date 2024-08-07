@@ -14,6 +14,7 @@ class CourseSeeder extends Seeder
     public function run(): void
     {
         Course::create([
+            'code' => 'LMS01/050824',
             'name' => 'Course 1',
             'type' => 'online',
             'trainer' => 'Trainer 1',
@@ -23,6 +24,7 @@ class CourseSeeder extends Seeder
         ]);
 
         Course::create([
+            'code' => 'LMS02/050824',
             'name' => 'Course 2',
             'type' => 'offline',
             'trainer' => 'Trainer 2',
@@ -30,6 +32,7 @@ class CourseSeeder extends Seeder
         ]);
 
         Course::create([
+            'code' => 'LMS03/050824',
             'name' => 'Course 3',
             'type' => 'offline',
             'trainer' => 'Trainer 3',
@@ -38,6 +41,7 @@ class CourseSeeder extends Seeder
         ]);
 
         Course::create([
+            'code' => 'LMS04/050824',
             'name' => 'Course 4',
             'type' => 'online',
             'trainer' => 'Trainer 4',

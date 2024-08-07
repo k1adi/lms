@@ -24,10 +24,6 @@ const Create = ({ roles }) => {
     password: '',
 	});
 
-	const handleReactSelect = selectedOption => {
-		setData('roles', selectedOption);
-	}
-
 	const submit = (e) => {
 		e.preventDefault();
 		post(route('users.store'))
@@ -82,7 +78,7 @@ const Create = ({ roles }) => {
             isMulti
             options={convertOptions(roles)}
             value={data.roles}
-            onChange={handleReactSelect}
+            onChange={(option) => setData('roles', option)}
           />
 				</FieldGroup>
 

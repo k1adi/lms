@@ -19,10 +19,6 @@ const Edit = ({ course, positions }) => {
 		positions: convertOptions(course.assign_position)
 	});
 
-	const handleReactSelect = selectedOption => {
-		setData('positions', selectedOption);
-	}
-
 	const submit = (e) => {
 		e.preventDefault();
 
@@ -54,7 +50,7 @@ const Edit = ({ course, positions }) => {
             isMulti
             options={convertOptions(positions)}
             value={data.positions}
-            onChange={handleReactSelect}
+            onChange={(option) => setData('positions', option)}
           />
 				</FieldGroup>
 

@@ -20,10 +20,6 @@ const Create = ({ positions }) => {
 		positions: []
 	});
 
-	const handleReactSelect = selectedOption => {
-		setData('positions', selectedOption);
-	}
-
 	const submit = (e) => {
 		e.preventDefault();
 		post(route('bus.store'))
@@ -79,7 +75,7 @@ const Create = ({ positions }) => {
             isMulti
             options={convertOptions(positions)}
             value={data.positions}
-            onChange={handleReactSelect}
+            onChange={(option) => setData('positions', option)}
           />
 				</FieldGroup>
 

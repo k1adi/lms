@@ -22,10 +22,6 @@ const Create = ({ courses }) => {
 		desc: ''
 	});
 
-	const handleReactSelect = selectedOption => {
-		setData('course_id', selectedOption);
-	}
-
 	const submit = (e) => {
 		e.preventDefault();
 		post(route('schedules.store'))
@@ -45,7 +41,7 @@ const Create = ({ courses }) => {
 					<Select
             options={convertOptions(courses)}
             value={data.course_id}
-            onChange={handleReactSelect}
+            onChange={(option) => setData('course_id', option)}
           />
 				</FieldGroup>
 

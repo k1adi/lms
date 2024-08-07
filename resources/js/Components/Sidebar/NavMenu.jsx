@@ -1,6 +1,6 @@
 import NavGroup from './NavGroup';
 import NavLink from './NavLink';
-import { LayoutDashboard, CalendarClock, ClipboardList, Settings, UserCog, LibraryBig, ChevronDown, Building2, BriefcaseBusiness, SquareUser, BookCopy, BookLock, MonitorSmartphone, ScrollText, Bug, MessageSquareText, Users, KeyRound, Settings2 } from 'lucide-react';
+import { LayoutDashboard, CalendarClock, ClipboardList, Settings, UserCog, LibraryBig, ChevronDown, Building2, BriefcaseBusiness, SquareUser, BookCopy, BookLock, MonitorSmartphone, ScrollText, Bug, MessageSquareText, Users, KeyRound, Settings2, TextSearch, PencilLine, FileText } from 'lucide-react';
 
 export default function NavMenu({ sidebarExpand, setSidebarExpand}) {
   return (
@@ -41,6 +41,41 @@ export default function NavMenu({ sidebarExpand, setSidebarExpand}) {
                       link={route('courses.index')}
                       icon={<ScrollText />}
                       text='Offline'
+                    />
+                  </ul>
+                </div>
+              </>
+            );
+          }}
+        </NavGroup>
+
+        {/* Assignment */}
+        <NavGroup isActive={false} >
+          {(handleClick, open) => {
+            return (
+              <>
+                <NavLink
+                  icon={<FileText />}
+                  text='Assignment'
+                  onClick={(e) => {
+                    e.preventDefault();
+                    sidebarExpand ? handleClick() : setSidebarExpand(true); 
+                }}>
+                  <ChevronDown className={`absolute right-4 top-1/2 -translate-y-1/2 ${open && 'rotate-180'}`} />
+                </NavLink>
+                <div
+                  className={`translate transform overflow-hidden ${!open && 'hidden'}`}
+                >
+                  <ul className='mt-1 mb-5.5 flex flex-col gap-2.5 pl-6'>
+                    <NavLink
+                      link={route('courses.index')}
+                      icon={<PencilLine />}
+                      text='Test'
+                    />
+                    <NavLink
+                      link={route('courses.index')}
+                      icon={<TextSearch />}
+                      text='TNA'
                     />
                   </ul>
                 </div>

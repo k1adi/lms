@@ -19,10 +19,6 @@ const Create = ({ permissions }) => {
 		permissions: [],
 	});
 
-	const handleReactSelect = selectedOption => {
-		setData('permissions', selectedOption);
-	}
-
 	const submit = (e) => {
 		e.preventDefault();
 		post(route('roles.store'))
@@ -61,7 +57,7 @@ const Create = ({ permissions }) => {
             isMulti
             options={convertOptions(permissions)}
             value={data.permissions}
-            onChange={handleReactSelect}
+            onChange={(option) => setData('permissions', option)}
           />
 				</FieldGroup>
 

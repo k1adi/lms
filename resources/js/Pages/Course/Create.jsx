@@ -1,14 +1,17 @@
 import React from 'react';
+import Select from 'react-select';
 import { useForm } from '@inertiajs/react';
 import DashboardLayout from '@/Layouts/DashboardLayout';
 import Breadcrumb from '@/Components/Acessibility/Breadcrumb';
 import FieldGroup from '@/Components/Form/FieldGroup';
 import TextInput from '@/Components/TextInput';
+import InputError from '@/Components/InputError';
 import TextArea from '@/Components/TextArea';
-import SelectOption from '@/Components/SelectOption';
 import PrimaryButton from '@/Components/PrimaryButton';
+import convertOptions from '@/Utils/ReactSelectOption';
+import { Plus, Trash2 } from 'lucide-react';
 
-const Create = () => {
+const Create = ({ courses }) => {
 	const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
 		{ link: route('courses.index'), text: 'Courses' },
@@ -16,13 +19,41 @@ const Create = () => {
 
 	const { data, setData, post, errors, processing } = useForm({
 		name: '',
-		type: '',
+		type: {},
 		trainer: '',
 		thumbnail: '',
 		url_attachment: '',
-		prerequisite: '',
-		description: ''
+		prerequisite: {},
+		description: '',
+		sections: [{ 
+			name: '', 
+			subsections: [{ 
+				name: '',
+				url: '', 
+			}],
+		}],
 	});
+	
+	const handleAddSection = () => {
+    setData('sections', [...data.sections, { name: '', subsections: [{ name: '', url: '' }] }]);
+  };
+
+  const handleRemoveSection = (secIndex) => {
+    const sections = data.sections.filter((_, i) => i !== secIndex);
+    setData('sections', sections);
+  };
+
+  const handleAddSubsection = (secIndex) => {
+    const sections = [...data.sections];
+    sections[secIndex].subsections.push({ name: '', url: '' });
+    setData('sections', sections);
+  };
+
+  const handleRemoveSubsection = (secIndex, subIndex) => {
+    const sections = [...data.sections];
+    sections[secIndex].subsections = sections[secIndex].subsections.filter((_, i) => i !== subIndex);
+    setData('sections', sections);
+  };
 
 	const submit = (e) => {
 		e.preventDefault();
@@ -31,168 +62,230 @@ const Create = () => {
 	}
 
 	return (
-		<div className='content-box'>
-			<Breadcrumb pageName='Course Create' prevPage={prevPage} />
+		<form onSubmit={submit} className="w-full">
+			<div className='content-box'>
+				<Breadcrumb pageName='Create Course' prevPage={prevPage} />
 
-			<form onSubmit={submit} className="w-full">
+				{/* Course Name */}
 				<FieldGroup 
-					label='BU Code'
-					name='code'
-					error={errors.code}
+					label='Course Name'
+					name='name'
+					error={errors.name}
 					isPrimary={true}
 				>
-
+					<TextInput
+						name='name'
+						className="mt-1 block w-full"
+						value={data.name}
+						onChange={(e) => setData('name', e.target.value)}
+						required
+						isFocused={true}
+						autoComplete="name"
+						placeholder="Name..."
+					/>
 				</FieldGroup>
-			</form>
-		</div>
-	);
+
+				{/* Course Type */}
+				<FieldGroup 
+					label='Course Type'
+					name='type'
+					error={errors.type}
+					isPrimary={true}
+				>
+					<Select
+						name='type'
+						placeholder={'Select Type...'}
+            options={[
+							{value: 'offline', label: 'Offline'},
+							{value: 'online', label: 'Online' }
+						]}
+            value={data.type}
+            onChange={(option) => setData('type', option)}
+						className="mt-1 block w-full"
+						required
+          />
+				</FieldGroup>
+
+				{/* Course Trainer */}
+				<FieldGroup 
+					label='Trainer Name'
+					name='trainer'
+					error={errors.trainer}
+					isPrimary={true}
+				>
+					<TextInput
+						name='trainer'
+						className="mt-1 block w-full"
+						value={data.trainer}
+						required
+						onChange={(e) => setData('trainer', e.target.value)}
+						autoComplete="trainer"
+						placeholder="Trainer..."
+					/>
+				</FieldGroup>
+
+				{/* Course Thumbnail */}
+				<FieldGroup 
+					label='Course Intro'
+					name='thumbnail'
+					error={errors.thumbnail}
+				>
+					<TextInput
+						type='url'
+						name='thumbnail'
+						className="mt-1 block w-full"
+						value={data.thumbnail}
+						onChange={(e) => setData('thumbnail', e.target.value)}
+						autoComplete="thumbnail"
+						placeholder="URL Video..."
+					/>
+				</FieldGroup>
+
+				{/* Course Attachment */}
+				<FieldGroup 
+					label='Attachment'
+					name='url_attachment'
+					error={errors.url_attachment}
+				>
+					<TextInput
+						type='url'
+						name='url_atachment'
+						className="mt-1 block w-full"
+						value={data.url_atachment}
+						onChange={(e) => setData('url_atachment', e.target.value)}
+						autoComplete="url_atachment"
+						placeholder="URL Attachment..."
+					/>
+				</FieldGroup>
+
+				{/* Prerequisites */}
+				<FieldGroup 
+					label='Course Requirement'
+					name='prerequisite'
+					error={errors.prerequisite}
+				>
+					<Select
+						name='prerequisite'
+						placeholder={'Select Prerequisite'}
+            options={convertOptions(courses)}
+            value={data.prerequisite}
+            onChange={(option) => setData('prerequisite', option)}
+						className="mt-1 block w-full"
+          />
+				</FieldGroup>
+
+				{/* Description */}
+				<FieldGroup 
+					label='Description'
+					name='description'
+					error={errors.description}
+				>
+					<TextArea
+						id="description"
+						className="mt-1 block w-full"
+						value={data.description}
+						onChange={(e) => setData('description', e.target.value)}
+						autoComplete="description"
+						placeholder="Description"
+						rows={3}
+					/>
+				</FieldGroup>
+			</div>
+			
+			{data.type.value == 'online' && (
+				<div className='content-box mt-2'>
+					<div className='flex flex-row items-center justify-between'>
+						<h2 className='text--sub-heading'>Section</h2>
+						<button className='btn btn--primary' type='button' onClick={handleAddSection}>
+							<Plus />
+						</button>
+					</div>
+				</div>
+			)}
+
+			{data.type.value == 'online' && data.sections.map((section, secIndex) => (
+				<div className='content-box mt-2' key={secIndex}>
+					<FieldGroup
+						label='Section Name'
+						name={`sections.${secIndex}.name`}
+						error={errors[`sections.${secIndex}.name`]}
+					>
+						<div className='flex flex-row items-end gap-x-2'>
+							<TextInput
+								name={`sections.${secIndex}.name`}
+								className="flex-1 mt-1"
+								value={section.name}
+								onChange={(e) => {
+									const sections = [...data.sections];
+									sections[secIndex].name = e.target.value;
+									setData('sections', sections);
+								}}
+								placeholder="Section Name..."
+							/>
+							<button className='btn btn--danger' type='button' onClick={() => handleRemoveSection(secIndex)}>
+								<Trash2 />
+							</button>
+						</div>
+					</FieldGroup>
+
+					<div className='flex flex-row items-center justify-between mt-5 mb-3'>
+						<h2 className='text--sub-heading'>Sub Section</h2>
+						<button className='btn-sm btn--primary' type='button' onClick={() => handleAddSubsection(secIndex)}>
+							<Plus size={18} />
+						</button>
+					</div>
+
+					{/* Sub Section List */}
+					{section.subsections.map((subsection, subIndex) => (
+						<div className='flex flex-row items-start gap-2 mt-2' key={subIndex}>
+							<button className='btn btn--danger' type='button' onClick={() => handleRemoveSubsection(secIndex, subIndex)}>
+								<Trash2 />
+							</button>
+							<div className='flex-1'>
+								<TextInput
+									name={`sections.${secIndex}.subsections.${subIndex}.name`}
+									className="w-full"
+									value={subsection.name}
+									onChange={(e) => {
+										const sections = [...data.sections];
+										sections[secIndex].subsections[subIndex].name = e.target.value;
+										setData('sections', sections);
+									}}
+									placeholder="Name..."
+								/>
+								<InputError message={errors[`sections.${secIndex}.subsections.${subIndex}.name`]} className="mt-2" />
+							</div>
+
+							<div className='flex-1'>
+								<TextInput
+									name={`sections.${secIndex}.subsections.${subIndex}.url`}
+									className="w-full"
+									value={subsection.url}
+									onChange={(e) => {
+										const sections = [...data.sections];
+										sections[secIndex].subsections[subIndex].url = e.target.value;
+										setData('sections', sections);
+									}}
+									placeholder="url..."
+								/>
+								<InputError message={errors[`sections.${secIndex}.subsections.${subIndex}.url`]} className="mt-2" />
+							</div>
+						</div>
+					))}
+				</div>
+			))}
+
+			<div className='content-box mt-2 text-center'>
+				<PrimaryButton className='w-full justify-center' disabled={processing}>
+					Submit
+				</PrimaryButton>
+			</div>
+		</form>
+	)
 }
 
 Create.layout = (page) => (
-	<DashboardLayout title='Courses' children={page} />
+	<DashboardLayout title='Course Create' children={page} />
 );
 
 export default Create;
-
-// export default function CreateCourse({ auth, courses }) {	
-// 	const { data, setData, post, errors, processing } = useForm({
-// 		name: '',
-//     type: '',
-//     trainer: '',
-//     thumbnail: '',
-//     url_attachment: '',
-//     prerequisite: '',
-//     description: ''
-// 	});
-
-// 	const submit = (e) => {
-// 		e.preventDefault();
-
-// 		post(route('courses.store'))
-// 	}
-
-// 	return (
-// 		<AuthenticatedLayout
-// 			user={auth.user}
-// 			header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Course Create</h2>}
-// 		>
-// 			<Head title="Course Create" />
-
-// 			<div className="py-12">
-// 				<div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-// 					<div className="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-// 						<form onSubmit={submit} className="space-y-6 max-w-xl">
-//               <div>
-// 								<InputLabel htmlFor="name" value="Name" />
-
-// 								<TextInput
-// 									id="name"
-// 									className="mt-1 block w-full"
-// 									value={data.name}
-// 									onChange={(e) => setData('name', e.target.value)}
-// 									required
-// 									isFocused
-// 									autoComplete="name"
-// 									placeholder="Course Name"
-// 								/>
-
-// 								<InputError className="mt-2" message={errors.name} />
-// 							</div>
-// 							<div>
-// 								<InputLabel htmlFor="type" value="Type" />
-								
-// 								<SelectOption 
-// 									id="type"
-// 									className="mt-1 block w-full"
-// 									currentValue={data.type}
-// 									onChange={(e) => setData('type', e.target.value)}
-// 									options={[
-//                     {value: 'offline', label: 'Offline'},
-//                     {value: 'online', label: 'Online' }
-//                   ]}
-// 									required
-// 								/>
-// 								<InputError className="mt-2" message={errors.type} />
-// 							</div>
-// 							<div>
-// 								<InputLabel htmlFor="trainer" value="Trainer" />
-
-// 								<TextInput
-// 									id="trainer"
-// 									className="mt-1 block w-full"
-// 									value={data.trainer}
-// 									onChange={(e) => setData('trainer', e.target.value)}
-// 									required
-// 									autoComplete="trainer"
-// 									placeholder="Trainer Name"
-// 								/>
-
-// 								<InputError className="mt-2" message={errors.trainer} />
-// 							</div>
-//               <div>
-// 								<InputLabel htmlFor="thumbnail" value="Thumbnail" />
-
-// 								<TextInput
-// 									id="thumbnail"
-// 									className="mt-1 block w-full"
-// 									value={data.thumbnail}
-// 									onChange={(e) => setData('thumbnail', e.target.value)}
-// 									autoComplete="thumbnail"
-// 									placeholder="Thumbnail"
-// 								/>
-
-// 								<InputError className="mt-2" message={errors.thumbnail} />
-// 							</div>
-//               <div>
-// 								<InputLabel htmlFor="url" value="Url Attachment" />
-
-// 								<TextInput
-// 									id="urL_attachment"
-// 									className="mt-1 block w-full"
-// 									value={data.url_attachment}
-// 									onChange={(e) => setData('url_attachment', e.target.value)}
-// 									autoComplete="url_attachment"
-// 									placeholder="URL Attachment"
-// 								/>
-
-// 								<InputError className="mt-2" message={errors.url_attachment} />
-// 							</div>
-// 							<div>
-// 								<InputLabel htmlFor="prerequisite" value="Require Course" />
-								
-// 								<SelectOption 
-// 									id="prerequisite"
-// 									className="mt-1 block w-full"
-// 									currentValue={data.prerequisite}
-// 									onChange={(e) => setData('prerequisite', e.target.value)}
-// 									defaultOption={true}
-// 									options={courses?.map(key => (
-// 										{value: key.id, label: key.name}
-// 									))}
-// 								/>
-// 								<InputError className="mt-2" message={errors.prerequisite} />
-// 							</div>
-// 							<div>
-// 								<InputLabel htmlFor="description" value="Description" />
-								
-// 								<TextArea
-// 									id="description"
-// 									className="mt-1 block w-full"
-// 									value={data.description}
-// 									onChange={(e) => setData('description', e.target.value)}
-// 									autoComplete="description"
-// 									placeholder="Description"
-// 									rows={3}
-// 								/>
-// 								<InputError className="mt-2" message={errors.description} />
-// 							</div>
-// 							<PrimaryButton disabled={processing}>
-// 								Submit
-// 							</PrimaryButton>
-// 						</form>
-// 					</div>
-// 				</div>
-// 			</div>
-// 		</AuthenticatedLayout>
-// 	);
-// }

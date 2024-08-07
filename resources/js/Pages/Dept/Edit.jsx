@@ -26,10 +26,6 @@ const Edit = ({ dept, bus }) => {
     name: dept.name,
   });
 
-	const handleReactSelect = selectedOption => {
-		setData('bu_id', selectedOption);
-	}
-
   const submit = (e) => {
     e.preventDefault();
 
@@ -50,7 +46,7 @@ const Edit = ({ dept, bus }) => {
 					<Select
             options={convertOptions(bus)}
             value={data.bu_id}
-            onChange={handleReactSelect}
+            onChange={(option) => setData('bu_id', option)}
 						className="mt-1 block w-full"
 						required
           />

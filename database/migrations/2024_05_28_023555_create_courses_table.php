@@ -13,14 +13,16 @@ return new class extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
+            $table->text('code');
             $table->string('name', 150);
             $table->enum('type', ['offline', 'online']);
             $table->string('trainer', 120);
             $table->string('thumbnail')->nullable();
             $table->text('url_attachment')->nullable();
             $table->unsignedBigInteger('prerequisite')->nullable();
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->timestamps();
+            $table->softDeletes();
 
             // Added foreign key constraint
             $table->foreign('prerequisite')->references('id')->on('courses')->onDelete('set null');

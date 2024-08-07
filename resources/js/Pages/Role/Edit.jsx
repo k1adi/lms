@@ -19,10 +19,6 @@ const Edit = ({ role, permissions }) => {
 		permissions: convertOptions(role.has_permission)
 	});
 
-	const handleReactSelect = selectedOption => {
-		setData('permissions', selectedOption);
-	}
-
 	const submit = (e) => {
 		e.preventDefault();
 		patch(route('roles.update', role));
@@ -61,7 +57,7 @@ const Edit = ({ role, permissions }) => {
             isMulti
             options={convertOptions(permissions)}
             value={data.permissions}
-            onChange={handleReactSelect}
+            onChange={(option) => setData('permissions', option)}
           />
 				</FieldGroup>
 

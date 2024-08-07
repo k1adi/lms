@@ -7,18 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Course extends Model
 {
-    use HasFactory;
-    protected $fillable = ['name','type','trainer','thumbnail','url_attachment','prerequisite','description'];
+    use SoftDeletes, HasFactory;
+    
+    protected $fillable = ['code', 'name', 'type', 'trainer', 'thumbnail', 'url_attachment', 'prerequisite', 'description'];
+    protected $dates = ['deleted_at'];
     
     public static function boot()
     {
         parent::boot();
 
-        static::deleting(function ($course) {
+        static::deleted(function ($course) {
             $course->assignPosition()->detach();
         });
     }

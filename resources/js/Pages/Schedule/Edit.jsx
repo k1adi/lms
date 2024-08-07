@@ -31,10 +31,6 @@ const Edit = ({ schedule, courses }) => {
     desc: schedule.desc
 	});
 
-	const handleReactSelect = selectedOption => {
-		setData('course_id', selectedOption);
-	}
-
 	const submit = (e) => {
 		e.preventDefault();
 		patch(route('schedules.update', schedule))
@@ -54,7 +50,7 @@ const Edit = ({ schedule, courses }) => {
 					<Select
             options={convertOptions(courses)}
             value={data.course_id}
-            onChange={handleReactSelect}
+            onChange={(option) => setData('course_id', option)}
           />
 				</FieldGroup>
 
