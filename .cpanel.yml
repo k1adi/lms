@@ -1,0 +1,10 @@
+---
+deployment:
+  tasks:
+    - source ~/.bashrc
+    - /bin/cp -r $REPO_DIR/* /home/$USERNAME/public_html/lms
+    - cd /home/$USERNAME/public_html/lms
+    - composer install --no-dev --optimize-autoloader
+    - php artisan migrate:refresh
+    - php artisan db:seed
+    - php artisan optimize:clear
