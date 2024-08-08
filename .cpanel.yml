@@ -4,6 +4,5 @@ deployment:
     - source ~/.bashrc
     - cd /home/$USERNAME/public_html/lms
     - composer install --no-dev --optimize-autoloader
-    - php artisan migrate:refresh
-    - php artisan db:seed
+    - php artisan migrate
     - php artisan optimize:clear
