@@ -8,6 +8,7 @@ use App\Http\Requests\CreateRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
 use App\Models\Permission;
 use App\Models\Role;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -18,6 +19,9 @@ class RoleController extends Controller
      */
     public function index(): Response
     {
+        // Authorize the action using Gate
+        Gate::authorize('role_access');
+
         return Inertia::render('Role/Index', [
             'roles' => Role::with(['hasPermission'])->paginate()
         ]);

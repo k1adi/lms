@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateBuRequest;
 use App\Models\Bu;
 use App\Models\Position;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -18,6 +19,9 @@ class BusController extends Controller
      */
     public function index(): Response
     {
+        // Authorize the action using Gate
+        Gate::authorize('bu_access');
+
         return Inertia::render('Bu/Index', [
             'bus' => Bu::with(['hasPositions'])->paginate()
         ]);

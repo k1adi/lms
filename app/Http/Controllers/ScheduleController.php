@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateScheduleRequest;
 use App\Models\Course;
 use App\Models\Schedule;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -19,6 +20,9 @@ class ScheduleController extends Controller
      */
     public function index(): Response
     {
+        // Authorize the action using Gate
+        Gate::authorize('schedule_access');
+
         return Inertia::render('Schedule/Index', [
             'schedules' => Schedule::with(['course'])->paginate()
         ]);

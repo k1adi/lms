@@ -6,6 +6,7 @@ use App\Http\Requests\CreatePositionRequest;
 use App\Http\Requests\UpdatePositionRequest;
 use App\Models\Position;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -17,6 +18,9 @@ class PositionController extends Controller
      */
     public function index(): Response
     {
+        // Authorize the action using Gate
+        Gate::authorize('role_access');
+
         return Inertia::render('Position/Index', [
             'positions' => Position::paginate()
         ]);

@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateDeptRequest;
 use App\Models\Bu;
 use App\Models\Dept;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
@@ -19,6 +20,9 @@ class DeptController extends Controller
      */
     public function index(): Response
     {
+        // Authorize the action using Gate
+        Gate::authorize('dept_access');
+
         return Inertia::render('Dept/Index', [
             'depts' => Dept::with(['bu'])->paginate()
         ]);

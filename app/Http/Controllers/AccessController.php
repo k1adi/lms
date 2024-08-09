@@ -11,6 +11,7 @@ use App\Models\Schedule;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\UpdateCourseAccessRequest;
 use App\Http\Requests\UpdateScheduleAccessRequest;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 
 class AccessController extends Controller
@@ -20,6 +21,9 @@ class AccessController extends Controller
      */
     public function index(): Response
     {
+        // Authorize the action using Gate
+        Gate::authorize('accessible_access');
+
         $courses = Course::with(['assignPosition'])->whereHas('assignPosition')->paginate();
         $schedules = Schedule::with(['course', 'assignUser'])->whereHas('assignUser')->paginate();
 

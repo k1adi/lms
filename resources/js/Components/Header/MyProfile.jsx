@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, usePage } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
 import ClickOutside from '../ClickOutside';
 import DropdownProfile from './DropdownProfile';
 import { ChevronDown } from 'lucide-react';

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -64,6 +65,11 @@ class User extends Authenticatable
     public function hasRole(): BelongsToMany
     {
         return $this->belongsToMany(Role::class, 'user_role', 'user_id', 'role_id');
+    }
+
+    public function grantPermission(): Collection
+    {
+        return $this->hasRole->map->hasPermission->flatten()->unique();
     }
 
     public function hasSchedule(): BelongsToMany

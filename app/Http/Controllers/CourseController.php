@@ -8,6 +8,7 @@ use App\Models\Course;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -19,6 +20,9 @@ class CourseController extends Controller
      */
     public function index(): Response
     {
+        // Authorize the action using Gate
+        Gate::authorize('course_access');
+
         return Inertia::render('Course/Index', [
             'courses' => Course::paginate()
         ]);

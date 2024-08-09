@@ -1,7 +1,7 @@
 import { Link } from "@inertiajs/react";
 
-export default function NavLink({ link = '#', icon, name, text, children = '', ...props }) {
-  const isActive = route().current(name + '*');
+export default function NavLink({ link = '#', icon, name, text, active = false, children = '', ...props }) {
+  const isActive = active ? active : route().current(name + '*');
   const linkClasses = isActive ? 'nav__link active' : 'nav__link';
   return (
     <li>

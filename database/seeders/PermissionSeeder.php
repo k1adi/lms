@@ -13,38 +13,26 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        Permission::create([
-            'name' => 'access_course' // 1
-        ]);
-        Permission::create([
-            'name' => 'access_schedule' // 2
-        ]);
-        Permission::create([
-            'name' => 'access_online_training' // 3
-        ]);
-        Permission::create([
-            'name' => 'access_offline_training' // 4
-        ]);
-        Permission::create([
-            'name' => 'access_bu' // 5
-        ]);
-        Permission::create([
-            'name' => 'access_dept' // 6
-        ]);
-        Permission::create([
-            'name' => 'access_position' // 7
-        ]);
-        Permission::create([
-            'name' => 'access_course_control' // 8
-        ]);
-        Permission::create([
-            'name' => 'access_user' // 9
-        ]);
-        Permission::create([
-            'name' => 'access_role' // 10
-        ]);
-        Permission::create([
-            'name' => 'access_permission' // 11
-        ]);
+        $permissions = [
+            'dashboard_access', // 1
+            'online_course_access', // 2
+            'offline_course_access', // 3
+            'test_access', // 4
+            'tna_access', // 5
+            'schedule_access', // 6
+            'reports_access', // 7
+            'bu_access', // 8
+            'dept_access', // 9
+            'position_access', // 10
+            'course_access', // 11
+            'accessible_access', // 12
+            'user_access', // 13
+            'role_access', // 14
+            'permission_access', // 15
+        ];
+        
+        foreach ($permissions as $permission) {
+            Permission::create(['name' => $permission]);
+        }
     }
 }
