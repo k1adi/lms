@@ -90,6 +90,9 @@ class PositionController extends Controller
      */
     public function destroy(Position $position): RedirectResponse
     {
+        // Authorize the action using Gate
+        Gate::authorize('position_delete');
+
         $position->delete();
         return Redirect::back();
     }

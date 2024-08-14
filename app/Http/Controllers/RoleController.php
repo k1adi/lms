@@ -116,6 +116,9 @@ class RoleController extends Controller
      */
     public function destroy(Role $role): RedirectResponse
     {
+        // Authorize the action using Gate
+        Gate::authorize('role_delete');
+
         $role->delete();
         return Redirect::back();
     }

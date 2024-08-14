@@ -7,7 +7,6 @@ use App\Http\Requests\UpdateCourseRequest;
 use App\Models\Course;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
@@ -149,6 +148,9 @@ class CourseController extends Controller
      */
     public function destroy(Course $course): RedirectResponse
     {
+        // Authorize the action using Gate
+        Gate::authorize('course_delete');
+
         $course->delete();
         return Redirect::back();
     }

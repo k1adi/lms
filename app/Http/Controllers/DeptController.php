@@ -69,7 +69,7 @@ class DeptController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Dept $dept)
+    public function edit(Dept $dept): Response
     {
         $dept->load('bu');
 
@@ -104,6 +104,9 @@ class DeptController extends Controller
      */
     public function destroy(Dept $dept): RedirectResponse
     {
+        // Authorize the action using Gate
+        Gate::authorize('dept_delete');
+
         $dept->delete();
         return Redirect::back();
     }

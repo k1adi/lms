@@ -108,6 +108,9 @@ class ScheduleController extends Controller
      */
     public function destroy(Schedule $schedule): RedirectResponse
     {
+        // Authorize the action using Gate
+        Gate::authorize('schedule_delete');
+
         $schedule->delete();
         return Redirect::back();
     }

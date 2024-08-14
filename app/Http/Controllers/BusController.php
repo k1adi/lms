@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateBuRequest;
 use App\Http\Requests\UpdateBuRequest;
 use App\Models\Bu;
+use App\Models\Dept;
 use App\Models\Position;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Gate;
@@ -120,7 +121,15 @@ class BusController extends Controller
      */
     public function destroy(Bu $bu): RedirectResponse
     {
+        // Authorize the action using Gate
+        Gate::authorize('bu_delete');
+
         $bu->delete();
         return Redirect::back();
+    }
+
+    public function getDept(string $buId)
+    {
+        return Dept::where('bu_id', $buId)->get();
     }
 }

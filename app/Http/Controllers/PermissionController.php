@@ -90,6 +90,9 @@ class PermissionController extends Controller
      */
     public function destroy(Permission $permission): RedirectResponse
     {
+        // Authorize the action using Gate
+        Gate::authorize('permission_delete');
+
         $permission->delete();
         return Redirect::back();
     }

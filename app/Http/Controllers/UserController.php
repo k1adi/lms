@@ -116,6 +116,9 @@ class UserController extends Controller
      */
     public function destroy(User $user): RedirectResponse
     {
+        // Authorize the action using Gate
+        Gate::authorize('user_delete');
+
         $user->delete();
         return Redirect::back();
     }
