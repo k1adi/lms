@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Validator;
 
 class CreateCourseRequest extends FormRequest
@@ -12,7 +13,7 @@ class CreateCourseRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return Gate::allows('course_create');
     }
 
     /**

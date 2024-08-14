@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 
 class UpdateScheduleRequest extends FormRequest
 {
@@ -12,7 +13,7 @@ class UpdateScheduleRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return Gate::allows('schedule_edit');
     }
 
     /**
