@@ -22,5 +22,10 @@ class BuSeeder extends Seeder
             'code' => 'BU2',
             'name' => "Business Unit 2"
         ]);
+        
+        Bu::create([
+            'code' => 'BU3',
+            'name' => "Business Unit 3"
+        ]);
     }
 }

@@ -20,9 +20,33 @@ class DeptSeeder extends Seeder
         ]);
         
         Dept::create([
-            'bu_id' => 2,
+            'bu_id' => 1,
             'code' => 'DEPT2',
             'name' => 'Department 2'
+        ]);
+        
+        Dept::create([
+            'bu_id' => 1,
+            'code' => 'DEPT3',
+            'name' => 'Department 3'
+        ]);
+        
+        Dept::create([
+            'bu_id' => 2,
+            'code' => 'DEPT4',
+            'name' => 'Department 4'
+        ]);
+        
+        Dept::create([
+            'bu_id' => 2,
+            'code' => 'DEPT5',
+            'name' => 'Department 5'
+        ]);
+        
+        Dept::create([
+            'bu_id' => 3,
+            'code' => 'DEPT6',
+            'name' => 'Department 6'
         ]);
     }
 }
