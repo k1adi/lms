@@ -4,8 +4,7 @@ import DashboardLayout from '@/Layouts/DashboardLayout';
 import Breadcrumb from '@/Components/Acessibility/Breadcrumb';
 import { Pencil, Trash2 } from 'lucide-react';
 
-const Index = ({ users }) => {
-	console.log(users);
+const Index = ({ users, auth }) => {
 	const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
 		{ link: '#', text: 'Setting' },
@@ -20,7 +19,9 @@ const Index = ({ users }) => {
 	return (
 		<div className='content-box'>
 			<Breadcrumb pageName='Users' prevPage={prevPage} />
-			<Link className="btn btn--primary" href={route('users.create')}> Create </Link>
+			{auth.permissions.includes('user_create') && 
+				<Link className="btn btn--primary" href={route('users.create')}> Create </Link>
+			}
 
 			<div className='overflow-x-auto'>
 				<table className='table'>
@@ -31,30 +32,38 @@ const Index = ({ users }) => {
 							<th>Username</th>
 							<th>Email</th>
 							<th>Role</th>
-							<th className="table--action">Action</th>
+							{(auth.permissions.includes('user_edit') || auth.permissions.includes('user_delete')) && 
+								<th className='table--action'>Action</th>
+							}
 						</tr>
 					</thead>
 					<tbody>
 						{users.data.length !== 0 ?
 							users.data.map((key, index) => (
 								<tr key={index} className='py-2'>
-										<td>{index + 1}</td>
-										<td>{key.full_name}</td>
-										<td>{key.username}</td>
-										<td>{key.email}</td>
-										<td className='break-word'>
-											{key.has_role.map(list => (
-												<span className={`label label--${list.name.toLowerCase()}`} key={list.name}> {list.name} </span>
-											))}
-										</td>
-									<td  className='table--action'>
-										<Link href={route('users.edit', key.id)} className='text-warning'> 
-											<Pencil className='inline-block mb-1' size={14} /> Edit
-										</Link>
-										<button className="text-red-600 ml-2" type="button" tabIndex={-1} onClick={() => onDelete(key.id)}>
-											<Trash2 className='inline-block mb-1' size={14} /> Delete
-										</button>
+									<td>{index + 1}</td>
+									<td>{key.full_name}</td>
+									<td>{key.username}</td>
+									<td>{key.email}</td>
+									<td className='break-word'>
+										{key.has_role.map(list => (
+											<span className={`label label--${list.name.toLowerCase()}`} key={list.name}> {list.name} </span>
+										))}
 									</td>
+									{(auth.permissions.includes('user_edit') || auth.permissions.includes('user_delete')) && 
+										<td className='table--action'>
+											{auth.permissions.includes('user_edit') &&
+												<Link href={route('users.edit', key.id)} className='text-warning'> 
+													<Pencil className='inline-block mb-1' size={14} /> Edit
+												</Link>
+											}
+											{auth.permissions.includes('user_delete') &&
+												<button className="text-red-600 ml-2" type='button' onClick={() => onDelete(key.id)}>
+													<Trash2 className='inline-block mb-1' size={14} /> Delete
+												</button>
+											}
+										</td>
+									}
 								</tr>
 							)) :
 							<tr>

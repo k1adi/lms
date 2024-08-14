@@ -4,7 +4,7 @@ import DashboardLayout from '@/Layouts/DashboardLayout';
 import Breadcrumb from '@/Components/Acessibility/Breadcrumb';
 import { Pencil, Trash2 } from 'lucide-react';
 
-const Index = ({ bus }) => {
+const Index = ({ bus, auth }) => {
 	const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
 		{ link: '#', text: 'Setting' },
@@ -19,8 +19,9 @@ const Index = ({ bus }) => {
 	return (
 		<div className='content-box'>
 			<Breadcrumb pageName='Business Unit' prevPage={prevPage} />
-
-			<Link className='btn btn--primary' href={route('bus.create')}> Create </Link>
+			{auth.permissions.includes('bu_create') && 
+				<Link className='btn btn--primary' href={route('bus.create')}> Create </Link>
+			}
 
 			<div className='overflow-x-auto'>
 				<table className='table'>
@@ -30,7 +31,9 @@ const Index = ({ bus }) => {
 							<th>Code</th>
 							<th>Name</th>
 							<th>Position</th>
-							<th className='table--action'>Action</th>
+							{(auth.permissions.includes('bu_edit') || auth.permissions.includes('bu_delete')) && 
+								<th className='table--action'>Action</th>
+							}
 						</tr>
 					</thead>
 					<tbody>
@@ -45,14 +48,20 @@ const Index = ({ bus }) => {
 											<span className='label label--secondary group-hover:bg-sky-100 group-hover:dark:bg-sky-400' key={list.name}> {list.name} </span>
 										))}
 									</td>
-									<td className='table--action'>
-										<Link href={route('bus.edit', key.id)} className='text-warning'> 
-											<Pencil className='inline-block mb-1' size={14} /> Edit
-										</Link>
-										<button className="text-red-600 ml-2" type="button" tabIndex={-1} onClick={() => onDelete(key.id)}>
-											<Trash2 className='inline-block mb-1' size={14} /> Delete
-										</button>
-									</td>
+									{(auth.permissions.includes('bu_edit') || auth.permissions.includes('bu_delete')) && 
+										<td className='table--action'>
+											{auth.permissions.includes('bu_edit') &&
+												<Link href={route('bus.edit', key.id)} className='text-warning'> 
+													<Pencil className='inline-block mb-1' size={14} /> Edit
+												</Link>
+											}
+											{auth.permissions.includes('bu_delete') &&
+												<button className="text-red-600 ml-2" type='button' onClick={() => onDelete(key.id)}>
+													<Trash2 className='inline-block mb-1' size={14} /> Delete
+												</button>
+											}
+										</td>
+									}
 								</tr>
 							)) :
 							<tr>

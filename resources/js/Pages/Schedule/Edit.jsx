@@ -10,8 +10,6 @@ import convertOptions from '@/Utils/ReactSelectOption';
 import DateTimePicker from '@/Components/Form/DateTimePicker';
 
 const Edit = ({ schedule, courses }) => {
-  console.log(schedule);
-  console.log(courses);
 
   const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },

@@ -12,9 +12,6 @@ import convertOptions from '@/Utils/ReactSelectOption';
 import { Plus, Trash2 } from 'lucide-react';
 
 const Edit = ({ course, courses }) => {
-	console.log(course);
-	console.log(courses);
-
 	const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
 		{ link: route('courses.index'), text: 'Courses' },
@@ -46,8 +43,6 @@ const Edit = ({ course, courses }) => {
 		})) 
 		: []
 	});
-
-	console.log(data);
 
 	const handleAddSection = () => {
     setData('sections', [...data.sections, { name: '', subsections: [{ name: '', url: '' }] }]);

@@ -6,10 +6,7 @@ import LocalizationDate from '@/Utils/LocalizationDate';
 import { Pencil } from 'lucide-react';
 
 const Index = ({ courses, schedules }) => {
-  console.log(courses, 'course access')
-  console.log(schedules, 'schedule access')
-
-	const prevPage = [
+  const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
 		{ link: '#', text: 'Setting' },
 	];

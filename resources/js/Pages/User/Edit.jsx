@@ -9,7 +9,6 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import convertOptions from '@/Utils/ReactSelectOption';
 
 const Edit = ({ user, roles }) => {
-	console.log(user);
 
 	const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },

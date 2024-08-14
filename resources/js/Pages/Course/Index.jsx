@@ -4,7 +4,7 @@ import DashboardLayout from '@/Layouts/DashboardLayout';
 import Breadcrumb from '@/Components/Acessibility/Breadcrumb';
 import { Pencil, Trash2 } from 'lucide-react';
 
-const Index = ({ courses }) => {
+const Index = ({ courses, auth }) => {
 	const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
 		{ link: '#', text: 'Setting' },
@@ -19,7 +19,9 @@ const Index = ({ courses }) => {
 	return (
 		<div className='content-box'>
 			<Breadcrumb pageName='Courses' prevPage={prevPage} />
-			<Link className="btn btn--primary" href={route('courses.create')}> Create </Link>
+			{auth.permissions.includes('course_create') && 
+				<Link className='btn btn--primary' href={route('courses.create')}> Create </Link>
+			}
 			
 			<div className='overflow-x-auto'>
 				<table className='table'>
@@ -29,7 +31,9 @@ const Index = ({ courses }) => {
 							<th>Name</th>
 							<th>Type</th>
 							<th>Trainer</th>
-							<th>Action</th>
+							{(auth.permissions.includes('course_edit') || auth.permissions.includes('course_delete')) && 
+								<th className='table--action'>Action</th>
+							}
 						</tr>
 					</thead>
 					<tbody>
@@ -40,14 +44,20 @@ const Index = ({ courses }) => {
 									<td>{key.name}</td>
 									<td>{key.type}</td>
 									<td>{key.trainer}</td>
-									<td>
-										<Link href={route('courses.edit', key.id)} className='text-warning'> 
-											<Pencil className='inline-block mb-1' size={14} /> Edit
-										</Link>
-										<button className="text-red-600 ml-2" type="button" tabIndex={-1} onClick={() => onDelete(key.id)}>
-											<Trash2 className='inline-block mb-1' size={14} /> Delete
-										</button>
-									</td>
+									{(auth.permissions.includes('course_edit') || auth.permissions.includes('course_delete')) && 
+										<td className='table--action'>
+											{auth.permissions.includes('course_edit') &&
+												<Link href={route('courses.edit', key.id)} className='text-warning'> 
+													<Pencil className='inline-block mb-1' size={14} /> Edit
+												</Link>
+											}
+											{auth.permissions.includes('course_delete') &&
+												<button className="text-red-600 ml-2" type='button' onClick={() => onDelete(key.id)}>
+													<Trash2 className='inline-block mb-1' size={14} /> Delete
+												</button>
+											}
+										</td>
+									}
 								</tr>
 							)) :
 							<tr>

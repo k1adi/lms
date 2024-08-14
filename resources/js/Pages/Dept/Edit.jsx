@@ -9,9 +9,7 @@ import SelectOption from '@/Components/SelectOption';
 import PrimaryButton from '@/Components/PrimaryButton';
 import convertOptions from '@/Utils/ReactSelectOption';
 
-const Edit = ({ dept, bus }) => {
-	console.log(dept);
-	
+const Edit = ({ dept, bus }) => {	
   const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
 		{ link: route('depts.index'), text: 'Depts' },

@@ -49,7 +49,7 @@ export default function Header({ sidebarOpen, setSidebarOpen }) {
         
         <div className='block'>
           <form action="">
-            <select name="" id="" value={""} onChange={() => console.log('change')}>
+            <select name="" id="" value={""} onChange={(e) => e.preventDefault()}>
               <option value="" disabled>Select BU</option>
               <option value="">BU 1</option>
             </select>

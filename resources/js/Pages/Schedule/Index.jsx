@@ -5,10 +5,8 @@ import Breadcrumb from '@/Components/Acessibility/Breadcrumb';
 import { Pencil, Trash2 } from 'lucide-react';
 import LocalizationDate from '@/Utils/LocalizationDate';
 
-const Index = ({ schedules }) => {
-  console.log(schedules);
-  
-  const prevPage = [
+const Index = ({ schedules, auth }) => {
+	const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
 	];
 
@@ -21,7 +19,9 @@ const Index = ({ schedules }) => {
   return (
     <div className='content-box'>
       <Breadcrumb pageName='Schedules' prevPage={prevPage} />
-			<Link className="btn btn--primary" href={route('schedules.create')}> Create </Link>
+			{auth.permissions.includes('schedule_create') && 
+				<Link className="btn btn--primary" href={route('schedules.create')}> Create </Link>
+			}
 
       <div className='overflow-x-auto'>
 				<table className='table'>
@@ -32,7 +32,9 @@ const Index = ({ schedules }) => {
 							<th>Description</th>
 							<th>Start Time</th>
 							<th>End Time</th>
-							<th>Action</th>
+							{(auth.permissions.includes('schedule_edit') || auth.permissions.includes('schedule_delete')) && 
+								<th className='table--action'>Action</th>
+							}
 						</tr>
 					</thead>
 					<tbody>
@@ -44,14 +46,20 @@ const Index = ({ schedules }) => {
 									<td>{key.desc}</td>
 									<td>{LocalizationDate(key.start_time, 'en')}</td>
 									<td>{LocalizationDate(key.end_time, 'en')}</td>
-									<td>
-										<Link href={route('schedules.edit', key.id)} className='text-warning mr-2'> 
-											<Pencil className='inline-block mb-1' size={14} /> Edit
-										</Link>
-										<button className='text-red-600' type='button' tabIndex={-1} onClick={() => onDelete(key.id)}>
-											<Trash2 className='inline-block mb-1' size={14} /> Delete
-										</button>
-									</td>
+									{(auth.permissions.includes('schedule_edit') || auth.permissions.includes('schedule_delete')) && 
+										<td className='table--action'>
+											{auth.permissions.includes('schedule_edit') &&
+												<Link href={route('schedules.edit', key.id)} className='text-warning mr-2'> 
+													<Pencil className='inline-block mb-1' size={14} /> Edit
+												</Link>
+											}
+											{auth.permissions.includes('schedule_delete') &&
+												<button className='text-red-600' type='button' onClick={() => onDelete(key.id)}>
+													<Trash2 className='inline-block mb-1' size={14} /> Delete
+												</button>
+											}
+										</td>
+									}
 								</tr>
 							)) :
 							<tr>
