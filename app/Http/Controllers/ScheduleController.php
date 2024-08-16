@@ -53,7 +53,6 @@ class ScheduleController extends Controller
             return Redirect::route('schedules.index');
         } 
         catch (\Exception $e) {
-            dd($e);
             return Redirect::back()->withErrors([
                 'error' => $e
             ])->withInput();

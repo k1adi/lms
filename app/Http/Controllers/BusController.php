@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateBuRequest;
 use App\Models\Bu;
 use App\Models\Dept;
 use App\Models\Position;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
@@ -128,8 +129,14 @@ class BusController extends Controller
         return Redirect::back();
     }
 
-    public function getDept(string $buId)
+    public function getDept(string $id): JsonResponse
     {
-        return Dept::where('bu_id', $buId)->get();
+        $result = Dept::where('bu_id', $id)->get();
+        return response()->json($result->map(function ($option) {
+            return [
+                'value' => $option->id,
+                'label' => $option->name
+            ];
+        }));
     }
 }

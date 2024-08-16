@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreatePositionRequest;
 use App\Http\Requests\UpdatePositionRequest;
 use App\Models\Position;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
@@ -96,4 +97,15 @@ class PositionController extends Controller
         $position->delete();
         return Redirect::back();
     }
+
+    // public function getUser(string $id): JsonResponse
+    // {
+    //     $result = Dept::where('bu_id', $id)->get();
+    //     return response()->json($result->map(function ($option) {
+    //         return [
+    //             'value' => $option->id,
+    //             'label' => $option->name
+    //         ];
+    //     }));
+    // }
 }

@@ -83,7 +83,6 @@ class CourseController extends Controller
      */
     public function edit(Course $course): Response
     {
-        // dd($course->type);
         if($course->type == 'online') {
             $course->load('sections.subSection');
         }
@@ -101,8 +100,6 @@ class CourseController extends Controller
      */
     public function update(UpdateCourseRequest $request, Course $course): RedirectResponse
     {
-        // dd($request->all());
-
         try {
             $validated = $request->validated();
             $validated['type'] = $validated['type']['value'];
@@ -136,7 +133,6 @@ class CourseController extends Controller
 
             return Redirect::route('courses.index');
         } catch (\Exception $e) {
-            dd($e);
             return Redirect::back()->withErrors([
                 'error' => $e
             ])->withInput();

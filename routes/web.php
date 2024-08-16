@@ -9,6 +9,7 @@ use App\Http\Controllers\PositionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\TnaController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Gate;
@@ -54,8 +55,12 @@ Route::middleware(['auth', 'verified'])->group(function() {
         
         'courses' => CourseController::class,
         'schedules' => ScheduleController::class,
+        'tnas' => TnaController::class,
     ]);
 
+    Route::get('/deptsByBu/{id}', [BusController::class, 'getDept'])->name('getDeptByBu');
+    Route::get('/userByPosition/{id}', [PositionController::class, 'getUser'])->name('getUserByPosition');
+    
     Route::get('/access', [AccessController::class, 'index'])->name('access.index');
     Route::get('/course-access/{course}/edit', [AccessController::class, 'courseAccess'])->name('course-access.edit');
     Route::get('/schedule-access/{schedule}/edit', [AccessController::class, 'scheduleAccess'])->name('schedule-access.edit');

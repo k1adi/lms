@@ -1,7 +1,7 @@
 import { usePage } from '@inertiajs/react';
 import NavGroup from './NavGroup';
 import NavLink from './NavLink';
-import { LayoutDashboard, CalendarClock, ClipboardList, Settings, UserCog, LibraryBig, ChevronDown, Building2, BriefcaseBusiness, SquareUser, BookCopy, BookLock, MonitorSmartphone, ScrollText, Bug, MessageSquareText, Users, KeyRound, Settings2, TextSearch, PencilLine, FileText } from 'lucide-react';
+import { LayoutDashboard, CalendarClock, ClipboardList, Settings, UserCog, LibraryBig, ChevronDown, Building2, BriefcaseBusiness, SquareUser, BookCopy, BookLock, MonitorSmartphone, ScrollText, Bug, MessageSquareText, Users, KeyRound, Settings2, TextSearch, PencilLine, Microscope } from 'lucide-react';
 
 export default function NavMenu({ sidebarExpand, setSidebarExpand}) {
   const permissions = usePage().props.auth.permissions;
@@ -9,11 +9,9 @@ export default function NavMenu({ sidebarExpand, setSidebarExpand}) {
   const currentPage = inertiaUrl.split('/')[1];
 
   const trainingChild = ['online', 'offline'];
-  const assignmentChild = ['test', 'tna'];
+  const assignmentChild = ['test', 'tnas'];
   const settingChild = ['bus', 'depts', 'positions', 'courses', 'access'];
   const authorizationChild = ['users', 'roles', 'permissions'];
-
-  console.log(settingChild.includes(currentPage), 'check setting child');
   
   const testMenu = ['test_access', 'tna_access'];
   const userMenu = ['user_access', 'role_access', 'permission_access'];
@@ -80,8 +78,8 @@ export default function NavMenu({ sidebarExpand, setSidebarExpand}) {
               return (
                 <>
                   <NavLink
-                    icon={<FileText />}
-                    text='Assignment'
+                    icon={<Microscope />}
+                    text='Analyze'
                     onClick={(e) => {
                       e.preventDefault();
                       sidebarExpand ? handleClick() : setSidebarExpand(true); 
@@ -103,8 +101,9 @@ export default function NavMenu({ sidebarExpand, setSidebarExpand}) {
                       }
                       {permissions.includes('tna_access') && 
                         <NavLink
-                          link='#'
+                          link={route('tnas.index')}
                           icon={<TextSearch />}
+                          name='tnas'
                           text='TNA'
                         />
                       }

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Database\Seeders\PositionSeeder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -17,12 +16,14 @@ class Bu extends Model
         parent::boot();
 
         static::deleting(function ($bu) {
-            $bu->hasPositions()->detach();
+            $bu->userPosition()->detach();
         });
     }
 
-    public function hasPositions(): BelongsToMany
+    public function userPosition(): BelongsToMany
     {
-        return $this->belongsToMany(Position::class, 'bu_position', 'bu_id', 'position_id');
+        return $this->belongsToMany(Position::class, 'user_bu_position', 'bu_id', 'position_id')
+                    ->withPivot('user_id')
+                    ->using(UserBuPosition::class);
     }
 }

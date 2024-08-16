@@ -16,12 +16,14 @@ class Position extends Model
         parent::boot();
 
         static::deleting(function ($position) {
-            $position->relatedBU()->detach();
+            $position->userBU()->detach();
         });
     }
 
-    public function relatedBU(): BelongsToMany
+    public function userBU(): BelongsToMany
     {
-        return $this->belongsToMany(Bu::class, 'bu_position', 'position_id', 'bu_id');
+        return $this->belongsToMany(Bu::class, 'user_bu_position', 'position_id', 'bu_id')
+                    ->withPivot('user_id')
+                    ->using(UserBuPosition::class);
     }
 }
