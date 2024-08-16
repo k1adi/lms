@@ -4,7 +4,7 @@ import DashboardLayout from '@/Layouts/DashboardLayout';
 import Breadcrumb from '@/Components/Acessibility/Breadcrumb';
 import { Pencil, Trash2 } from 'lucide-react';
 
-const Index = ({ users, auth }) => {
+const Index = ({ users, auth }) => {	
 	const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
 		{ link: '#', text: 'Setting' },
@@ -28,10 +28,12 @@ const Index = ({ users, auth }) => {
 					<thead>
 						<tr>
 							<th className='table--number'>No.</th>
-							<th>Name</th>
+							<th>Full Name</th>
 							<th>Username</th>
 							<th>Email</th>
 							<th>Role</th>
+							<th>BU</th>
+							<th>Position</th>
 							{(auth.permissions.includes('user_edit') || auth.permissions.includes('user_delete')) && 
 								<th className='table--action'>Action</th>
 							}
@@ -40,14 +42,24 @@ const Index = ({ users, auth }) => {
 					<tbody>
 						{users.data.length !== 0 ?
 							users.data.map((key, index) => (
-								<tr key={index} className='py-2'>
-									<td>{index + 1}</td>
-									<td>{key.full_name}</td>
-									<td>{key.username}</td>
-									<td>{key.email}</td>
+								<tr key={index} className='group py-2'>
+									<td className='group-hover:text-sky-400'>{index + 1}</td>
+									<td className='group-hover:text-sky-400'>{key.full_name}</td>
+									<td className='group-hover:text-sky-400'>{key.username}</td>
+									<td className='group-hover:text-sky-400'>{key.email}</td>
 									<td className='break-word'>
-										{key.has_role.map(list => (
+										{key.role.map(list => (
 											<span className={`label label--${list.name.toLowerCase()}`} key={list.name}> {list.name} </span>
+										))}
+									</td>
+									<td className='break-word'>
+										{key.pivot.bu.map(list => (
+											<span className='label label--secondary group-hover:bg-sky-100 group-hover:dark:bg-sky-400' key={list.code}> {list.code} </span>
+										))}
+									</td>
+									<td className='break-word'>
+										{key.pivot.positions.map(list => (
+											<span className='label label--secondary group-hover:bg-sky-100 group-hover:dark:bg-sky-400' key={list.name}> {list.name} </span>
 										))}
 									</td>
 									{(auth.permissions.includes('user_edit') || auth.permissions.includes('user_delete')) && 

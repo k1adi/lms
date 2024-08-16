@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Resources\UserResource;
+use App\Models\Bu;
+use App\Models\Position;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -21,9 +24,10 @@ class UserController extends Controller
     {
         // Authorize the action using Gate
         Gate::authorize('user_access');
+        $users = UserResource::collection(User::paginate());
 
         return Inertia::render('User/Index', [
-            'users' => User::with(['hasRole'])->paginate()
+            'users' => $users
         ]);
     }
 
@@ -33,7 +37,9 @@ class UserController extends Controller
     public function create(): Response
     {
         return Inertia::render('User/Create', [
-            'roles' => Role::all()
+            'bus' => Bu::all(),
+            'roles' => Role::all(),
+            'positions' => Position::all(),
         ]);
     }
 
@@ -41,7 +47,7 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(CreateUserRequest $request): RedirectResponse
-    {
+    {        
         try{
             $validated = $request->validated();
 
@@ -52,8 +58,10 @@ class UserController extends Controller
             
             // Insert user data to user table
             $user = User::create($validated);
-            // Sync user_id and role_id to user_role
+            // Sync user and role to user_role
             $user->hasRole()->sync($roles);
+            // Sync user with bu and position to user_bu_position
+            $user->syncBuPosition($validated['pivot']);
 
             return Redirect::route('users.index');
         } catch (\Exception $e) {
@@ -80,7 +88,10 @@ class UserController extends Controller
 
         return Inertia::render('User/Edit', [
             'user' => $user,
+            'bus' => Bu::all(),
             'roles' => Role::all(),
+            'positions' => Position::all(),
+            'pivots' => $this->groupPositionsByBu($user),
         ]);
     }
 
@@ -100,8 +111,10 @@ class UserController extends Controller
             // Update user data to user table
             $user->fill($validated);
             $user->save();
-            // Sync user_id and role_id to user_role
+            // Sync user and role to user_role
             $user->hasRole()->sync($roles);
+            // Sync user with bu and position to user_bu_position
+            $user->syncBuPosition($validated['pivot']);
 
             return Redirect::route('users.index');
         } catch (\Exception $e) {
@@ -121,5 +134,22 @@ class UserController extends Controller
 
         $user->delete();
         return Redirect::back();
+    }
+
+    /**
+     * Group positions by business unit.
+     *
+     * @param User $user
+     * @return \Illuminate\Support\Collection
+     */
+    private function groupPositionsByBu(User $user)
+    {
+        // Assuming buPosition is a relationship that can be grouped
+        return $user->buPosition->groupBy('pivot.bu')->map(function ($items, $bu) {
+            return [
+                'bu' => json_decode($bu, true),
+                'positions' => $items->pluck('pivot.position')->toArray(),
+            ];
+        })->values();
     }
 }

@@ -34,6 +34,10 @@ class UpdateUserRequest extends FormRequest
             'no_hp' => ['required', 'string', 'max:16', Rule::unique('users')->ignore($id)],
             'no_nik' => ['required', 'string', 'max:16', Rule::unique('users')->ignore($id)],
             'password' => ['nullable', 'string', 'min:8'],
+            'pivot' => ['required', 'array', 'min:1'],
+            'pivot.*.bu.value' => ['required', 'integer', 'exists:bus,id'],
+            'pivot.*.position' => ['required', 'array', 'min:1'],
+            'pivot.*.position.*.value' => ['required', 'integer', 'exists:positions,id'],
         ];
     }
 }

@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
@@ -13,7 +14,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -52,6 +53,7 @@ class User extends Authenticatable
         static::deleting(function ($user) {
             $user->hasRole()->detach();
             $user->hasSchedule()->detach();
+            $user->buPosition()->detach();
         });
     }
 
@@ -60,6 +62,13 @@ class User extends Authenticatable
         if ($value) {
             $this->attributes['password'] = Hash::needsRehash($value) ? Hash::make($value) : $value;
         }
+    }
+
+    public function buPosition(): BelongsToMany
+    {
+        return $this->belongsToMany(Bu::class, 'user_bu_positions', 'user_id', 'bu_id')
+                    ->withPivot('position_id')
+                    ->using(UserBuPosition::class);
     }
 
     public function hasRole(): BelongsToMany
@@ -74,6 +83,20 @@ class User extends Authenticatable
 
     public function hasSchedule(): BelongsToMany
     {
-        return $this->belongsToMany(Schedule::class, 'schedules_access', 'user_id', 'schedule_id');
+        return $this->belongsToMany(Schedule::class, 'schedule_accesses', 'user_id', 'schedule_id');
+    }
+
+    public function syncBuPosition(array $pivot)
+    {
+        $syncData = [];
+        foreach($pivot as $item) {
+            $buId = $item['bu']['value'];
+
+            foreach($item['position'] as $position) {
+                $syncData[$buId] = ['position_id' => $position['value'], 'user_id' => $this->id];
+            }
+        }
+
+        $this->buPosition()->sync($syncData);
     }
 }

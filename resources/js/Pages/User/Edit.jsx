@@ -7,9 +7,9 @@ import FieldGroup from '@/Components/Form/FieldGroup';
 import TextInput from '@/Components/TextInput';
 import PrimaryButton from '@/Components/PrimaryButton';
 import convertOptions from '@/Utils/ReactSelectOption';
+import { Plus, Trash2 } from 'lucide-react';
 
-const Edit = ({ user, roles }) => {
-
+const Edit = ({ user, roles, bus, positions, pivots }) => {
 	const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
 		{ link: route('users.index'), text: 'User' },
@@ -23,7 +23,23 @@ const Edit = ({ user, roles }) => {
 		no_hp: user.no_hp,
 		no_nik: user.no_nik,
 		password: '',
+		pivot: pivots.map(item => ({
+			bu: {
+				value: item.bu.id,
+				label: item.bu.name
+			},
+			position: convertOptions(item.positions),
+		})),
 	});
+
+	const handleAddPivot = () => {
+    setData('pivot', [...data.pivot, { bu: null, position: [] }]);
+  };
+
+  const handleRemovePivot = (pivotIndex) => {
+    const pivots = data.pivot.filter((_, i) => i !== pivotIndex);
+    setData('pivot', pivots);
+  };
 
 	const submit = (e) => {
 		e.preventDefault();
@@ -32,9 +48,9 @@ const Edit = ({ user, roles }) => {
 	}
 
 	return (
-		<div className='content-box'>
+		<form onSubmit={submit} className="w-full">
+			<div className='content-box'>
 			<Breadcrumb title='Edit User' pageName='Edit' prevPage={prevPage} />
-			<form onSubmit={submit} className="w-full">
 				<FieldGroup 
 					label='Full Name'
 					name='full_name'
@@ -152,11 +168,67 @@ const Edit = ({ user, roles }) => {
 					/>
 				</FieldGroup>
 
-				<PrimaryButton disabled={processing}>
-					Submit
-				</PrimaryButton>
-			</form>
-		</div>
+				<div className='flex justify-between items-center'>
+					<button className='btn btn--primary' type='button' onClick={handleAddPivot}>
+						<Plus className='inline-block mb-1' /> Add Bu Position
+					</button>
+
+					<PrimaryButton disabled={processing}>
+						Submit
+					</PrimaryButton>
+				</div>
+			</div>
+
+			<div className='content-box mt-2'>
+				{data.pivot.map((item, pivotIndex) => (
+					<div className='py-2 border-b border-gray-300' key={pivotIndex}>
+						<FieldGroup
+							label='Business Unit'
+							name={`pivot.${pivotIndex}.bu`}
+							error={errors[`pivot.${pivotIndex}.bu`]}
+						>
+							<div className='flex flex-row items-end gap-x-2'>
+								<Select
+									name={`pivot.${pivotIndex}.bu`}
+									placeholder={'Select Type...'}
+									options={convertOptions(bus)}
+									value={item.bu}
+									onChange={(option) => {
+										const bus = [...data.pivot];
+										bus[pivotIndex].bu = option;
+										setData('pivot', bus);
+									}}
+									className="mt-1 block w-full"
+								/>
+
+								<button className='btn-sm btn--danger' type='button' onClick={() => handleRemovePivot(pivotIndex)}>
+									<Trash2 />
+								</button>
+							</div>
+						</FieldGroup>
+						<FieldGroup
+							label='Position'
+							name={`pivot.${pivotIndex}.position`}
+							error={errors[`pivot.${pivotIndex}.position`]}
+						>
+							<Select
+								isMulti
+								name={`pivot.${pivotIndex}.position`}
+								placeholder={'Select Type...'}
+								options={convertOptions(positions)}
+								value={item.position}
+								onChange={(option) => {
+									const positions = [...data.pivot];
+									positions[pivotIndex].position = option;
+									setData('pivot', positions);
+								}}
+								className="mt-1 block w-full"
+							/>
+						</FieldGroup>
+					</div>
+				))}
+			</div>
+		</form>
 	)
 }
 
