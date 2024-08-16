@@ -29,7 +29,8 @@ class DatabaseSeeder extends Seeder
             UserRoleSeeder::class,
             CourseAccessSeeder::class,
             ScheduleAccessSeeder::class,
-            TnaSeeder::class,
+            UserBuPositionSeeder::class,
+            // TnaSeeder::class,
         ]);
     }
 }
