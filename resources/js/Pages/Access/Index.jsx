@@ -51,7 +51,7 @@ const Index = ({ courses, schedules }) => {
                     </td>
                   </tr>
                 )) :
-                <tr>
+                <tr className='text-center'>
                   <td colSpan={5}>Empty data</td>
                 </tr>
               }
@@ -99,7 +99,7 @@ const Index = ({ courses, schedules }) => {
                     </td>
                   </tr>
                 )) :
-                <tr>
+                <tr className='text-center'>
                   <td colSpan={7}>Empty data</td>
                 </tr>
               }

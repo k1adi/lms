@@ -65,6 +65,7 @@ class UserController extends Controller
 
             return Redirect::route('users.index');
         } catch (\Exception $e) {
+            dd($e);
             return Redirect::back()->withErrors([
                 'error' => $e
             ])->withInput();
@@ -111,13 +112,15 @@ class UserController extends Controller
             // Update user data to user table
             $user->fill($validated);
             $user->save();
-            // Sync user and role to user_role
+            // // Sync user and role to user_role
             $user->hasRole()->sync($roles);
+            $user->buPosition()->detach();
             // Sync user with bu and position to user_bu_position
             $user->syncBuPosition($validated['pivot']);
 
             return Redirect::route('users.index');
         } catch (\Exception $e) {
+            dd($e);
             return Redirect::back()->withErrors([
                 'error' => $e
             ])->withInput();

@@ -60,7 +60,7 @@ const Index = ({ courses, auth }) => {
 									}
 								</tr>
 							)) :
-							<tr>
+							<tr className='text-center'>
 								<td colSpan={5}>Empty data</td>
 							</tr>
 						}

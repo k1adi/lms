@@ -55,8 +55,8 @@ const Index = ({ tnas }) => {
 									</td>
 								</tr>
 							)) :
-							<tr>
-								<td colSpan={5}>Empty data</td>
+							<tr className='text-center'>
+								<td colSpan={7}>Empty data</td>
 							</tr>
 						}
           </tbody>

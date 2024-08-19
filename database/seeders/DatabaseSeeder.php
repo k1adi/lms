@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
             CourseAccessSeeder::class,
             ScheduleAccessSeeder::class,
             UserBuPositionSeeder::class,
-            // TnaSeeder::class,
+            TnaSeeder::class,
         ]);
     }
 }

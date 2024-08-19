@@ -22,7 +22,7 @@ class Bu extends Model
 
     public function userPosition(): BelongsToMany
     {
-        return $this->belongsToMany(Position::class, 'user_bu_position', 'bu_id', 'position_id')
+        return $this->belongsToMany(Position::class, 'user_bu_positions', 'bu_id', 'position_id')
                     ->withPivot('user_id')
                     ->using(UserBuPosition::class);
     }

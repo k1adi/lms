@@ -86,17 +86,26 @@ class User extends Authenticatable
         return $this->belongsToMany(Schedule::class, 'schedule_accesses', 'user_id', 'schedule_id');
     }
 
-    public function syncBuPosition(array $pivot)
+    public function syncBuPosition(array $pivot): void
     {
         $syncData = [];
+
         foreach($pivot as $item) {
             $buId = $item['bu']['value'];
 
+            if(!isset($syncData[$buId])) {
+                $syncData[$buId] = ['position_id' => []];
+            }
+
             foreach($item['position'] as $position) {
-                $syncData[$buId] = ['position_id' => $position['value'], 'user_id' => $this->id];
+                $positionId = $position['value'];
+                if (!in_array($positionId, $syncData[$buId]['position_id'])) {
+                    $syncData[$buId]['position_id'][] = $positionId;
+                    $this->buPosition()->attach([
+                        $buId => ['position_id' => $positionId]
+                    ]);
+                }
             }
         }
-
-        $this->buPosition()->sync($syncData);
     }
 }

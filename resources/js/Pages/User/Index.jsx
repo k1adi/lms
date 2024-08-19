@@ -78,8 +78,8 @@ const Index = ({ users, auth }) => {
 									}
 								</tr>
 							)) :
-							<tr>
-								<td colSpan={4}>Empty data</td>
+							<tr className='text-center'>
+								<td colSpan={8}>Empty data</td>
 							</tr>
 						}
 					</tbody>

@@ -55,8 +55,8 @@ const Index = ({ permissions, auth }) => {
 									}
 								</tr>
 							)) :
-							<tr>
-								<td colSpan={4}>Empty data</td>
+							<tr className='text-center'>
+								<td colSpan={3}>Empty data</td>
 							</tr>
 						}
 					</tbody>
