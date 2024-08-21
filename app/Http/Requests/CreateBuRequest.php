@@ -25,8 +25,6 @@ class CreateBuRequest extends FormRequest
         return [
             'code' => ['required', 'string', 'max:7', 'unique:bus,code'],
             'name' => ['required', 'string', 'max:50', 'unique:bus,name'],
-            'positions' => ['required', 'array'],
-            'positions.*.value' => ['integer', 'exists:positions,id'],
         ];
     }
 }

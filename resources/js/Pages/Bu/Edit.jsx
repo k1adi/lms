@@ -8,7 +8,7 @@ import TextInput from '@/Components/TextInput';
 import PrimaryButton from '@/Components/PrimaryButton';
 import convertOptions from '@/Utils/ReactSelectOption';
 
-const Edit = ({ bu, positions }) => {
+const Edit = ({ bu }) => {
 	const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
 		{ link: route('bus.index'), text: 'BU' },
@@ -17,7 +17,7 @@ const Edit = ({ bu, positions }) => {
 	const { data, setData, patch, errors, processing } = useForm({
 		code: bu.code,
 		name: bu.name,
-		positions: convertOptions(bu.has_positions)
+		// positions: convertOptions(bu.has_positions)
 	});
 
 	const submit = (e) => {
@@ -66,7 +66,7 @@ const Edit = ({ bu, positions }) => {
 					/>
 				</FieldGroup>
 
-				<FieldGroup 
+				{/* <FieldGroup 
 					label='Positions'
 					name='positions'
 					error={errors.positions}
@@ -78,7 +78,7 @@ const Edit = ({ bu, positions }) => {
             value={data.positions}
             onChange={(option) => setData('positions', option)}
           />
-				</FieldGroup>
+				</FieldGroup> */}
 
 				<PrimaryButton disabled={processing}>
 					Submit

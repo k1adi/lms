@@ -2,19 +2,27 @@ import React from 'react';
 import { Link, router } from '@inertiajs/react';
 import DashboardLayout from '@/Layouts/DashboardLayout';
 import Breadcrumb from '@/Components/Acessibility/Breadcrumb';
+import onDeleteData from '@/Utils/DeleteData';
 import { Pencil, Trash2 } from 'lucide-react';
 
 const Index = ({ bus, auth }) => {
+	console.log(bus);
+
 	const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
 		{ link: '#', text: 'Setting' },
 	];
 
-	const onDelete = (id) => {
-		if (confirm('Are you sure you want to delete this business unit?')) {
-			router.delete(route('bus.destroy', id));
-		}
-	}
+	// const onDelete = (id, canDelete) => {
+	// 	if(!canDelete) {
+	// 		alert('Business Unit cannot be deleted!')
+	// 		return ;
+	// 	}
+
+	// 	if (confirm('Are you sure want to delete this business unit?')) {
+	// 		router.delete(route('bus.destroy', id));
+	// 	}
+	// }
 
 	return (
 		<div className='content-box'>
@@ -44,7 +52,7 @@ const Index = ({ bus, auth }) => {
 									<td className='group-hover:text-sky-400'> {key.code} </td>
 									<td className='group-hover:text-sky-400'> {key.name} </td>
 									<td className='break-word'>
-										{key.has_positions.map(list => (
+										{key.positions.map(list => (
 											<span className='label label--secondary group-hover:bg-sky-100 group-hover:dark:bg-sky-400' key={list.name}> {list.name} </span>
 										))}
 									</td>
@@ -56,7 +64,11 @@ const Index = ({ bus, auth }) => {
 												</Link>
 											}
 											{auth.permissions.includes('bu_delete') &&
-												<button className="text-red-600 ml-2" type='button' onClick={() => onDelete(key.id)}>
+												<button className="text-red-600 ml-2" type='button' onClick={() => onDeleteData({
+													route: route('bus.destroy', key.id), 
+													data: 'Business Unit', 
+													canDelete: key.canDelete
+												})}>
 													<Trash2 className='inline-block mb-1' size={14} /> Delete
 												</button>
 											}

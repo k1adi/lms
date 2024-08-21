@@ -8,7 +8,7 @@ import TextInput from '@/Components/TextInput';
 import PrimaryButton from '@/Components/PrimaryButton';
 import convertOptions from '@/Utils/ReactSelectOption';
 
-const Create = ({ positions }) => {
+const Create = () => {
 	const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
 		{ link: route('bus.index'), text: 'BU' },
@@ -16,8 +16,7 @@ const Create = ({ positions }) => {
 
 	const { data, setData, post, errors, processing } = useForm({
 		code: '',
-		name: '',
-		positions: []
+		name: ''
 	});
 
 	const submit = (e) => {
@@ -63,20 +62,6 @@ const Create = ({ positions }) => {
 						autoComplete="name"
 						placeholder="Name..."
 					/>
-				</FieldGroup>
-
-				<FieldGroup 
-					label='Positions'
-					name='positions'
-					error={errors.positions}
-					isPrimary={true}
-				>
-					<Select
-            isMulti
-            options={convertOptions(positions)}
-            value={data.positions}
-            onChange={(option) => setData('positions', option)}
-          />
 				</FieldGroup>
 
 				<PrimaryButton disabled={processing}>
