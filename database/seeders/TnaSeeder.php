@@ -19,7 +19,7 @@ class TnaSeeder extends Seeder
             'objective' => 'Mempelajari course online',
             'participants' => 15,
             'training_time' => '2024-08-20 10:00:00',
-            'place' => 'Darmawan Park',
+            'location' => 'Darmawan Park',
             'trainer' => 'Trainer A',
         ]);
     }

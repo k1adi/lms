@@ -4,16 +4,16 @@ import DashboardLayout from '@/Layouts/DashboardLayout';
 import Breadcrumb from '@/Components/Acessibility/Breadcrumb';
 import { Pencil, Trash2 } from 'lucide-react';
 
-const Index = ({ tnas }) => {
-
+const Index = ({ tnas, auth }) => {
+	console.log(tnas, 'tnas');
   const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
 		{ link: '#', text: 'Analyze' },
 	];
 
 	const onDelete = (id) => {
-		if (confirm('Are you sure you want to delete this course?')) {
-			router.delete(route('courses.destroy', id));
+		if (confirm('Are you sure you want to delete this TNA?')) {
+			router.delete(route('tnas.destroy', id));
 		}
 	}
 
@@ -32,7 +32,9 @@ const Index = ({ tnas }) => {
 							<th>Course</th>
 							<th>Goal</th>
 							<th>Start Time</th>
-              <th>Action</th>
+              {(auth.permissions.includes('tna_edit') || auth.permissions.includes('tna_delete')) && 
+								<th className='table--action'>Action</th>
+							}
 						</tr>
 					</thead>
           <tbody>
@@ -40,19 +42,25 @@ const Index = ({ tnas }) => {
 							tnas.data.map((key, index) => (
 								<tr key={index}>
 									<td>{index + 1}</td>
-									<td>{key.dept.bu.name}</td>
-									<td>{key.dept.name}</td>
-									<td>{key.course.name}</td>
-									<td>{key.objective}</td>
-									<td>{key.training_time}</td>
-									<td>
-										<Link href={route('tnas.edit', key.id)} className='text-warning mr-2'> 
-											<Pencil className='inline-block mb-1' size={14} /> Edit
-										</Link>
-										<button className="text-red-600" type="button" onClick={() => onDelete(key.id)}>
-											<Trash2 className='inline-block mb-1' size={14} /> Delete
-										</button>
-									</td>
+									<td>{key.bu}</td>
+									<td>{key.dept}</td>
+									<td>{key.course}</td>
+									<td>{key.goal}</td>
+									<td>{key.start_time}</td>
+									{(auth.permissions.includes('tna_edit') || auth.permissions.includes('tna_delete')) && 
+										<td className='table--action'>
+											{auth.permissions.includes('tna_edit') &&
+												<Link href={route('tnas.edit', key.id)} className='text-warning'> 
+													<Pencil className='inline-block mb-1' size={14} /> Edit
+												</Link>
+											}
+											{auth.permissions.includes('tna_delete') &&
+												<button className="text-red-600 ml-2" type='button' onClick={() => onDelete(key.id)}>
+													<Trash2 className='inline-block mb-1' size={14} /> Delete
+												</button>
+											}
+										</td>
+									}
 								</tr>
 							)) :
 							<tr className='text-center'>

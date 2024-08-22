@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\TnaReport;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -31,6 +32,7 @@ class DatabaseSeeder extends Seeder
             ScheduleAccessSeeder::class,
             UserBuPositionSeeder::class,
             TnaSeeder::class,
+            TnaReportSeeder::class,
         ]);
     }
 }

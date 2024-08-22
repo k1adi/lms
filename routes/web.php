@@ -58,12 +58,13 @@ Route::middleware(['auth', 'verified'])->group(function() {
         'tnas' => TnaController::class,
     ]);
 
-    Route::get('/deptsByBu/{id}', [BusController::class, 'getDept'])->name('getDeptByBu');
-    Route::get('/userByPosition/{id}', [PositionController::class, 'getUser'])->name('getUserByPosition');
+    Route::get('/getDeptAndPosition', [TnaController::class, 'getDeptPosition'])->name('deptPosition');
+    Route::get('/getUserByPosition', [TnaController::class, 'getUserPosition'])->name('userPosition');
+
     
     Route::get('/access', [AccessController::class, 'index'])->name('access.index');
-    Route::get('/course-access/{course}/edit', [AccessController::class, 'courseAccess'])->name('course-access.edit');
-    Route::get('/schedule-access/{schedule}/edit', [AccessController::class, 'scheduleAccess'])->name('schedule-access.edit');
+    Route::get('/course-access/{course}/edit', [AccessController::class, 'editCourseAccess'])->name('course-access.edit');
+    Route::get('/schedule-access/{schedule}/edit', [AccessController::class, 'editScheduleAccess'])->name('schedule-access.edit');
     Route::patch('/course-access/{course}', [AccessController::class, 'updateCourse'])->name('course-access.update');
     Route::patch('/schedule-access/{schedule}', [AccessController::class, 'updateSchedule'])->name('schedule-access.update');
 });

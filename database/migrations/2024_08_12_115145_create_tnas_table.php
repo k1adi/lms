@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('objective');
             $table->integer('participants');
             $table->dateTime('training_time');
-            $table->string('place', 150);
+            $table->string('location', 150);
             $table->string('trainer', 120); 
             $table->timestamps();
             $table->softDeletes();

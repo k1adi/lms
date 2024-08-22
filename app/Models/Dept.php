@@ -12,6 +12,6 @@ class Dept extends Model
     protected $fillable = ['bu_id', 'code', 'name'];
 
     public function bu(): BelongsTo {
-        return $this->belongsTo(Bu::class, 'bu_id');
+        return $this->belongsTo(Bu::class, 'bu_id', 'id');
     }
 }
