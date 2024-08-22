@@ -120,7 +120,7 @@ class ScheduleController extends Controller
         return Course::where('type', 'offline')->get();
     }
 
-    public function createObjectSchedule(array $input): array
+    private function createObjectSchedule(array $input): array
     {
         return [
             'course_id' => $input['course_id']['value'],

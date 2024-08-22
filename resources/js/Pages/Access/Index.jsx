@@ -6,6 +6,8 @@ import LocalizationDate from '@/Utils/LocalizationDate';
 import { Pencil } from 'lucide-react';
 
 const Index = ({ courses, schedules }) => {
+  console.log(schedules);
+
   const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
 		{ link: '#', text: 'Setting' },
@@ -83,13 +85,13 @@ const Index = ({ courses, schedules }) => {
                 schedules.data.map((key, index) => (
                   <tr key={index} className='group py-2'>
                     <td className='group-hover:text-sky-400'>{index + 1}</td>
-                    <td className='group-hover:text-sky-400'>{key.course.name}</td>
+                    <td className='group-hover:text-sky-400'>{key.course}</td>
                     <td className='group-hover:text-sky-400'>{key.desc}</td>
                     <td className='group-hover:text-sky-400'>{LocalizationDate(key.start_time, 'en')}</td>
                     <td className='group-hover:text-sky-400'>{LocalizationDate(key.end_time, 'en')}</td>
                     <td className='break-word'>
-                      {key.assign_user.map(list => (
-                        <span className='label label--secondary group-hover:bg-sky-100 group-hover:dark:bg-sky-400' key={list.username}> {list.full_name} </span>
+                      {key.users.map((name, index) => (
+                        <span className='label label--secondary group-hover:bg-sky-100 group-hover:dark:bg-sky-400' key={index}> {name} </span>
                       ))}
                     </td>
                     <td className='table--action'>

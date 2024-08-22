@@ -11,6 +11,7 @@ use App\Models\Schedule;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\UpdateCourseAccessRequest;
 use App\Http\Requests\UpdateScheduleAccessRequest;
+use App\Http\Resources\ScheduleAccessResource;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 
@@ -29,11 +30,11 @@ class AccessController extends Controller
 
         return Inertia::render('Access/Index', [
             'courses' => $courses,
-            'schedules' => $schedules,
+            'schedules' => ScheduleAccessResource::collection($schedules),
         ]);
     }
 
-    public function courseAccess(Course $course): Response
+    public function editCourseAccess(Course $course): Response
     {
         $course->load('assignPosition');
 
@@ -43,7 +44,7 @@ class AccessController extends Controller
         ]);
     }
 
-    public function scheduleAccess(Schedule $schedule): Response
+    public function editScheduleAccess(Schedule $schedule): Response
     {
         $schedule->load(['course', 'assignUser']);
 
