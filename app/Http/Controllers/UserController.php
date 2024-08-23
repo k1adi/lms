@@ -24,10 +24,9 @@ class UserController extends Controller
     {
         // Authorize the action using Gate
         Gate::authorize('user_access');
-        $users = UserResource::collection(User::paginate());
-
+        
         return Inertia::render('User/Index', [
-            'users' => $users
+            'users' => UserResource::collection(User::paginate()),
         ]);
     }
 

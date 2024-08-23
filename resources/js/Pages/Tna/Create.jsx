@@ -10,7 +10,6 @@ import DateTimePicker from '@/Components/Form/DateTimePicker';
 import PrimaryButton from '@/Components/PrimaryButton';
 import convertOptions from '@/Utils/ReactSelectOption';
 
-
 const Create = ({ bus, courses }) => {
   const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },

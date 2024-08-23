@@ -97,15 +97,4 @@ class PositionController extends Controller
         $position->delete();
         return Redirect::back();
     }
-
-    // public function getUser(string $id): JsonResponse
-    // {
-    //     $result = Dept::where('bu_id', $id)->get();
-    //     return response()->json($result->map(function ($option) {
-    //         return [
-    //             'value' => $option->id,
-    //             'label' => $option->name
-    //         ];
-    //     }));
-    // }
 }

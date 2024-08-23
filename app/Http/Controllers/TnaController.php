@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateTnaRequest;
+use App\Http\Requests\UpdateTnaRequest;
+use App\Http\Resources\TnaDetailResource;
 use App\Http\Resources\TnaResource;
 use App\Models\Bu;
 use App\Models\Course;
@@ -12,6 +14,7 @@ use App\Models\UserBuPosition;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
@@ -79,18 +82,57 @@ class TnaController extends Controller
      */
     public function edit(Tna $tna): Response
     {
-        $tna->load('dept', 'bu', 'course');
+        // Load related data
+        $tna->load('dept', 'bu', 'course', 'users');
+        
+        // Get the Business Unit (BU) ID from the related Department
+        $buId = $tna->dept->bu_id;
+        
+        // Get the user IDs related to this TNA via the tnaReport pivot table
+        $userIds = $tna->tnaReport()->pluck('user_id')->toArray();
+        
+        // Get positions related to the BU and users
+        $positions = $tna->positions($buId, $userIds);
+        $tna->positions = $positions;
 
-        dd(print_r(json_encode($tna)));
+        // Get all options for departments, positions, and users based on BU and positions
+        $options = $this->getAllOptions($buId, $positions->toArray());
+        
+        // Render the Inertia view with the necessary data
+        return Inertia::render('Tna/Edit', [
+            'tna' => new TnaDetailResource($tna),
+            'bus' => Bu::all(),
+            'courses' => Course::all(),
+            'options' => $options
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    // public function update(Request $request, string $id): RedirectResponse
-    // {
-    //     //
-    // }
+    public function update(UpdateTnaRequest $request, Tna $tna): RedirectResponse
+    {
+        try {
+            $validated = $request->validated();
+
+            $input = $this->createObjectTNA($validated);
+            $users = array_map(function ($user) {
+                return $user['value'];
+            }, $validated['users']);
+    
+            $tna->fill($input);
+            $tna->save();
+
+            $tna->tnaReport()->sync($users);
+
+            return Redirect::route('tnas.index');
+        } catch (\Exception $e) {
+            dd($e);
+            return Redirect::back()->withErrors([
+                'error' => $e
+            ])->withInput();
+        }
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -114,6 +156,31 @@ class TnaController extends Controller
         ];
     }
 
+    private function getAllOptions(string $buId, array $positions): array
+    {
+        // Extract position IDs from the positions array
+        $positionIds = array_column($positions, 'id');
+
+        // Create requests to fetch department positions and users by positions
+        $deptPositionRequest = Request::create('/getDeptAndPosition', 'GET', ['buId' => $buId]);
+        $userPositionRequest = Request::create('/getUserByPosition', 'GET', ['buId' => $buId, 'positions' => $positionIds]);
+
+        // Fetch responses from the respective controller methods
+        $deptPositionResponse = $this->getDeptPosition($deptPositionRequest);
+        $userPositionResponse = $this->getUserPosition($userPositionRequest);
+
+        // Extract data from the responses
+        $deptPositionData = $deptPositionResponse->getData();
+        $userPositionData = $userPositionResponse->getData();
+
+        // Return the structured options array
+        return [
+            'depts' => $deptPositionData->depts,
+            'positions' => $deptPositionData->positions,
+            'users' => $userPositionData,
+        ];
+    }
+
     public function getDeptPosition(Request $request): JsonResponse
     {
         $id = $request->query('buId');
@@ -122,7 +189,7 @@ class TnaController extends Controller
         $responseDept = $dept->map(function ($option) {
             return [
                 'value' => $option->id,
-                'label' => $option->name
+                'label' => "({$option->code}) - {$option->name}"
             ];
         });
 
