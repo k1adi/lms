@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreatePermissionRequest;
 use App\Http\Requests\UpdatePermissionRequest;
 use App\Models\Permission;
+use Database\Seeders\PermissionSeeder;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
@@ -24,6 +27,13 @@ class PermissionController extends Controller
         return Inertia::render('Permission/Index', [
             'permissions' => Permission::paginate()
         ]);
+    }
+
+    public function list()
+    {
+        $currentPage = request('page', 1);
+        
+        return response()->json(Permission::paginate(25));
     }
 
     /**

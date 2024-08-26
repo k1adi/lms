@@ -1,5 +1,6 @@
 .content {
   @apply
+    relative
     mx-auto
     w-full
     p-4

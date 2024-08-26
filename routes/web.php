@@ -11,6 +11,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\TnaController;
 use App\Http\Controllers\UserController;
+use App\Models\Permission;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
@@ -58,9 +59,9 @@ Route::middleware(['auth', 'verified'])->group(function() {
         'tnas' => TnaController::class,
     ]);
 
+    Route::get('/permissions-list', [PermissionController::class, 'list'])->name('permissions.list');
     Route::get('/getDeptAndPosition', [TnaController::class, 'getDeptPosition'])->name('deptPosition');
     Route::get('/getUserByPosition', [TnaController::class, 'getUserPosition'])->name('userPosition');
-
     
     Route::get('/access', [AccessController::class, 'index'])->name('access.index');
     Route::get('/course-access/{course}/edit', [AccessController::class, 'editCourseAccess'])->name('course-access.edit');
