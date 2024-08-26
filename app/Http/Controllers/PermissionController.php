@@ -9,6 +9,7 @@ use Database\Seeders\PermissionSeeder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
@@ -31,9 +32,22 @@ class PermissionController extends Controller
 
     public function list()
     {
+        // Determine the current page
         $currentPage = request('page', 1);
-        
-        return response()->json(Permission::paginate(25));
+
+        // Cache key, using the current page to differentiate cached pages
+        $cacheKey = 'permissions_page_' . $currentPage;
+
+        // Cache duration in minutes
+        $cacheDuration = 60;
+
+        // Retrieve the paginated permissions from the cache or query the database if not cached
+        $permissions = Cache::remember($cacheKey, $cacheDuration, function () {
+            return Permission::paginate(25);
+        });
+
+        // Return the permissions as a JSON response
+        return response()->json($permissions);
     }
 
     /**
