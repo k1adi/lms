@@ -25,9 +25,10 @@ class PermissionController extends Controller
         // Authorize the action using Gate
         Gate::authorize('permission_access');
 
-        return Inertia::render('Permission/Index', [
-            'permissions' => Permission::paginate()
-        ]);
+        // return Inertia::render('Permission/Index', [
+        //     'permissions' => Permission::paginate()
+        // ]);
+        return Inertia::render('Permission/Index');
     }
 
     public function list()
