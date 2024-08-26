@@ -1,5 +1,3 @@
-import UndrawFloating from '../../img/undraw-floating.svg';
-
 export default function Loader() {
   return (
     <div className='animate-pulse content-box text-center'>
