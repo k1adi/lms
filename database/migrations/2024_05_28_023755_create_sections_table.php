@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('sections', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('course_id');
-            $table->string('name', 100);
+            $table->string('name', 80);
             $table->timestamps();
 
             // Added foreign key constraint

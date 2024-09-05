@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('section_id');
             $table->string('name', 100);
-            $table->text('url');
+            $table->text('url')->nullable();
+            $table->enum('type', ['media', 'file'])->nullable();
+            $table->text('desc')->nullable();
             $table->timestamps();
 
             // Added foreign key constraint
