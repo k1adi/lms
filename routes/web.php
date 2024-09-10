@@ -10,8 +10,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\TnaController;
+use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\UserController;
-use App\Models\Permission;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
@@ -59,11 +59,22 @@ Route::middleware(['auth', 'verified'])->group(function() {
         'tnas' => TnaController::class,
     ]);
 
+    // Training
+    Route::get('/training-online', [TrainingController::class, 'online'])->name('training-online.index');
+    Route::get('/training-offline', [TrainingController::class, 'offline'])->name('training-offline.index');
+    Route::get('/training/{code}', [TrainingController::class, 'detail'])->name('training.detail');
+
+    // Asynchronous permission list
     Route::get('/permissions-list', [PermissionController::class, 'list'])->name('permissions.list');
+    
+    // Get Dept, Position and User for TNA
     Route::get('/getDeptAndPosition', [TnaController::class, 'getDeptPosition'])->name('deptPosition');
     Route::get('/getUserByPosition', [TnaController::class, 'getUserPosition'])->name('userPosition');
     
+    // Course and Schedule Access
     Route::get('/access', [AccessController::class, 'index'])->name('access.index');
+    Route::get('/access/create', [AccessController::class, 'create'])->name('access.create');
+    Route::post('/access/store', [AccessController::class, 'store'])->name('access.store');
     Route::get('/course-access/{course}/edit', [AccessController::class, 'editCourseAccess'])->name('course-access.edit');
     Route::get('/schedule-access/{schedule}/edit', [AccessController::class, 'editScheduleAccess'])->name('schedule-access.edit');
     Route::patch('/course-access/{course}', [AccessController::class, 'updateCourse'])->name('course-access.update');

@@ -5,7 +5,7 @@ import Breadcrumb from '@/Components/Acessibility/Breadcrumb';
 import LocalizationDate from '@/Utils/LocalizationDate';
 import { Pencil } from 'lucide-react';
 
-const Index = ({ courses, schedules }) => {
+const Index = ({ courses, schedules, auth }) => {
   console.log(schedules);
 
   const prevPage = [
@@ -21,7 +21,9 @@ const Index = ({ courses, schedules }) => {
       <section className='content-box mb-3'>
         <div className='flex flex-row items-center justify-between mb-3'>
           <h1 className='text--title'>Course Access</h1>
-          {/* <Link className='btn btn--primary' href={route('bus.create')}> Add Access </Link> */}
+          {auth.permissions.includes('accessible_create') && 
+            <Link className='btn btn--primary' href={route('access.create', {page: 'course'})}> Add Access </Link>
+          }
         </div>
         <div className='overflow-x-auto'>
           <table className='table'>
@@ -65,7 +67,9 @@ const Index = ({ courses, schedules }) => {
       <section className='content-box'>
         <div className='flex flex-row items-center justify-between mb-3'>
           <h1 className='text--title'>Schedule Access</h1>
-          {/* <Link className='btn btn--primary' href={route('bus.create')}> Add Access </Link> */}
+          {auth.permissions.includes('accessible_create') && 
+            <Link className='btn btn--primary' href={route('access.create', {page: 'schedule'})}> Add Access </Link>
+          }
         </div>
         <div className='overflow-x-auto'>
           <table className='table'>

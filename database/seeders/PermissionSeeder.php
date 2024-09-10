@@ -47,20 +47,21 @@ class PermissionSeeder extends Seeder
             'course_edit', // 31
             'course_delete', // 32
             'accessible_access', // 33
-            'accessible_course_edit', // 34
-            'accessible_schedule_edit', // 35
-            'user_access', // 36
-            'user_create', // 37
-            'user_edit', // 38
-            'user_delete', // 39
-            'role_access', // 40
-            'role_create', // 41
-            'role_edit', // 42
-            'role_delete', // 43
-            'permission_access', // 44
-            'permission_create', // 45
-            'permission_edit', // 46
-            'permission_delete', // 47
+            'accessible_create', // 34
+            'accessible_course_edit', // 35
+            'accessible_schedule_edit', // 36
+            'user_access', // 37
+            'user_create', // 38
+            'user_edit', // 39
+            'user_delete', // 40
+            'role_access', // 41
+            'role_create', // 42
+            'role_edit', // 43
+            'role_delete', // 44
+            'permission_access', // 45
+            'permission_create', // 46
+            'permission_edit', // 47
+            'permission_delete', // 48
         ];
         
         foreach ($permissions as $permission) {

@@ -7,6 +7,7 @@ import FieldGroup from '@/Components/Form/FieldGroup';
 import TextInput from '@/Components/TextInput';
 import PrimaryButton from '@/Components/PrimaryButton';
 import convertOptions from '@/Utils/ReactSelectOption';
+import LocalizationDate from '@/Utils/LocalizationDate';
 
 const Edit = ({ schedule, users }) => {
   const prevPage = [
@@ -40,7 +41,17 @@ const Edit = ({ schedule, users }) => {
 					/>
 				</FieldGroup>
 
-        <FieldGroup label='Desription' >
+				<FieldGroup label='Schdule Time' >
+					<TextInput
+						name='course_time'
+						className="mt-1 block w-full"
+						value={LocalizationDate(schedule.start_time, 'id') + ' - ' + LocalizationDate(schedule.end_time, 'id')}
+            disabled={true}
+						placeholder="Time..."
+					/>
+				</FieldGroup>
+
+        <FieldGroup label='Desription'>
 					<TextInput
 						name='desc'
 						className="mt-1 block w-full"
