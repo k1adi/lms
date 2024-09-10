@@ -43,7 +43,7 @@ const Index = ({ schedules, auth }) => {
 								<tr key={index} className='py-2'>
 									<td>{index + 1}</td>
 									<td>{key.course.name}</td>
-									<td>{key.desc}</td>
+									<td>{key.desc || '-'}</td>
 									<td>{LocalizationDate(key.start_time, 'en')}</td>
 									<td>{LocalizationDate(key.end_time, 'en')}</td>
 									{(auth.permissions.includes('schedule_edit') || auth.permissions.includes('schedule_delete')) && 

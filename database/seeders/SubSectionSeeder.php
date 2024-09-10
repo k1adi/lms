@@ -16,35 +16,47 @@ class SubSectionSeeder extends Seeder
         SubSection::create([
             'section_id' => 1,
             'name' => 'Sub-Section Course 1 - Section A-01',
-            'url' => 'https://www.youtube.com/'
+            'url' => 'https://www.youtube.com/',
+            'type' => 'media',
+            'desc' => ''
         ]);
 
         SubSection::create([
             'section_id' => 2,
             'name' => 'Sub-Section Course 1 - Section A-02',
-            'url' => 'https://www.youtube.com/'
+            'url' => 'https://www.youtube.com/',
+            'type' => 'media',
+            'desc' => ''
         ]);
 
         SubSection::create([
             'section_id' => 3,
             'name' => 'Sub-Section Course 1 - Section A-03',
-            'url' => 'https://www.youtube.com/'
+            'url' => 'https://www.youtube.com/',
+            'type' => 'media',
+            'desc' => ''
         ]);
 
         SubSection::create([
             'section_id' => 4,
             'name' => 'Sub-Section Course 1 - Section B-01',
-            'url' => 'https://www.youtube.com/'
+            'url' => 'https://www.youtube.com/',
+            'type' => 'media',
+            'desc' => ''
         ]);
         SubSection::create([
             'section_id' => 4,
             'name' => 'Sub-Section Course 1 - Section B-02',
-            'url' => 'https://www.youtube.com/'
+            'url' => 'https://www.youtube.com/',
+            'type' => 'media',
+            'desc' => ''
         ]);
         SubSection::create([
             'section_id' => 4,
             'name' => 'Sub-Section Course 1 - Section B-03',
-            'url' => 'https://www.youtube.com/'
+            'url' => 'https://www.youtube.com/',
+            'type' => 'media',
+            'desc' => ''
         ]);
     }
 }

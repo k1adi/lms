@@ -2,7 +2,7 @@
   @apply
     mb-6
     flex
-    flex-col
+    flex-col-reverse
     gap-3
     sm:flex-row
     sm:items-center
@@ -12,6 +12,8 @@
 .breadcrumb__list {
   @apply
     flex
+    flex-row
+    flex-wrap
     items-center
     gap-1
     text-xs

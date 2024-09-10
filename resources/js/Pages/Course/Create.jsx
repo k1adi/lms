@@ -19,11 +19,10 @@ const Create = ({ courses }) => {
 
 	const { data, setData, post, errors, processing } = useForm({
 		name: '',
-		type: {},
+		type: '',
 		trainer: '',
 		thumbnail: '',
 		url_attachment: '',
-		prerequisite: {},
 		description: '',
 		sections: [{ 
 			name: '', 
@@ -156,22 +155,6 @@ const Create = ({ courses }) => {
 						autoComplete="url_atachment"
 						placeholder="URL Attachment..."
 					/>
-				</FieldGroup>
-
-				{/* Prerequisites */}
-				<FieldGroup 
-					label='Course Requirement'
-					name='prerequisite'
-					error={errors.prerequisite}
-				>
-					<Select
-						name='prerequisite'
-						placeholder={'Select Prerequisite'}
-            options={convertOptions(courses)}
-            value={data.prerequisite}
-            onChange={(option) => setData('prerequisite', option)}
-						className="mt-1 block w-full"
-          />
 				</FieldGroup>
 
 				{/* Description */}

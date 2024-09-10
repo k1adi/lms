@@ -5,10 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreatePermissionRequest;
 use App\Http\Requests\UpdatePermissionRequest;
 use App\Models\Permission;
-use Database\Seeders\PermissionSeeder;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
@@ -25,16 +23,13 @@ class PermissionController extends Controller
         // Authorize the action using Gate
         Gate::authorize('permission_access');
 
-        // return Inertia::render('Permission/Index', [
-        //     'permissions' => Permission::paginate()
-        // ]);
         return Inertia::render('Permission/Index');
     }
 
-    public function list()
+    public function list(Request $request)
     {
         // Determine the current page
-        $currentPage = request('page', 1);
+        $currentPage = $request->query('page', 1);
 
         // Cache key, using the current page to differentiate cached pages
         $cacheKey = 'permissions_page_' . $currentPage;

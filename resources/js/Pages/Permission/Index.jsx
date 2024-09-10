@@ -7,7 +7,7 @@ import { Pencil, Trash2 } from 'lucide-react';
 import Loader from '@/Components/Loader';
 import Pagination from '@/Components/Pagination';
 
-const Index = () => {
+const Index = () => {	
 	const { auth } = usePage().props;
 	const [total, setTotal] = useState(0);
 	const [loading, setLoading] = useState(false);
@@ -40,7 +40,7 @@ const Index = () => {
 			setTotal(response.data.total);
 			setLastRow(response.data.to);
 			setFirstRow(response.data.from);
-
+			
 		} catch (err) {
 			console.error('Error fetching permissions: ', err);
 		} finally {
@@ -119,7 +119,7 @@ const Index = () => {
 				onPageChange={handlePageChange}
 			/>
 		</div>
-	)
+	);
 }
 
 Index.layout = (page) => (
