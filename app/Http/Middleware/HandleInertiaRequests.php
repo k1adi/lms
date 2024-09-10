@@ -30,13 +30,19 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         $user = $request->user();
+
         // Get user permissions
         $permissions = $user ? $user->grantPermission()->pluck('name') : [];
+
+        // Get sub_section_id from user_progressions pivot table
+        $progressions = $user ? $user->courseProgress()->pluck('sub_section_id')->toArray() : [];
 
         return [
             ...parent::share($request),
             'auth' => [
-                'user' => $request->user(),
+                'user' => $user ? array_merge($user->toArray(), [
+                    'progression' => $progressions
+                ]) : null,
                 'permissions' => $permissions,
             ],
             'flash' => [

@@ -62,7 +62,9 @@ Route::middleware(['auth', 'verified'])->group(function() {
     // Training
     Route::get('/training-online', [TrainingController::class, 'online'])->name('training-online.index');
     Route::get('/training-offline', [TrainingController::class, 'offline'])->name('training-offline.index');
-    Route::get('/training/{code}', [TrainingController::class, 'detail'])->name('training.detail');
+    Route::get('/training-offline/{code}', [TrainingController::class, 'detail'])->name('training-offline.detail');
+    Route::get('/training/{code}', [TrainingController::class, 'detail'])->name('training-online.detail');
+    Route::get('/training/{code}/{section}/{sub_section}', [TrainingController::class, 'section'])->name('training-online.section');
 
     // Asynchronous permission list
     Route::get('/permissions-list', [PermissionController::class, 'list'])->name('permissions.list');

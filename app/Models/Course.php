@@ -2,18 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Course extends Model
 {
     use SoftDeletes, HasFactory;
     
-    protected $fillable = ['code', 'name', 'type', 'trainer', 'thumbnail', 'url_attachment', 'prerequisite', 'description'];
+    protected $fillable = ['code', 'name', 'type', 'trainer', 'thumbnail', 'url_attachment', 'description'];
     protected $dates = ['deleted_at'];
     
     public static function boot()
@@ -25,15 +27,23 @@ class Course extends Model
         });
     }
 
-    public static function filterByType($type)
+    public static function generateCode($course): string
     {
-        $query = self::where('type', $type);
+        $date = Carbon::now();
+        $type = ($course == 'online') ? 'ONL' : 'OFL';
 
-        if($type == 'offline') {
-            $query = $query->with('schedules');
-        }
+        $courseCount = self::whereYear('created_at', $date->year)
+                       ->whereMonth('created_at', $date->month)->count();
 
-        return $query->get();
+        // Generate the code with zero-padded number and month
+        return sprintf("PRI%s%03d%02d%s", 
+            $type, $courseCount + 1, $date->month, $date->format('y')
+        );
+    }
+
+    public static function withoutAccess(): Collection
+    {
+        return self::whereDoesntHave('accesses')->get();
     }
 
     public function schedules(): HasMany
@@ -46,19 +56,28 @@ class Course extends Model
         return $this->hasMany(Section::class, 'course_id', 'id');
     }
 
-    // Self-referential relationship
-    public function prerequisiteCourse(): BelongsTo
+    public function subSections(): HasManyThrough
     {
-        return $this->belongsTo(Course::class, 'prerequisite');
+        return $this->hasManyThrough(SubSection::class, Section::class);
     }
-
-    public function coursesWithThisAsPrerequisite(): HasMany
+    
+    public function accesses(): HasMany
     {
-        return $this->hasMany(Course::class, 'prerequisite');
+        return $this->hasMany(CourseAccess::class, 'course_id', 'id');
     }
 
     public function assignPosition(): BelongsToMany
     {
         return $this->belongsToMany(Position::class, 'course_accesses', 'course_id', 'position_id');
+    }
+
+    public function scopeForUserWithPosition($query, $user, $type)
+    {
+        $userPositions = $user->buPosition()->pluck('position_id'); // Get user positions
+
+        return $query->where('type', $type)
+                ->whereHas('accesses', function ($query) use ($userPositions) {
+                    $query->whereIn('position_id', $userPositions);
+                });
     }
 }

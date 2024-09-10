@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class SubSection extends Model
 {
@@ -14,5 +15,10 @@ class SubSection extends Model
     public function section(): BelongsTo
     {
         return $this->belongsTo(Section::class, 'section_id', 'id');
+    }
+
+    public function progress(): HasMany
+    {
+        return $this->hasMany(UserProgession::class, 'sub_section_id');
     }
 }

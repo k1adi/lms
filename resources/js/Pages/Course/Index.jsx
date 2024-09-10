@@ -27,7 +27,8 @@ const Index = ({ courses, auth }) => {
 				<table className='table'>
 					<thead>
 						<tr>
-							<th className="table__column--number">No.</th>
+							<th className="table--number">No.</th>
+							<th>Code</th>
 							<th>Name</th>
 							<th>Type</th>
 							<th>Trainer</th>
@@ -41,6 +42,7 @@ const Index = ({ courses, auth }) => {
 							courses.data.map((key, index) => (
 								<tr key={index}>
 									<td>{index + 1}</td>
+									<td>{key.code}</td>
 									<td>{key.name}</td>
 									<td>{key.type}</td>
 									<td>{key.trainer}</td>

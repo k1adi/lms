@@ -26,10 +26,6 @@ const Edit = ({ course, courses }) => {
 		trainer: course.trainer,
 		thumbnail: course.thumbnail,
 		url_attachment: course.url_attachment,
-		prerequisite: course.prerequisite ? {
-			value: course.prerequisite_course.id,
-			label: course.prerequisite_course.name,
-		} : {},
 		description: course.description,
 		sections: course.type == 'online' ? course.sections.map(section => ({
 			id: section.id,
@@ -166,22 +162,6 @@ const Edit = ({ course, courses }) => {
 						autoComplete="url_atachment"
 						placeholder="URL Attachment..."
 					/>
-				</FieldGroup>
-
-				{/* Prerequisites */}
-				<FieldGroup 
-					label='Course Requirement'
-					name='prerequisite'
-					error={errors.prerequisite}
-				>
-					<Select
-						name='prerequisite'
-						placeholder={'Select Prerequisite'}
-            options={convertOptions(courses)}
-            value={data.prerequisite}
-            onChange={(option) => setData('prerequisite', option)}
-						className="mt-1 block w-full"
-          />
 				</FieldGroup>
 
 				{/* Description */}

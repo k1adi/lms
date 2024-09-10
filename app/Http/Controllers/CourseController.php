@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
 use App\Models\Course;
-use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
@@ -45,11 +44,11 @@ class CourseController extends Controller
         try{
             $validated = $request->validated();
             $validated['type'] = $validated['type']['value'];
-            if(isset($validated['prerequisite'])){
-                $validated['prerequisite'] = $validated['prerequisite']['value'];
-            }
+            // if(isset($validated['prerequisite'])){
+            //     $validated['prerequisite'] = $validated['prerequisite']['value'];
+            // }
 
-            $validated['code'] = Carbon::now()->timestamp;
+            $validated['code'] = Course::generateCode($validated['type']);
             $course = Course::create($validated);
 
             // Handle sections and subsections if type is 'online'
@@ -73,10 +72,10 @@ class CourseController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
+    // public function show(string $id)
+    // {
+    //     //
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -88,7 +87,7 @@ class CourseController extends Controller
         }
         $courses = Course::where('id', '!=', $course->id)->get();
 
-        $course->load('prerequisiteCourse');
+        // $course->load('prerequisiteCourse');
         return Inertia::render('Course/Edit', [
             'course' => $course,
             'courses' => $courses,
@@ -103,9 +102,9 @@ class CourseController extends Controller
         try {
             $validated = $request->validated();
             $validated['type'] = $validated['type']['value'];
-            if(isset($validated['prerequisite'])){
-                $validated['prerequisite'] = $validated['prerequisite']['value'];
-            }
+            // if(isset($validated['prerequisite'])){
+            //     $validated['prerequisite'] = $validated['prerequisite']['value'];
+            // }
 
             $course->fill($validated);
 

@@ -29,7 +29,7 @@ class CreateCourseRequest extends FormRequest
             'trainer' => ['required', 'string', 'max:120'],
             'thumbnail' => ['nullable', 'string'],
             'url_attachment' => ['nullable', 'url'],
-            'prerequisite.value' => ['nullable', 'integer', 'exists:courses,id'],
+            // 'prerequisite.value' => ['nullable', 'integer', 'exists:courses,id'],
             'description' => ['nullable', 'string']
         ];
 

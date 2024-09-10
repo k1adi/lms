@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class UserProgession extends Pivot
 {
-    protected $table = 'user_progression';
+    protected $table = 'user_progressions';
     protected $foreignKey = 'user_id';
     protected $relatedKey = 'subsection_id';
     public $timestamps = false;

@@ -47,14 +47,14 @@ export default function Header({ sidebarOpen, setSidebarOpen }) {
           </button>
         </div>
         
-        <div className='block'>
+        {/* <div className='block'>
           <form action="">
             <select name="" id="" value={""} onChange={(e) => e.preventDefault()}>
               <option value="" disabled>Select BU</option>
               <option value="">BU 1</option>
             </select>
           </form>
-        </div>
+        </div> */}
 
         <MyProfile />
       </div>

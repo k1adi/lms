@@ -1,12 +1,24 @@
 import { Link } from "@inertiajs/react";
 
-export default function NavLink({ link = '#', icon, name, text, active = false, children = '', ...props }) {
+export default function NavLink({ 
+  link = '#', 
+  icon = '', 
+  name, 
+  text, 
+  active = false, 
+  children = '', 
+  className = '',
+  ...props 
+}) {
   const isActive = active ? active : route().current(name + '*');
-  const linkClasses = isActive ? 'nav__link active' : 'nav__link';
+  const linkClasses = `${isActive ? 'nav__link active' : 'nav__link'} ${className}`;
+  
   return (
     <li>
       <Link href={link} className={linkClasses} {...props}>
-        {icon} {text} {children}
+        {icon} 
+        <span className='pr-6'> {text} </span>
+        {children}
       </Link>
     </li>
   );
