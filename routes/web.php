@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccessController;
+use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\BusController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DeptController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\PositionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\TestController;
 use App\Http\Controllers\TnaController;
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\UserController;
@@ -40,7 +42,6 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     // Authorize the action using Gate
     Gate::authorize('dashboard_access');
-
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -57,6 +58,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
         'courses' => CourseController::class,
         'schedules' => ScheduleController::class,
         'tnas' => TnaController::class,
+        'assignments' => AssignmentController::class,
     ]);
 
     // Training
