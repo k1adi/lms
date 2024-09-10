@@ -51,7 +51,7 @@ class UserSeeder extends Seeder
             'username' => 'superadmin',
             'email' => 'superadmin@email.com',
             'no_hp' => '081234567892',
-            'no_nik' => 'PRI-000',
+            'no_nik' => 'PRI-004',
             'password' => Hash::make('password')
         ]);
     }
