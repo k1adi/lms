@@ -17,10 +17,10 @@ class PermissionSeeder extends Seeder
             'dashboard_access', // 1
             'online_course_access', // 2
             'offline_course_access', // 3
-            'test_access', // 4
-            'test_create', // 5
-            'test_edit', // 6
-            'test_delete', // 7
+            'assignment_access', // 4
+            'assignment_create', // 5
+            'assignment_edit', // 6
+            'assignment_delete', // 7
             'tna_access', // 8
             'tna_create', // 9
             'tna_edit', // 10

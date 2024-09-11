@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('assignments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('course_id');
+            $table->dateTime('access_time')->nullable();
             $table->integer('minimum_score');
+            $table->enum('type', ['knowledge', 'skill']);
             $table->timestamps();
 
             // Added foreign key constraint

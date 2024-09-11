@@ -4,7 +4,7 @@ import { Indonesian } from 'flatpickr/dist/l10n/id.js'
 import 'flatpickr/dist/themes/airbnb.css'; // Import a Flatpickr theme
 import 'flatpickr/dist/flatpickr.css'; // Import Flatpickr base CSS
 
-export default function DateTimePicker({ value, onChange, className='', minDate='', currentDate='', ...props }) {
+export default function DateTimePicker({ value, onChange, className='', minDate='', currentDate='', withTime = true, ...props }) {
   return (
     <Flatpickr
       {...props}
@@ -12,13 +12,13 @@ export default function DateTimePicker({ value, onChange, className='', minDate=
       options={{
         altInput: true,
         time_24hr: true,
-        enableTime: true,
+        enableTime: withTime,
         locale: Indonesian,
-        dateFormat: 'Y-m-d H:i:S',
-        altFormat: "j F Y H:i:S",
+        dateFormat: withTime ? 'Y-m-d H:i:S' : 'Y-m-d',
+        altFormat: withTime ? "j F Y H:i:S" : 'j F Y',
         minDate: minDate,
         defaultDate: currentDate,
-        defaultHour: 9
+        defaultHour: 10
       }}
       value={value}
       onChange={([selectedDate]) => onChange(selectedDate)}

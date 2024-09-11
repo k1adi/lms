@@ -2,24 +2,39 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Assignment;
+use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class AssignmentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): Response
     {
-        //
+        // Authorize the action using Gate
+        Gate::authorize('assignment_access');
+        $tes = Assignment::paginate();
+
+        return Inertia::render('Tes/Index', [
+            'tes' => $tes,
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): Response
     {
-        //
+        $course = Course::all();
+
+        return Inertia::render('Tes/Create', [
+            'courses' => $course,
+        ]);
     }
 
     /**

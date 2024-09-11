@@ -10,12 +10,12 @@ export default function DashboardMenu({ sidebarExpand, setSidebarExpand }) {
   const permissions = usePage().props.auth.permissions;
 
   const trainingChild = ['training-online', 'training-offline'];
-  const assignmentChild = ['test', 'tnas'];
+  const assignmentChild = ['tests', 'tnas'];
   const settingChild = ['bus', 'depts', 'positions', 'courses', 'access'];
   const authorizationChild = ['users', 'roles', 'permissions'];
   
   const trainingMenu = ['online_course_access', 'offline_course_access'];
-  const testMenu = ['test_access', 'tna_access'];
+  const assignmentMenu = ['assignment_access', 'tna_access'];
   const userMenu = ['user_access', 'role_access', 'permission_access'];
   const settingMenu = ['bu_access', 'dept_access', 'position_access', 'course_access', 'accessible_access'];
 
@@ -73,26 +73,16 @@ export default function DashboardMenu({ sidebarExpand, setSidebarExpand }) {
           }}
         </NavGroup>
       }
-      
-      {/* Schedule */}
-      {permissions.includes('schedule_access') && 
-        <NavLink
-          link={route('schedules.index')}
-          icon={<CalendarClock />}
-          name='schedules'
-          text='Schedule'
-        />
-      }
 
-      {/* Analyze */}
-      { testMenu.some(value => permissions.includes(value)) &&
+      {/* Assignment */}
+      { assignmentMenu.some(value => permissions.includes(value)) &&
         <NavGroup isActive={assignmentChild.includes(currentPage)}>
           {(handleClick, open) => {
             return (
               <>
                 <NavLink
                   icon={<Microscope />}
-                  text='Analyze'
+                  text='Assignment'
                   onClick={(e) => {
                     e.preventDefault();
                     sidebarExpand ? handleClick() : setSidebarExpand(true); 
@@ -105,10 +95,11 @@ export default function DashboardMenu({ sidebarExpand, setSidebarExpand }) {
                   className={`translate transform overflow-hidden ${!open && 'hidden'}`}
                 >
                   <ul className='mt-1 mb-5.5 flex flex-col gap-2.5 pl-6'>
-                    {permissions.includes('test_access') && 
+                    {permissions.includes('assignment_access') && 
                       <NavLink
-                        link='#'
+                        link={route('tests.index')}
                         icon={<PencilLine />}
+                        name='tests'
                         text='Test'
                       />
                     }
@@ -126,6 +117,16 @@ export default function DashboardMenu({ sidebarExpand, setSidebarExpand }) {
             );
           }}
         </NavGroup>
+      }
+
+      {/* Schedule */}
+      {permissions.includes('schedule_access') && 
+        <NavLink
+          link={route('schedules.index')}
+          icon={<CalendarClock />}
+          name='schedules'
+          text='Schedule'
+        />
       }
 
       {/* Reports */}

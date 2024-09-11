@@ -61,7 +61,7 @@ const Create = ({ courses }) => {
 	}
 
 	return (
-		<form onSubmit={submit} className="w-full">
+		<form onSubmit={submit} className='w-full'>
 			<div className='content-box'>
 				<Breadcrumb pageName='Create Course' prevPage={prevPage} />
 
@@ -74,13 +74,13 @@ const Create = ({ courses }) => {
 				>
 					<TextInput
 						name='name'
-						className="mt-1 block w-full"
+						className='mt-1 block w-full'
 						value={data.name}
 						onChange={(e) => setData('name', e.target.value)}
 						required
 						isFocused={true}
-						autoComplete="name"
-						placeholder="Name..."
+						autoComplete='name'
+						placeholder='Name...'
 					/>
 				</FieldGroup>
 
@@ -100,7 +100,7 @@ const Create = ({ courses }) => {
 						]}
             value={data.type}
             onChange={(option) => setData('type', option)}
-						className="mt-1 block w-full"
+						className='mt-1 block w-full'
 						required
           />
 				</FieldGroup>
@@ -114,12 +114,12 @@ const Create = ({ courses }) => {
 				>
 					<TextInput
 						name='trainer'
-						className="mt-1 block w-full"
+						className='mt-1 block w-full'
 						value={data.trainer}
 						required
 						onChange={(e) => setData('trainer', e.target.value)}
-						autoComplete="trainer"
-						placeholder="Trainer..."
+						autoComplete='trainer'
+						placeholder='Trainer...'
 					/>
 				</FieldGroup>
 
@@ -132,11 +132,11 @@ const Create = ({ courses }) => {
 					<TextInput
 						type='url'
 						name='thumbnail'
-						className="mt-1 block w-full"
+						className='mt-1 block w-full'
 						value={data.thumbnail}
 						onChange={(e) => setData('thumbnail', e.target.value)}
-						autoComplete="thumbnail"
-						placeholder="URL Video..."
+						autoComplete='thumbnail'
+						placeholder='URL Video...'
 					/>
 				</FieldGroup>
 
@@ -149,11 +149,11 @@ const Create = ({ courses }) => {
 					<TextInput
 						type='url'
 						name='url_atachment'
-						className="mt-1 block w-full"
+						className='mt-1 block w-full'
 						value={data.url_atachment}
 						onChange={(e) => setData('url_atachment', e.target.value)}
-						autoComplete="url_atachment"
-						placeholder="URL Attachment..."
+						autoComplete='url_atachment'
+						placeholder='URL Attachment...'
 					/>
 				</FieldGroup>
 
@@ -164,12 +164,12 @@ const Create = ({ courses }) => {
 					error={errors.description}
 				>
 					<TextArea
-						id="description"
-						className="mt-1 block w-full"
+						id='description'
+						className='mt-1 block w-full'
 						value={data.description}
 						onChange={(e) => setData('description', e.target.value)}
-						autoComplete="description"
-						placeholder="Description"
+						autoComplete='description'
+						placeholder='Description'
 						rows={3}
 					/>
 				</FieldGroup>
@@ -196,14 +196,14 @@ const Create = ({ courses }) => {
 						<div className='flex flex-row items-end gap-x-2'>
 							<TextInput
 								name={`sections.${secIndex}.name`}
-								className="flex-1 mt-1"
+								className='flex-1 mt-1'
 								value={section.name}
 								onChange={(e) => {
 									const sections = [...data.sections];
 									sections[secIndex].name = e.target.value;
 									setData('sections', sections);
 								}}
-								placeholder="Section Name..."
+								placeholder='Section Name...'
 							/>
 							<button className='btn btn--danger' type='button' onClick={() => handleRemoveSection(secIndex)}>
 								<Trash2 />
@@ -227,31 +227,31 @@ const Create = ({ courses }) => {
 							<div className='flex-1'>
 								<TextInput
 									name={`sections.${secIndex}.subsections.${subIndex}.name`}
-									className="w-full"
+									className='w-full'
 									value={subsection.name}
 									onChange={(e) => {
 										const sections = [...data.sections];
 										sections[secIndex].subsections[subIndex].name = e.target.value;
 										setData('sections', sections);
 									}}
-									placeholder="Name..."
+									placeholder='Name...'
 								/>
-								<InputError message={errors[`sections.${secIndex}.subsections.${subIndex}.name`]} className="mt-2" />
+								<InputError message={errors[`sections.${secIndex}.subsections.${subIndex}.name`]} className='mt-2' />
 							</div>
 
 							<div className='flex-1'>
 								<TextInput
 									name={`sections.${secIndex}.subsections.${subIndex}.url`}
-									className="w-full"
+									className='w-full'
 									value={subsection.url}
 									onChange={(e) => {
 										const sections = [...data.sections];
 										sections[secIndex].subsections[subIndex].url = e.target.value;
 										setData('sections', sections);
 									}}
-									placeholder="url..."
+									placeholder='url...'
 								/>
-								<InputError message={errors[`sections.${secIndex}.subsections.${subIndex}.url`]} className="mt-2" />
+								<InputError message={errors[`sections.${secIndex}.subsections.${subIndex}.url`]} className='mt-2' />
 							</div>
 						</div>
 					))}

@@ -58,7 +58,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
         'courses' => CourseController::class,
         'schedules' => ScheduleController::class,
         'tnas' => TnaController::class,
-        'assignments' => AssignmentController::class,
+        'tests' => AssignmentController::class,
     ]);
 
     // Training

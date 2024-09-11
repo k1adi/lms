@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class UserProgession extends Pivot
+class UserProgression extends Pivot
 {
     protected $table = 'user_progressions';
     protected $foreignKey = 'user_id';

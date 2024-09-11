@@ -92,7 +92,8 @@ class BusController extends Controller
      */
     public function update(UpdateBuRequest $request, Bu $bu): RedirectResponse
     {
-        try {$validated = $request->validated();
+        try {
+            $validated = $request->validated();
 
             // Check the structure of the 'positions' field
             // $positions = array_map(function($position) {

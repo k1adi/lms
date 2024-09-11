@@ -5,10 +5,9 @@ import Breadcrumb from '@/Components/Acessibility/Breadcrumb';
 import { Pencil, Trash2 } from 'lucide-react';
 
 const Index = ({ tnas, auth }) => {
-	console.log(tnas, 'tnas');
   const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
-		{ link: '#', text: 'Analyze' },
+		{ link: '#', text: 'Assignment' },
 	];
 
 	const onDelete = (id) => {
