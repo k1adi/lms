@@ -7,7 +7,7 @@ const DetailOffline = ({ course }) => {
   const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
 		{ link: '#', text: 'Training' },
-		{ link: route('training-offline.index'), text: 'Offline' },
+		{ link: route('training.offline.index'), text: 'Offline' },
 	];
 
   return (

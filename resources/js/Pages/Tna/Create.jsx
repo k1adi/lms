@@ -88,6 +88,11 @@ const Create = ({ bus, courses }) => {
     }
   }
 
+	const handleParticipantChange = (e) => {
+		const value = parseInt(e.target.value);
+		setData('participant', isNaN(value) ? '' : value);
+	}
+
 	const submit = (e) => {
 		e.preventDefault();
 		post(route('tnas.store'))
@@ -166,6 +171,17 @@ const Create = ({ bus, courses }) => {
 					isPrimary={true}
 				>
 					<TextInput
+            name="participant"
+            type="number"
+            min="0"
+            value={data.participant}
+            onChange={handleParticipantChange}
+            className="mt-1 block w-full"
+            required
+            autoComplete="participant"
+						placeholder="Estimated Total Participants..."
+          />
+					{/* <TextInput
 						name='participant'
 						className="mt-1 block w-full"
 						value={+data.participant}
@@ -173,7 +189,7 @@ const Create = ({ bus, courses }) => {
 						required
 						autoComplete="participant"
 						placeholder="Estimated Total Participants..."
-					/>
+					/> */}
 				</FieldGroup>
 
         {/* Input Start Time */}

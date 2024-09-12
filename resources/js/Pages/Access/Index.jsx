@@ -6,8 +6,6 @@ import LocalizationDate from '@/Utils/LocalizationDate';
 import { Pencil } from 'lucide-react';
 
 const Index = ({ courses, schedules, auth }) => {
-  console.log(schedules);
-
   const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
 		{ link: '#', text: 'Setting' },
@@ -49,7 +47,7 @@ const Index = ({ courses, schedules, auth }) => {
                       ))}
                     </td>
                     <td className='table--action'>
-                      <Link href={route('course-access.edit', key.id)} className='text-warning mr-2'> 
+                      <Link href={route('access.course.edit', key.id)} className='text-warning mr-2'> 
                         <Pencil className='inline-block mb-1' size={14} /> Edit
                       </Link>
                     </td>
@@ -99,7 +97,7 @@ const Index = ({ courses, schedules, auth }) => {
                       ))}
                     </td>
                     <td className='table--action'>
-                      <Link href={route('schedule-access.edit', key.id)} className='text-warning mr-2'> 
+                      <Link href={route('access.schedule.edit', key.id)} className='text-warning mr-2'> 
                         <Pencil className='inline-block mb-1' size={14} /> Edit
                       </Link>
                     </td>

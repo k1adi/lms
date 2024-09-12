@@ -23,7 +23,7 @@ const Edit = ({ schedule, users }) => {
 	const submit = (e) => {
 		e.preventDefault();
 
-		patch(route('schedule-access.update', schedule));
+		patch(route('access.schedule.update', schedule));
 	}
 
   return (

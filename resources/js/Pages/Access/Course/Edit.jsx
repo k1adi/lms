@@ -22,7 +22,7 @@ const Edit = ({ course, positions }) => {
 	const submit = (e) => {
 		e.preventDefault();
 
-		patch(route('course-access.update', course));
+		patch(route('access.course.update', course));
 	}
 
   return (

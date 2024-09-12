@@ -11,8 +11,6 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import convertOptions from '@/Utils/ReactSelectOption';
 
 const Edit = ({ tna, bus, courses, options }) => {
-  console.log(tna, 'tna')  ;
-
   const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
 		{ link: route('tnas.index'), text: 'TNA' },

@@ -76,4 +76,14 @@ class AssignmentController extends Controller
     {
         //
     }
+
+    /**
+     * Show the form for creating a new observation test.
+     */
+    public function observation(): Response
+    {
+        // $assignment = Assignment::where('type', 'skill')->get();
+
+        return Inertia::render('Tes/Observation');
+    }
 }

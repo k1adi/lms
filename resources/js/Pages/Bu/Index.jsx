@@ -6,7 +6,7 @@ import onDeleteData from '@/Utils/DeleteData';
 import { Pencil, Trash2 } from 'lucide-react';
 
 const Index = ({ bus, auth }) => {
-	console.log(bus);
+	console.log('bu use button util canDelete');
 
 	const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },

@@ -6,13 +6,8 @@ import { LayoutDashboard, CalendarClock, ClipboardList, Settings, UserCog, Libra
 
 export default function DashboardMenu({ sidebarExpand, setSidebarExpand }) {
   const { url: inertiaUrl } = usePage();
-  const currentPage = inertiaUrl.split('/')[1];
+  const urlPath = inertiaUrl.split('/');
   const permissions = usePage().props.auth.permissions;
-
-  const trainingChild = ['training-online', 'training-offline'];
-  const assignmentChild = ['tests', 'tnas'];
-  const settingChild = ['bus', 'depts', 'positions', 'courses', 'access'];
-  const authorizationChild = ['users', 'roles', 'permissions'];
   
   const trainingMenu = ['online_course_access', 'offline_course_access'];
   const assignmentMenu = ['assignment_access', 'tna_access'];
@@ -28,12 +23,13 @@ export default function DashboardMenu({ sidebarExpand, setSidebarExpand }) {
           icon={<LayoutDashboard />}
           name='dashboard'
           text='Dashboard'
+          active={urlPath[1] == 'dashboard'}
         />
       }
 
       {/* Training */}
       { trainingMenu.some(value => permissions.includes(value)) &&
-        <NavGroup isActive={trainingChild.includes(currentPage)}>
+        <NavGroup isActive={urlPath[1] == 'training'}>
           {(handleClick, open) => {
             return (
               <>
@@ -44,7 +40,7 @@ export default function DashboardMenu({ sidebarExpand, setSidebarExpand }) {
                     e.preventDefault();
                     sidebarExpand ? handleClick() : setSidebarExpand(true); 
                   }}
-                  active={trainingChild.includes(currentPage)}
+                  active={urlPath[1] == 'training'}
                 >
                   <ChevronDown className={`absolute right-4 top-1/2 -translate-y-1/2 ${open && 'rotate-180'}`} />
                 </NavLink>
@@ -52,18 +48,20 @@ export default function DashboardMenu({ sidebarExpand, setSidebarExpand }) {
                   <ul className='mt-1 mb-5.5 flex flex-col gap-2.5 pl-6'>
                     {permissions.includes('online_course_access') &&
                       <NavLink
-                        link={route('training-online.index')}
+                        link={route('training.online.index')}
                         icon={<MonitorSmartphone />}
-                        name='training-online'
+                        name='online'
                         text='Online'
+                        active={urlPath[2] == 'online'}
                       />
                     }
                     {permissions.includes('offline_course_access') &&
                       <NavLink
-                        link={route('training-offline.index')}
+                        link={route('training.offline.index')}
                         icon={<ScrollText />}
-                        name='training-offline'
+                        name='offline'
                         text='Offline'
+                        active={urlPath[2] == 'offline'}
                       />
                     }
                   </ul>
@@ -76,7 +74,7 @@ export default function DashboardMenu({ sidebarExpand, setSidebarExpand }) {
 
       {/* Assignment */}
       { assignmentMenu.some(value => permissions.includes(value)) &&
-        <NavGroup isActive={assignmentChild.includes(currentPage)}>
+        <NavGroup isActive={urlPath[1] == 'assignment'}>
           {(handleClick, open) => {
             return (
               <>
@@ -87,7 +85,7 @@ export default function DashboardMenu({ sidebarExpand, setSidebarExpand }) {
                     e.preventDefault();
                     sidebarExpand ? handleClick() : setSidebarExpand(true); 
                   }}
-                  active={assignmentChild.includes(currentPage)}
+                  active={urlPath[1] == 'assignment'}
                 >
                   <ChevronDown className={`absolute right-4 top-1/2 -translate-y-1/2 ${open && 'rotate-180'}`} />
                 </NavLink>
@@ -101,6 +99,7 @@ export default function DashboardMenu({ sidebarExpand, setSidebarExpand }) {
                         icon={<PencilLine />}
                         name='tests'
                         text='Test'
+                        active={urlPath[2] == 'tests'}
                       />
                     }
                     {permissions.includes('tna_access') && 
@@ -109,6 +108,7 @@ export default function DashboardMenu({ sidebarExpand, setSidebarExpand }) {
                         icon={<TextSearch />}
                         name='tnas'
                         text='TNA'
+                        active={urlPath[2] == 'tnas'}
                       />
                     }
                   </ul>
@@ -126,6 +126,7 @@ export default function DashboardMenu({ sidebarExpand, setSidebarExpand }) {
           icon={<CalendarClock />}
           name='schedules'
           text='Schedule'
+          active={urlPath[1] == 'schedules'}
         />
       }
 
@@ -140,7 +141,7 @@ export default function DashboardMenu({ sidebarExpand, setSidebarExpand }) {
 
       {/* Setting */}
       { settingMenu.some(value => permissions.includes(value)) &&
-        <NavGroup isActive={settingChild.includes(currentPage)}>
+        <NavGroup isActive={urlPath[1] == 'setting'}>
           {(handleClick, open) => {
             return (
               <>
@@ -151,7 +152,7 @@ export default function DashboardMenu({ sidebarExpand, setSidebarExpand }) {
                     e.preventDefault();
                     sidebarExpand ? handleClick() : setSidebarExpand(true); 
                   }}
-                  active={settingChild.includes(currentPage)}
+                  active={urlPath[1] == 'setting'}
                 >
                   <ChevronDown className={`absolute right-4 top-1/2 -translate-y-1/2 ${open && 'rotate-180'}`} />
                 </NavLink>
@@ -165,6 +166,7 @@ export default function DashboardMenu({ sidebarExpand, setSidebarExpand }) {
                         icon={<Building2 />}
                         name='bus'
                         text='Business Unit'
+                        active={urlPath[2] == 'bus'}
                       />
                     }
                     {permissions.includes('dept_access') && 
@@ -173,6 +175,7 @@ export default function DashboardMenu({ sidebarExpand, setSidebarExpand }) {
                         icon={<BriefcaseBusiness />}
                         name='depts'
                         text='Department'
+                        active={urlPath[2] == 'depts'}
                       />
                     }
                     {permissions.includes('position_access') && 
@@ -181,6 +184,7 @@ export default function DashboardMenu({ sidebarExpand, setSidebarExpand }) {
                         icon={<SquareUser />}
                         name='positions'
                         text='Positions'
+                        active={urlPath[2] == 'positions'}
                       />
                     }
                     {permissions.includes('course_access') && 
@@ -189,6 +193,7 @@ export default function DashboardMenu({ sidebarExpand, setSidebarExpand }) {
                         icon={<BookCopy />}
                         name='courses'
                         text='Courses'
+                        active={urlPath[2] == 'courses'}
                       />
                     }
                     {permissions.includes('accessible_access') && 
@@ -197,6 +202,7 @@ export default function DashboardMenu({ sidebarExpand, setSidebarExpand }) {
                         icon={<BookLock />}
                         name='access'
                         text='Access'
+                        active={urlPath[2] == 'access'}
                       />
                     }
                   </ul>
@@ -209,7 +215,7 @@ export default function DashboardMenu({ sidebarExpand, setSidebarExpand }) {
 
       {/* Authorization */}
       { userMenu.some(value => permissions.includes(value)) &&
-        <NavGroup isActive={authorizationChild.includes(currentPage)}>
+        <NavGroup isActive={urlPath[1] == 'authorization'}>
           {(handleClick, open) => {
             return (
               <>
@@ -220,7 +226,7 @@ export default function DashboardMenu({ sidebarExpand, setSidebarExpand }) {
                     e.preventDefault();
                     sidebarExpand ? handleClick() : setSidebarExpand(true); 
                   }}
-                  active={authorizationChild.includes(currentPage)}
+                  active={urlPath[1] == 'authorization'}
                 >
                   <ChevronDown className={`absolute right-4 top-1/2 -translate-y-1/2 ${open && 'rotate-180'}`} />
                 </NavLink>
@@ -234,7 +240,8 @@ export default function DashboardMenu({ sidebarExpand, setSidebarExpand }) {
                         icon={<Users />}
                         name='users'
                         text='Users'
-                        />
+                        active={urlPath[2] == 'users'}
+                      />
                     }
                     {permissions.includes('role_access') && 
                       <NavLink
@@ -242,6 +249,7 @@ export default function DashboardMenu({ sidebarExpand, setSidebarExpand }) {
                         icon={<Settings2 />}
                         name='roles'
                         text='Roles'
+                        active={urlPath[2] == 'roles'}
                       />
                     }
                     {permissions.includes('permission_access') && 
@@ -250,6 +258,7 @@ export default function DashboardMenu({ sidebarExpand, setSidebarExpand }) {
                         icon={<KeyRound />}
                         name='permissions'
                         text='Permission'
+                        active={urlPath[2] == 'permissions'}
                       />
                     }
                   </ul>

@@ -4,15 +4,13 @@ import DashboardLayout from '@/Layouts/DashboardLayout';
 import Breadcrumb from '@/Components/Acessibility/Breadcrumb';
 
 const Online = ({ courses }) => {
-  console.log(courses);
-
   const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
 		{ link: '#', text: 'Training' },
 	];
 
   const handleRowClicked = (code) => {
-    router.visit(route('training-online.detail', code));
+    router.visit(route('training.online.detail', code));
   }
 
   return (

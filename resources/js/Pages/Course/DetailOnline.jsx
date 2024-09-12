@@ -4,11 +4,10 @@ import DashboardLayout from '@/Layouts/DashboardLayout';
 import Breadcrumb from '@/Components/Acessibility/Breadcrumb';
 
 const DetailOnline = ({ course }) => {
-  console.log(course, 'online')
   const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
 		{ link: '#', text: 'Training' },
-    { link: route('training-online.index'), text: 'Online' },
+    { link: route('training.online.index'), text: 'Online' },
 	];
 
   return (

@@ -10,7 +10,7 @@ const Offline = ({ courses }) => {
 	];
 
   const handleRowClicked = (code) => {
-    router.visit(route('training-offline.detail', code));
+    router.visit(route('training.offline.detail', code));
   }
 
   return (

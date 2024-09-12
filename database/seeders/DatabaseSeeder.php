@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
             UserBuPositionSeeder::class,
             TnaSeeder::class,
             TnaReportSeeder::class,
+            AssignmentSeeder::class,
         ]);
     }
 }

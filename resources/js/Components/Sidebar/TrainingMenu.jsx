@@ -14,8 +14,6 @@ export default function TrainingMenu({ sidebarExpand, setSidebarExpand }) {
     course 
   } = usePage().props;
   const section = course?.sections;
-  
-  console.log(progress, 'user training menu');
 
   return (
     <>
@@ -40,7 +38,7 @@ export default function TrainingMenu({ sidebarExpand, setSidebarExpand }) {
                     {key.sub_section.map((subKey, subIndex) => (
                       <NavLink
                         key={subIndex}
-                        link={route('training-online.section', {
+                        link={route('training.online.section', {
                           code: course.code, 
                           section: key.id, 
                           sub_section: subKey.id

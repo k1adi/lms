@@ -47,42 +47,45 @@ Route::get('/dashboard', function () {
 
 Route::middleware(['auth', 'verified'])->group(function() {
     Route::resources([
-        'bus' => BusController::class,
-        'depts' => DeptController::class,
-        'positions' => PositionController::class,
+        '/setting/bus' => BusController::class,
+        '/setting/depts' => DeptController::class,
+        '/setting/positions' => PositionController::class,
+        '/setting/courses' => CourseController::class,
 
-        'users' => UserController::class,
-        'roles' => RoleController::class,
-        'permissions' => PermissionController::class,
+        '/authorization/users' => UserController::class,
+        '/authorization/roles' => RoleController::class,
+        '/authorization/permissions' => PermissionController::class,
         
-        'courses' => CourseController::class,
         'schedules' => ScheduleController::class,
-        'tnas' => TnaController::class,
-        'tests' => AssignmentController::class,
+        '/assignment/tnas' => TnaController::class,
+        '/assignment/tests' => AssignmentController::class,
     ]);
 
     // Training
-    Route::get('/training-online', [TrainingController::class, 'online'])->name('training-online.index');
-    Route::get('/training-offline', [TrainingController::class, 'offline'])->name('training-offline.index');
-    Route::get('/training-offline/{code}', [TrainingController::class, 'detail'])->name('training-offline.detail');
-    Route::get('/training/{code}', [TrainingController::class, 'detail'])->name('training-online.detail');
-    Route::get('/training/{code}/{section}/{sub_section}', [TrainingController::class, 'section'])->name('training-online.section');
+    Route::get('/training/online', [TrainingController::class, 'online'])->name('training.online.index');
+    Route::get('/training/offline', [TrainingController::class, 'offline'])->name('training.offline.index');
+    Route::get('/training/offline/{code}', [TrainingController::class, 'detail'])->name('training.offline.detail');
+    Route::get('/training/online/{code}', [TrainingController::class, 'detail'])->name('training.online.detail');
+    Route::get('/training/detail/{code}/{section}/{sub_section}', [TrainingController::class, 'section'])->name('training.online.section');
 
-    // Asynchronous permission list
-    Route::get('/permissions-list', [PermissionController::class, 'list'])->name('permissions.list');
+    // test
+    Route::get('/test/observation', [AssignmentController::class, 'observation'])->name('tests.observation');
     
     // Get Dept, Position and User for TNA
     Route::get('/getDeptAndPosition', [TnaController::class, 'getDeptPosition'])->name('deptPosition');
     Route::get('/getUserByPosition', [TnaController::class, 'getUserPosition'])->name('userPosition');
     
     // Course and Schedule Access
-    Route::get('/access', [AccessController::class, 'index'])->name('access.index');
-    Route::get('/access/create', [AccessController::class, 'create'])->name('access.create');
-    Route::post('/access/store', [AccessController::class, 'store'])->name('access.store');
-    Route::get('/course-access/{course}/edit', [AccessController::class, 'editCourseAccess'])->name('course-access.edit');
-    Route::get('/schedule-access/{schedule}/edit', [AccessController::class, 'editScheduleAccess'])->name('schedule-access.edit');
-    Route::patch('/course-access/{course}', [AccessController::class, 'updateCourse'])->name('course-access.update');
-    Route::patch('/schedule-access/{schedule}', [AccessController::class, 'updateSchedule'])->name('schedule-access.update');
+    Route::get('/setting/access', [AccessController::class, 'index'])->name('access.index');
+    Route::get('/setting/access/create', [AccessController::class, 'create'])->name('access.create');
+    Route::post('/setting/access/store', [AccessController::class, 'store'])->name('access.store');
+    Route::get('/setting/access/course/{course}/edit', [AccessController::class, 'editCourseAccess'])->name('access.course.edit');
+    Route::get('/setting/access/schedule/{schedule}/edit', [AccessController::class, 'editScheduleAccess'])->name('access.schedule.edit');
+    Route::patch('/setting/course-access/{course}', [AccessController::class, 'updateCourse'])->name('access.course.update');
+    Route::patch('/setting/schedule-access/{schedule}', [AccessController::class, 'updateSchedule'])->name('access.schedule.update');
+
+    // Asynchronous permission list
+    Route::get('/permissions-list', [PermissionController::class, 'list'])->name('permissions.list');
 });
 
 Route::middleware('auth')->group(function () {

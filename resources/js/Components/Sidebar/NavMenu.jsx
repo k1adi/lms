@@ -7,19 +7,21 @@ import { Bug, ChevronDown, LayoutGrid, MessageSquareText, Rows3 } from 'lucide-r
 
 export default function NavMenu({ sidebarExpand, setSidebarExpand}) {
   const { url: inertiaUrl } = usePage();
-  const currentPage = inertiaUrl.split('/')[1];
+  const urlPath = inertiaUrl.split('/');
   const course = usePage().props?.course;
 
   return (
     <nav className='nav'>
-      {(currentPage != 'training' || course?.type == 'offline') && (
+      {/* Sidebar for just dashboard menu */}
+      {(urlPath[1] != 'training' || urlPath[2] == 'offline') && (
         <ul className='nav__list top'>
           <DashboardMenu sidebarExpand={sidebarExpand} setSidebarExpand={setSidebarExpand} />                    
         </ul>
       )}
 
-      {currentPage == 'training' && course?.type == 'online' && (
-        <ul className='nav__list mb-2'>
+      {/* Sidebar for dashbaord and training menu */}
+      {urlPath[1] == 'training' && (urlPath[2] == 'online' || urlPath[2] == 'detail') && (
+        <ul className='nav__list top'>
           <NavGroup>
             {(handleClick, open) => {
               return (
@@ -43,11 +45,7 @@ export default function NavMenu({ sidebarExpand, setSidebarExpand}) {
               );
             }}
           </NavGroup>
-        </ul>
-      )}
-      
-      {currentPage == 'training' && course?.type == 'online' && (
-        <ul className='nav__list top'>
+
           <NavGroup isActive={true}>
             {(handleClick, open) => {
               return (
@@ -59,7 +57,7 @@ export default function NavMenu({ sidebarExpand, setSidebarExpand}) {
                       e.preventDefault();
                       sidebarExpand ? handleClick() : setSidebarExpand(true); 
                     }}
-                    active={open || currentPage == 'training'}
+                    active={open || urlPath[2] == 'online'}
                   >
                     <ChevronDown className={`absolute right-4 top-1/2 -translate-y-1/2 ${open && 'rotate-180'}`} />
                   </NavLink>

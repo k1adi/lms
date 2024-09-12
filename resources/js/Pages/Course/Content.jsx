@@ -5,8 +5,8 @@ import Breadcrumb from '@/Components/Acessibility/Breadcrumb';
 
 const Content = ({ course, section, lesson }) => {
   const prevPage = [
-    { link: route('training-online.index'), text: 'Training' },
-    { link: route('training-online.detail', {code: course.code}), text: course.name },
+    { link: route('training.online.index'), text: 'Training' },
+    { link: route('training.online.detail', {code: course.code}), text: course.name },
     { link: '#', text: section.name },
 	];
 

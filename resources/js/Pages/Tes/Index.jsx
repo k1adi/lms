@@ -20,7 +20,7 @@ const Index = ({ tes }) => {
     <div className='content-box'>
       <Breadcrumb pageName='Test' prevPage={prevPage} />
 			<Link className="btn btn--primary me-2" href={route('tests.create')}> Create </Link>
-			<Link className="btn btn--primary" href={route('tests.create')}> Observation </Link>
+			<Link className="btn btn--primary" href={route('tests.observation')}> Observation </Link>
 
     </div>
   );

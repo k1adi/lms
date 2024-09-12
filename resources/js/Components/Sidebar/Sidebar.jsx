@@ -14,7 +14,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
   // close on click outside
   useEffect(() => {
-    const clickHandler = () => {
+    const clickHandler = ({ target }) => {
       if (!sidebar.current || !trigger.current) return;
       if (
         !sidebarOpen ||
@@ -30,7 +30,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
   // close if the esc key is pressed
   useEffect(() => {
-    const keyHandler = () => {
+    const keyHandler = ({ keyCode }) => {
       if (!sidebarOpen || keyCode !== 27) return;
       setSidebarOpen(false);
     };

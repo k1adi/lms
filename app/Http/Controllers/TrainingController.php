@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Resources\CourseOnlineResource;
 use App\Models\Course;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -51,6 +50,7 @@ class TrainingController extends Controller
         
         if($course->type == 'online') {
             $course->load('sections.subSection');
+            $course['progression'] = [];
         }
 
         return Inertia::render("Course/$page", [

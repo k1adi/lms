@@ -130,12 +130,12 @@
   }
 }
 
-.btn--toogle-sidebar {
+.btn--toggle-sidebar {
   @apply
     z-99999
     block
     rounded-sm
-    p-1.5
+    p-2
     shadow-sm
     lg:hidden
     border

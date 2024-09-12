@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Course extends Model
 {
@@ -60,7 +61,7 @@ class Course extends Model
     {
         return $this->hasManyThrough(SubSection::class, Section::class);
     }
-    
+        
     public function accesses(): HasMany
     {
         return $this->hasMany(CourseAccess::class, 'course_id', 'id');
@@ -79,5 +80,10 @@ class Course extends Model
                 ->whereHas('accesses', function ($query) use ($userPositions) {
                     $query->whereIn('position_id', $userPositions);
                 });
+    }
+
+    public function hasAssignment(): HasOne
+    {
+        return $this->hasOne(Assignment::class, 'course_id', 'id');
     }
 }
