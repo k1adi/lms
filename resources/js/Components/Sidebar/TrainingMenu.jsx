@@ -52,6 +52,7 @@ export default function TrainingMenu({ sidebarExpand, setSidebarExpand }) {
                       console.log(typeof subKey.id, ': type sub section id' + subKey.id);
                       console.log(urlPath[5] == subKey.id, 'is active?' + subKey.id);
                       console.log(progress.includes(subKey.id), 'is includes'+subKey.id);
+                      console.log(progress.includes(subKey.id.toString()), 'is includes'+subKey.id);
                       return (
                       <NavLink
                         key={subIndex}
@@ -63,7 +64,7 @@ export default function TrainingMenu({ sidebarExpand, setSidebarExpand }) {
                         name={subKey.name}
                         text={subKey.name}
                         active={urlPath[5] == subKey.id}
-                        className={progress.includes(subKey.id) ? 'text-sky-400' : ''}
+                        className={progress.includes(subKey.id.toString()) ? 'text-sky-400' : ''}
                       >
                         {progress.includes(subKey.id) ? (
                           <BookOpenCheck className='absolute right-4 top-1/2 -translate-y-1/2 text-sky-400' />
