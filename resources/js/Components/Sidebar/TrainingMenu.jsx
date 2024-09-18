@@ -16,6 +16,7 @@ export default function TrainingMenu({ sidebarExpand, setSidebarExpand }) {
     course
   } = usePage().props;
   const section = course?.sections;
+  console.log(progress, 'user progress');
 
   return (
     <>
