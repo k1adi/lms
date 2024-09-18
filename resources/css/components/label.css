@@ -14,6 +14,14 @@
     dark:bg-gray-600
 }
 
+.label--superadmin {
+  @apply
+    bg-pastel-maroon
+    text-white
+    dark:text-black
+    font-semibold
+}
+
 .label--admin {
     @apply
       bg-pastel-danger

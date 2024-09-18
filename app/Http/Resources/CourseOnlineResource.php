@@ -33,6 +33,7 @@ class CourseOnlineResource extends JsonResource
             'name' => $this->name,
             'type' => $this->type,
             'trainer' => $this->trainer,
+            'sections' => $this->sections,
             'total_sub_section' => $total,
             'progress' => $visited,
             'percentage' => number_format($percentage) . '%'

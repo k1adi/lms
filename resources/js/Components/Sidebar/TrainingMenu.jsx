@@ -2,21 +2,31 @@ import { usePage } from '@inertiajs/react';
 import NavGroup from './NavGroup';
 import NavLink from './NavLink';
 
-import { Check, ChevronDown } from 'lucide-react';
+import { BookOpen, BookOpenCheck, Check, ChevronDown } from 'lucide-react';
 
 export default function TrainingMenu({ sidebarExpand, setSidebarExpand }) {
+  const { url: inertiaUrl } = usePage();
+  const urlPath = inertiaUrl.split('/');
   const { 
     auth: { 
       user: {
         progression: progress 
       }
     }, 
-    course 
+    course
   } = usePage().props;
   const section = course?.sections;
 
   return (
     <>
+      <NavLink
+        link='#'
+        name='introduction'
+        text='Introduction'
+        active={course.code == urlPath[3] && !urlPath[4]}
+      >
+        <BookOpenCheck className='absolute right-4 top-1/2 -translate-y-1/2 text-sky-400' />
+      </NavLink>
       {section.map((key, index) => (
         <NavGroup key={index}>
           {(handleClick, open) => {
@@ -24,6 +34,7 @@ export default function TrainingMenu({ sidebarExpand, setSidebarExpand }) {
               <>
                 <NavLink
                   text={key.name}
+                  active={urlPath[4] == key.id}
                   onClick={(e) => {
                     e.preventDefault();
                     sidebarExpand ? handleClick() : setSidebarExpand(true); 
@@ -45,10 +56,13 @@ export default function TrainingMenu({ sidebarExpand, setSidebarExpand }) {
                         })}
                         name={subKey.name}
                         text={subKey.name}
+                        active={urlPath[5] == subKey.id}
                         className={progress.includes(subKey.id) ? 'text-sky-400' : ''}
                       >
-                        {progress.includes(subKey.id) && (
-                          <Check className='absolute right-4 top-1/2 -translate-y-1/2 text-sky-400' />
+                        {progress.includes(subKey.id) ? (
+                          <BookOpenCheck className='absolute right-4 top-1/2 -translate-y-1/2 text-sky-400' />
+                        ): (
+                          <BookOpen className='absolute right-4 top-1/2 -translate-y-1/2' />
                         )}
                       </NavLink>
                     ))}

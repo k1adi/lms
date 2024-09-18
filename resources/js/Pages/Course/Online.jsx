@@ -4,6 +4,8 @@ import DashboardLayout from '@/Layouts/DashboardLayout';
 import Breadcrumb from '@/Components/Acessibility/Breadcrumb';
 
 const Online = ({ courses }) => {
+  console.log(courses, 'training online');
+
   const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
 		{ link: '#', text: 'Training' },
