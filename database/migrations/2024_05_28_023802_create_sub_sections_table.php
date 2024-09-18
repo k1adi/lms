@@ -21,7 +21,7 @@ return new class extends Migration
             $table->timestamps();
 
             // Added foreign key constraint
-            $table->foreign('section_id')->references('id')->on('sections');
+            $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
         });
     }
 

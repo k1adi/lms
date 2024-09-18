@@ -150,8 +150,8 @@ const Create = ({ courses }) => {
 						type='url'
 						name='url_atachment'
 						className='mt-1 block w-full'
-						value={data.url_atachment}
-						onChange={(e) => setData('url_atachment', e.target.value)}
+						value={data.url_attachment}
+						onChange={(e) => setData('url_attachment', e.target.value)}
 						autoComplete='url_atachment'
 						placeholder='URL Attachment...'
 					/>

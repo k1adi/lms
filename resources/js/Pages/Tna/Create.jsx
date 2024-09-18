@@ -34,10 +34,11 @@ const Create = ({ bus, courses }) => {
   const [users, setUser] = useState([]);
 
   const handleBuChange = async (bu) => {
-    setData('bu', bu);
+    // setData('bu', bu);
     // Reset dependent fields
     setData((prevData) => ({
       ...prevData,
+			bu: bu,
       dept: '',
       positions: [],
       users: [],

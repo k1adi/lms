@@ -64,9 +64,8 @@ class UserController extends Controller
 
             return Redirect::route('users.index');
         } catch (\Exception $e) {
-            dd($e);
             return Redirect::back()->withErrors([
-                'error' => $e
+                'error' => $e->getMessage(),
             ])->withInput();
         }
     }
@@ -119,9 +118,8 @@ class UserController extends Controller
 
             return Redirect::route('users.index');
         } catch (\Exception $e) {
-            dd($e);
             return Redirect::back()->withErrors([
-                'error' => $e
+                'error' => $e->getMessage(),
             ])->withInput();
         }
     }

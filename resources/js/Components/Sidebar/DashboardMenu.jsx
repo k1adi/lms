@@ -99,7 +99,7 @@ export default function DashboardMenu({ sidebarExpand, setSidebarExpand }) {
                         icon={<PencilLine />}
                         name='tests'
                         text='Test'
-                        active={urlPath[2] == 'tests'}
+                        active={['tests', 'observation'].includes(urlPath[2])}
                       />
                     }
                     {permissions.includes('tna_access') && 

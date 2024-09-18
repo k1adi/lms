@@ -62,6 +62,7 @@ class PermissionSeeder extends Seeder
             'permission_create', // 46
             'permission_edit', // 47
             'permission_delete', // 48
+            'observation_create', //49
         ];
         
         foreach ($permissions as $permission) {

@@ -11,7 +11,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import convertOptions from '@/Utils/ReactSelectOption';
 import { Plus, Trash2 } from 'lucide-react';
 
-const Edit = ({ course, courses }) => {
+const Edit = ({ course }) => {
 	const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
 		{ link: route('courses.index'), text: 'Courses' },

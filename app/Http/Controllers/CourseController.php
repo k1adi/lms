@@ -61,7 +61,7 @@ class CourseController extends Controller
                 }
             }
 
-            return Redirect::route('courses.index');
+            return Redirect::route('courses.index')->with('success', 'Course created');
         } catch (\Exception $e) {
             return Redirect::back()->withErrors([
                 'error' => $e
@@ -85,12 +85,10 @@ class CourseController extends Controller
         if($course->type == 'online') {
             $course->load('sections.subSection');
         }
-        $courses = Course::where('id', '!=', $course->id)->get();
 
         // $course->load('prerequisiteCourse');
         return Inertia::render('Course/Edit', [
             'course' => $course,
-            'courses' => $courses,
         ]);
     }
 
@@ -102,22 +100,42 @@ class CourseController extends Controller
         try {
             $validated = $request->validated();
             $validated['type'] = $validated['type']['value'];
-            // if(isset($validated['prerequisite'])){
-            //     $validated['prerequisite'] = $validated['prerequisite']['value'];
-            // }
 
             $course->fill($validated);
+            $course->save(); // Ensure course is saved before processing sections
 
-            if($validated['type'] === 'online'){
+            if ($validated['type'] === 'online') {
+                // Handle sections
                 $sectionsData = $request->input('sections', []);
+
+                // Get the current section IDs
+                $existingSectionIds = $course->sections()->pluck('id')->toArray();
+                $newSectionIds = collect($sectionsData)->pluck('id')->filter()->toArray(); // Only keep non-null IDs
+
+                // Delete sections that are not in the update request
+                $sectionsToDelete = array_diff($existingSectionIds, $newSectionIds);
+                $course->sections()->whereIn('id', $sectionsToDelete)->delete();
+
                 foreach ($sectionsData as $sectionData) {
+                    // Update or create the section
                     $section = $course->sections()->updateOrCreate(
                         ['id' => $sectionData['id'] ?? null],
                         ['name' => $sectionData['name']]
                     );
-            
+
+                    // Handle subsections
                     $subsectionsData = $sectionData['subsections'] ?? [];
+
+                    // Get the current subsection IDs for the section
+                    $existingSubsectionIds = $section->subSection()->pluck('id')->toArray();
+                    $newSubsectionIds = collect($subsectionsData)->pluck('id')->filter()->toArray();
+
+                    // Delete subsections that are not in the update request
+                    $subsectionsToDelete = array_diff($existingSubsectionIds, $newSubsectionIds);
+                    $section->subSection()->whereIn('id', $subsectionsToDelete)->delete();
+
                     foreach ($subsectionsData as $subsectionData) {
+                        // Update or create the subsection
                         $section->subSection()->updateOrCreate(
                             ['id' => $subsectionData['id'] ?? null],
                             [
@@ -133,7 +151,7 @@ class CourseController extends Controller
             return Redirect::route('courses.index');
         } catch (\Exception $e) {
             return Redirect::back()->withErrors([
-                'error' => $e
+                'error' => $e->getMessage(),
             ])->withInput();
         }
     }

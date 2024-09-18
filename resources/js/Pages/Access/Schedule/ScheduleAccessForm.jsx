@@ -14,8 +14,6 @@ const ScheduleAccessForm = ({ datas, access, data, setData, errors }) => {
     setSchedule(selectedSchedule);
   }
 
-  console.log(schedule);
-
   return (
     <>
       <FieldGroup 

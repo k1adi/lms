@@ -33,8 +33,7 @@ class Course extends Model
         $date = Carbon::now();
         $type = ($course == 'online') ? 'ONL' : 'OFL';
 
-        $courseCount = self::whereYear('created_at', $date->year)
-                       ->whereMonth('created_at', $date->month)->count();
+        $courseCount = self::withTrashed()->count();
 
         // Generate the code with zero-padded number and month
         return sprintf("PRI%s%03d%02d%s", 

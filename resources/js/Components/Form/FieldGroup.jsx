@@ -1,4 +1,4 @@
-export default function FieldGroup({ label, name, error, isPrimary, children, className }) {
+export default function FieldGroup({ label, name, error = '', isPrimary, children, className }) {
   return (
     <div className={'mb-3 ' + className}>
       {label && (
@@ -7,7 +7,7 @@ export default function FieldGroup({ label, name, error, isPrimary, children, cl
         </label>
       )}
       {children}
-      {error && <div className='text-red-600 dark:text-red-400 mt-2 text-sm'>{error}</div>}
+      {error != '' && <div className='text-red-600 dark:text-red-400 mt-2 text-sm'>{error}</div>}
     </div>
   );
 }

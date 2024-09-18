@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
-            $table->string('code', 16);
+            $table->string('code', 16)->unique();
             $table->string('name', 100);
             $table->enum('type', ['offline', 'online']);
             $table->string('trainer', 100);

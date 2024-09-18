@@ -14,7 +14,6 @@ use App\Models\UserBuPosition;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
@@ -127,9 +126,8 @@ class TnaController extends Controller
 
             return Redirect::route('tnas.index');
         } catch (\Exception $e) {
-            dd($e);
             return Redirect::back()->withErrors([
-                'error' => $e
+                'error' => $e->getMessage(),
             ])->withInput();
         }
     }
