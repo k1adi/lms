@@ -16,7 +16,6 @@ export default function TrainingMenu({ sidebarExpand, setSidebarExpand }) {
     course
   } = usePage().props;
   const section = course?.sections;
-  console.log(progress, 'user progress');
 
   return (
     <>
@@ -47,13 +46,7 @@ export default function TrainingMenu({ sidebarExpand, setSidebarExpand }) {
                   className={`translate transform overflow-hidden ${!open && 'hidden'}`}
                 >
                   <ul className='mt-1 mb-5.5 flex flex-col gap-2.5'>
-                    {key.sub_section.map((subKey, subIndex) => {
-                      console.log(subKey.id, ': sub section id' + subKey.id);
-                      console.log(typeof subKey.id, ': type sub section id' + subKey.id);
-                      console.log(urlPath[5] == subKey.id, 'is active?' + subKey.id);
-                      console.log(progress.includes(subKey.id), 'is includes'+subKey.id);
-                      console.log(progress.includes(subKey.id.toString()), 'is includes'+subKey.id);
-                      return (
+                    {key.sub_section.map((subKey, subIndex) => (
                       <NavLink
                         key={subIndex}
                         link={route('training.online.section', {
@@ -66,13 +59,13 @@ export default function TrainingMenu({ sidebarExpand, setSidebarExpand }) {
                         active={urlPath[5] == subKey.id}
                         className={progress.includes(subKey.id.toString()) ? 'text-sky-400' : ''}
                       >
-                        {progress.includes(subKey.id) ? (
+                        {progress.includes(subKey.id.toString()) ? (
                           <BookOpenCheck className='absolute right-4 top-1/2 -translate-y-1/2 text-sky-400' />
                         ): (
                           <BookOpen className='absolute right-4 top-1/2 -translate-y-1/2' />
                         )}
                       </NavLink>
-                    )})}
+                    ))}
                   </ul>
                 </div>
               </>
