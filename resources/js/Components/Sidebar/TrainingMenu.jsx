@@ -50,7 +50,8 @@ export default function TrainingMenu({ sidebarExpand, setSidebarExpand }) {
                     {key.sub_section.map((subKey, subIndex) => {
                       console.log(subKey.id, ': sub section id' + subKey.id);
                       console.log(typeof subKey.id, ': type sub section id' + subKey.id);
-                      console.log(urlPath[5] == subKey.id, 'is active?' + subKey.id)
+                      console.log(urlPath[5] == subKey.id, 'is active?' + subKey.id);
+                      console.log(progress.includes(subKey.id), 'is includes'+subKey.id);
                       return (
                       <NavLink
                         key={subIndex}
