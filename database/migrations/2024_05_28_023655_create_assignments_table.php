@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('assignments', function (Blueprint $table) {
             $table->id();
+            $table->string('code', 16)->unique();
             $table->unsignedBigInteger('course_id');
-            $table->dateTime('access_time')->nullable();
-            $table->integer('minimum_score');
+            $table->date('access_time')->nullable();
+            $table->integer('minimum_score')->nullable();
             $table->enum('type', ['knowledge', 'skill']);
             $table->timestamps();
+            $table->softDeletes();
 
             // Added foreign key constraint
             $table->foreign('course_id')->references('id')->on('courses');

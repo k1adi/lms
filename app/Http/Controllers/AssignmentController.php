@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateAssignmentRequest;
 use App\Http\Requests\CreateObservationRequest;
+use App\Http\Requests\UpdateAssignmentRequest;
+use App\Http\Resources\TestDetailResource;
 use App\Models\Assignment;
 use App\Models\Course;
 use App\Models\UserAssignmentLog;
 use App\Models\UserBuPosition;
-use Carbon\Carbon;
 use DateTime;
 use DateTimeZone;
 use Illuminate\Http\JsonResponse;
@@ -29,10 +30,10 @@ class AssignmentController extends Controller
     {
         // Authorize the action using Gate
         Gate::authorize('assignment_access');
-        $tes = Assignment::paginate();
+        $assignments = Assignment::with('course')->paginate();
 
         return Inertia::render('Tes/Index', [
-            'tes' => $tes,
+            'assignments' => $assignments,
         ]);
     }
 
@@ -51,7 +52,7 @@ class AssignmentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateAssignmentRequest $request)
+    public function store(CreateAssignmentRequest $request): RedirectResponse
     {
         DB::beginTransaction(); // Start the transaction
 
@@ -72,9 +73,8 @@ class AssignmentController extends Controller
             DB::commit();
             return Redirect::route('tests.index')->with('success', 'Assignment created');
         } catch (\Exception $e) {
-            DB::rollBack();
-        
             dd($e);
+            DB::rollBack();
             return Redirect::back()->withErrors([
                 'error' => $e->getMessage(),
             ])->withInput();
@@ -92,25 +92,99 @@ class AssignmentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id): Response
     {
-        //
+        $courses = Course::all();
+        $assignment = Assignment::findOrFail($id);
+        $assignment->load('course');
+
+        if($assignment->type == 'knowledge') {
+            $assignment->load('questions.answers');
+        }
+
+        return Inertia::render('Tes/Edit', [
+            'assignment' => $assignment,
+            'courses' => $courses
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateAssignmentRequest $request, string $id): RedirectResponse
     {
-        //
+        DB::beginTransaction(); // Start the transaction
+        $assignment = Assignment::findOrFail($id);
+
+        try {
+            $validated = $request->validated();
+            $assignment->fill($validated);
+            $assignment->save(); // Ensure the assignment is saved
+
+            if ($validated['type'] === 'knowledge') {
+                // Handle questions
+                $questions = $request->input('questions', []);
+
+                // Get the current question IDs
+                $existingQuestionIds = $assignment->questions()->pluck('id')->toArray();
+                $newQuestionIds = collect($questions)->pluck('id')->filter()->toArray(); // Only keep non-null IDs
+
+                // Delete questions that are not in the update request
+                $questionsToDelete = array_diff($existingQuestionIds, $newQuestionIds);
+                $assignment->questions()->whereIn('id', $questionsToDelete)->delete();
+
+                foreach ($questions as $questionData) {
+                    // Update or create the question
+                    $question = $assignment->questions()->updateOrCreate(
+                        ['id' => $questionData['id'] ?? null],
+                        ['text' => $questionData['name']]
+                    );
+
+                    // Handle answers
+                    $answers = $questionData['answers'] ?? [];
+                    
+                    // Get the current answer IDs for the question
+                    $existingAnswerIds = $question->answers()->pluck('id')->toArray();
+                    $newAnswerIds = collect($answers)->pluck('id')->filter()->toArray();
+
+                    // Delete answers that are not in the update request
+                    $answersToDelete = array_diff($existingAnswerIds, $newAnswerIds);
+                    $question->answers()->whereIn('id', $answersToDelete)->delete();
+
+                    foreach ($answers as $answerData) {
+                        // Update or create the answer
+                        $question->answers()->updateOrCreate(
+                            ['id' => $answerData['id'] ?? null],
+                            [
+                                'question_id' => $question->id,
+                                'text' => $answerData['text'],
+                                'is_correct' => $answerData['is_correct'] ?? false,
+                            ]
+                        );
+                    }
+                }
+            }
+
+            DB::commit();
+            return Redirect::route('tests.index');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return Redirect::back()->withErrors([
+                'error' => $e->getMessage(),
+            ])->withInput();
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): RedirectResponse
     {
-        //
+        Gate::authorize('assignment_delete');
+        $assignment = Assignment::findOrFail($id);
+
+        $assignment->delete();
+        return Redirect::back();
     }
 
     /**

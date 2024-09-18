@@ -13,8 +13,12 @@ return new class extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
-            $table->string('text');
+            $table->unsignedBigInteger('assignment_id');
+            $table->string('text', 150);
             $table->timestamps();
+
+            // Added foreign key constraint
+            $table->foreign('assignment_id')->references('id')->on('assignments');
         });
     }
 
