@@ -69,7 +69,9 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/training/detail/{code}/{section}/{sub_section}', [TrainingController::class, 'section'])->name('training.online.section');
 
     // test
-    Route::get('/test/observation', [AssignmentController::class, 'observation'])->name('tests.observation');
+    Route::get('/assignment/observation', [AssignmentController::class, 'observation'])->name('observation.create');
+    Route::post('/assignment/observation', [AssignmentController::class, 'storeObservation'])->name('observation.store');
+    Route::get('/assignment/user-by-position', [AssignmentController::class, 'userObservation'])->name('observation.user');
     
     // Get Dept, Position and User for TNA
     Route::get('/getDeptAndPosition', [TnaController::class, 'getDeptPosition'])->name('deptPosition');

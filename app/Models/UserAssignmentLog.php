@@ -10,6 +10,7 @@ class UserAssignmentLog extends Pivot
     protected $table = 'user_assignment_logs';
     protected $foreignKey = 'user_id';
     protected $relatedKey = 'assignment_id';
+    protected $fillable = ['user_id', 'assignment_id', 'score', 'status', 'created_at'];
     public $timestamps = false;
 
     public function user(): BelongsTo
