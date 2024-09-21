@@ -13,8 +13,9 @@ class RolePermissionSeeder extends Seeder
      */
     public function run(): void
     {
+        // Role permission for Super Admin
+        // All Permission
         DB::table('role_permission')->insert([
-            // Admin
             ['role_id' => 1, 'permission_id' => 1],
             ['role_id' => 1, 'permission_id' => 2],
             ['role_id' => 1, 'permission_id' => 3],
@@ -64,8 +65,12 @@ class RolePermissionSeeder extends Seeder
             ['role_id' => 1, 'permission_id' => 47],
             ['role_id' => 1, 'permission_id' => 48],
             ['role_id' => 1, 'permission_id' => 49],
+        ]);
+
+        // Role permission for Admin
+        // All permission without user, role and permission
+        DB::table('role_permission')->insert([
             
-            // Admin
             ['role_id' => 2, 'permission_id' => 1],
             ['role_id' => 2, 'permission_id' => 2],
             ['role_id' => 2, 'permission_id' => 3],
@@ -103,20 +108,13 @@ class RolePermissionSeeder extends Seeder
             ['role_id' => 2, 'permission_id' => 35],
             ['role_id' => 2, 'permission_id' => 36],
             ['role_id' => 2, 'permission_id' => 37],
-            ['role_id' => 2, 'permission_id' => 38],
-            ['role_id' => 2, 'permission_id' => 39],
-            ['role_id' => 2, 'permission_id' => 40],
-            ['role_id' => 2, 'permission_id' => 41],
-            ['role_id' => 2, 'permission_id' => 42],
-            ['role_id' => 2, 'permission_id' => 43],
-            ['role_id' => 2, 'permission_id' => 44],
-            ['role_id' => 2, 'permission_id' => 45],
-            ['role_id' => 2, 'permission_id' => 46],
-            ['role_id' => 2, 'permission_id' => 47],
-            ['role_id' => 2, 'permission_id' => 48],
-            ['role_id' => 2, 'permission_id' => 49],
+        ]);
 
-            // Instructor
+        // Role permission for Instructor
+        // Dashboard, Training, Assignment, Observation, Schedule, and
+        // Course (Access, Create and Edit)
+        DB::table('role_permission')->insert([
+            
             ['role_id' => 3, 'permission_id' => 1],
             ['role_id' => 3, 'permission_id' => 2],
             ['role_id' => 3, 'permission_id' => 3],
@@ -124,20 +122,25 @@ class RolePermissionSeeder extends Seeder
             ['role_id' => 3, 'permission_id' => 5],
             ['role_id' => 3, 'permission_id' => 6],
             ['role_id' => 3, 'permission_id' => 7],
-            ['role_id' => 3, 'permission_id' => 12],
+            ['role_id' => 3, 'permission_id' => 8],
+            
             ['role_id' => 3, 'permission_id' => 13],
             ['role_id' => 3, 'permission_id' => 14],
             ['role_id' => 3, 'permission_id' => 15],
             ['role_id' => 3, 'permission_id' => 16],
-            ['role_id' => 3, 'permission_id' => 39],
+            
             ['role_id' => 3, 'permission_id' => 30],
             ['role_id' => 3, 'permission_id' => 31],
             ['role_id' => 3, 'permission_id' => 32],
-            
-            // User
+        ]);
+
+        // Role permission for user
+        DB::table('role_permission')->insert([
+            // Admin
             ['role_id' => 4, 'permission_id' => 1],
             ['role_id' => 4, 'permission_id' => 2],
             ['role_id' => 4, 'permission_id' => 3],
+            ['role_id' => 4, 'permission_id' => 13],
         ]);
     }
 }
