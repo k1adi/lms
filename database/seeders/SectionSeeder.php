@@ -15,22 +15,22 @@ class SectionSeeder extends Seeder
     {
         Section::create([
            'course_id' => 1,
-           'name' => 'Section A-01' 
+           'name' => 'Laravel Logging' 
         ]);
         
         Section::create([
            'course_id' => 1,
-           'name' => 'Section A-02' 
+           'name' => 'Laravel Blade Template' 
         ]);
 
         Section::create([
             'course_id' => 1,
-            'name' => 'Section A-03' 
+            'name' => 'Laravel Collection' 
         ]);
 
         Section::create([
             'course_id' => 4,
-            'name' => 'Section B-01' 
+            'name' => 'Excel Section' 
         ]);
     }
 }

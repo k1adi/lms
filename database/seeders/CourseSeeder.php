@@ -15,12 +15,12 @@ class CourseSeeder extends Seeder
     {
         Course::create([
             'code' => 'PRIONL0010824',
-            'name' => 'Course 1',
+            'name' => 'Learn Laravel from Hero to Zero',
             'type' => 'online',
-            'trainer' => 'Trainer 1',
-            'thumbnail' => 'https://www.youtube.com/',
-            'url_attachment' => 'https://www.drive.com/',
-            'description' => 'Online Course 01'
+            'trainer' => 'Programmer Zaman Now',
+            'thumbnail' => 'https://youtu.be/ClMX6TXvh_o',
+            'url_attachment' => '',
+            'description' => 'Hi guys, di kelas ini kita akan bahas tentang dasar-dasar Laravel Framework. Ini adalah materi awal dari roadmap kelas Laravel. Pastikan teman-teman menguasai materi ini sebelum mengikuti kelas-kelar Laravel selanjutnya'
         ]);
 
         Course::create([
@@ -41,12 +41,12 @@ class CourseSeeder extends Seeder
 
         Course::create([
             'code' => 'PRIONL0040824',
-            'name' => 'Course 4',
+            'name' => 'Microsoft Excel Tutorial Videos 🔥[2024 Updated]',
             'type' => 'online',
-            'trainer' => 'Trainer 4',
-            'thumbnail' => 'https://www.youtube.com/',
-            'url_attachment' => 'https://www.drive.com/',
-            'description' => 'Online Course 02'
+            'trainer' => 'Simplilearn',
+            'thumbnail' => 'https://youtu.be/5ABOjWLMu4c',
+            'url_attachment' => '',
+            'description' => 'Embark on a comprehensive journey into the world of Excel with the "Excel Tutorial for Beginners" playlist, designed to transform absolute beginners into proficient users. This expansive playlist covers every conceivable aspect of Excel, from foundational basics to advanced functionalities, ensuring that learners of all levels find valuable insights and skills to enhance their mastery of this essential tool.'
         ]);
     }
 }
