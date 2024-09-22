@@ -36,6 +36,7 @@ class HandleInertiaRequests extends Middleware
 
         // Get sub_section_id from user_progressions pivot table
         $progressions = $user ? $user->courseProgress()->pluck('sub_section_id')->toArray() : [];
+        $progressions = array_map('strval', $progressions);
 
         return [
             ...parent::share($request),
