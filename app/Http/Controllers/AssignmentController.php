@@ -42,7 +42,9 @@ class AssignmentController extends Controller
      */
     public function create(): Response
     {
-        $course = Course::all();
+        $course = Course::withoutAssignment()->map(function($item) {
+            return ['id' => $item->id, 'name' => $item->name];
+        });
 
         return Inertia::render('Tes/Create', [
             'courses' => $course,
@@ -73,7 +75,6 @@ class AssignmentController extends Controller
             DB::commit();
             return Redirect::route('tests.index')->with('success', 'Assignment created');
         } catch (\Exception $e) {
-            dd($e);
             DB::rollBack();
             return Redirect::back()->withErrors([
                 'error' => $e->getMessage(),

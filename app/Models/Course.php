@@ -85,4 +85,9 @@ class Course extends Model
     {
         return $this->hasOne(Assignment::class, 'course_id', 'id');
     }
+
+    public static function withoutAssignment(): Collection
+    {
+        return self::whereDoesntHave('hasAssignment')->get();
+    }
 }
