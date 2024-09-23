@@ -66,6 +66,8 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/training/offline', [TrainingController::class, 'offline'])->name('training.offline.index');
     Route::get('/training/offline/{code}', [TrainingController::class, 'detail'])->name('training.offline.detail');
     Route::get('/training/online/{code}', [TrainingController::class, 'detail'])->name('training.online.detail');
+    Route::get('/training/test/{code}', [TrainingController::class, 'test'])->name('training.test');
+    Route::post('/training/test/validate', [TrainingController::class, 'testValidate'])->name('training.test.validate');
     Route::get('/training/detail/{code}/{section}/{sub_section}', [TrainingController::class, 'section'])->name('training.online.section');
 
     // test

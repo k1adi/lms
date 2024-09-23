@@ -4,8 +4,6 @@ import DashboardLayout from '@/Layouts/DashboardLayout';
 import Breadcrumb from '@/Components/Acessibility/Breadcrumb';
 
 const Online = ({ courses }) => {
-  console.log(courses, 'training online');
-
   const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
 		{ link: '#', text: 'Training' },
@@ -47,7 +45,7 @@ const Online = ({ courses }) => {
                   </tr>
                 )) :
                 <tr className='text-center'>
-                  <td colSpan={4}>Empty data</td>
+                  <td colSpan={6}>Empty data</td>
                 </tr>
               }
             </tbody>

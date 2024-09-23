@@ -16,11 +16,12 @@ export default function TrainingMenu({ sidebarExpand, setSidebarExpand }) {
     course
   } = usePage().props;
   const section = course?.sections;
+  console.log(course, 'training menu');
 
   return (
     <>
       <NavLink
-        link='#'
+        link={route('training.online.detail', course.code)}
         name='introduction'
         text='Introduction'
         active={course.code == urlPath[3] && !urlPath[4]}
@@ -73,6 +74,14 @@ export default function TrainingMenu({ sidebarExpand, setSidebarExpand }) {
           }}
         </NavGroup>
       ))}
+      {course.has_assignment && (
+        <NavLink
+          link={route('training.test', course.has_assignment.code)}
+          name='test'
+          text='Test'
+          active={urlPath[2] == 'test'}
+        />
+      )}
     </>
   )
 }
