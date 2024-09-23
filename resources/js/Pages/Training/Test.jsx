@@ -3,17 +3,21 @@ import { useForm } from '@inertiajs/react';
 import DashboardLayout from '@/Layouts/DashboardLayout';
 import Breadcrumb from '@/Components/Acessibility/Breadcrumb';
 import PrimaryButton from '@/Components/PrimaryButton';
+import CapitalizeWord from '@/Utils/CapitalizeWord';
 
-const Test = ({ assignment }) => {
+const Test = ({ assignment, course }) => {
+  const { type, id: courseId } = course.data;
+
   const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
 		{ link: '#', text: 'Training' },
-    { link: route('training.online.index'), text: 'Online' },
+    { link: route(`training.${type}.index`), text: CapitalizeWord(type) },
 	];
 
   const { data, setData, post, errors, processing } = useForm({
-    id: assignment.id,
-    answers: {},  // answers will be an object containing questionId: answerId
+    assignment_id: assignment.id,
+    course_id: courseId,
+    answers: {},
   });
 
   // Handle answer selection

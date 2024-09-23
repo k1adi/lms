@@ -3,16 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\CourseOnlineResource;
+use App\Http\Resources\TrainingDetailResource;
 use App\Models\Assignment;
 use App\Models\Course;
 use App\Models\User;
+use App\Models\UserAssignmentLog;
+use DateTime;
+use DateTimeZone;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Redirect;
 
 class TrainingController extends Controller
 {
+    private function getCourseWithAssignment(string $column, $value): Course
+    {
+        return Course::where($column, $value)
+               ->with(['hasAssignment' => function ($query) {
+                   $query->whereNotNull('id'); // Load only if an assignment exists
+               }])->firstOrFail();
+    }
+
     /**
      * Display a listing of the Online Training.
      */
@@ -47,25 +62,22 @@ class TrainingController extends Controller
 
     public function detail(string $code): Response
     {
-        $course = Course::where('code', $code)
-            ->with(['hasAssignment' => function ($query) {
-                $query->whereNotNull('id'); // Load only if an assignment exists
-            }])
-        ->firstOrFail();
-        $page = ($course->type === 'online') ? 'DetailOnline' : 'DetailOffline';
-        
-        if($course->type == 'online') {
+        $course = $this->getCourseWithAssignment('code', $code);
+        // Conditionally load sections.subSection if the course is 'online'
+        if ($course->type === 'online') {
             $course->load('sections.subSection');
         }
 
+        $page = ($course->type === 'online') ? 'DetailOnline' : 'DetailOffline';
+
         return Inertia::render("Training/$page", [
-            'course' => $course,
+            'course' => new TrainingDetailResource($course),
         ]);
     }
 
     public function section($code, $section, $sub_section): Response
     {
-        $course = Course::where('code', $code)->firstOrFail();
+        $course = $this->getCourseWithAssignment('code', $code);
         $course->load('sections.subSection');
         $section = $course->sections()->findOrFail($section);
         $subSection = $section->subSection()->findOrFail($sub_section);
@@ -75,7 +87,7 @@ class TrainingController extends Controller
         $user->courseProgress()->syncWithoutDetaching([$subSection->id]);
 
         return Inertia::render('Training/Content', [
-            'course' => $course,
+            'course' => new TrainingDetailResource($course),
             'section' => $section,
             'lesson' => $subSection
         ]);
@@ -95,39 +107,66 @@ class TrainingController extends Controller
 
         return Inertia::render('Training/Test', [
             'assignment' => $assignment,
-            'course' => $course
+            'course' => new TrainingDetailResource($course)
         ]);
     }
 
     public function testValidate(Request $request)
     {
-        $id = $request->input('id');
-        $answers = $request->input('answers');
-        $correctAnswers = Assignment::where('id', $id)
-            ->with(['questions.answers' => function($query) {
-                $query->where('is_correct', true); // Filter for correct answers
-            }])
-            ->get()
-            ->pluck('questions.*.answers.*.id')
-            ->flatten(); // Flatten the nested array into a single collection
+        try {
+            $course_id = $request->input('course_id');
+            $assignment_id = $request->input('assignment_id');
+            $answers = $request->input('answers');
+            $assignmentData = Assignment::where('id', $assignment_id)
+                ->with(['questions.answers' => function($query) {
+                    $query->where('is_correct', true); // Filter for correct answers
+                }])
+                ->first(); // Use first() since you're fetching a single assignment, not a collection
+    
+            // Retrieve the minimum_score from the assignment
+            $minimum_score = $assignmentData->minimum_score;
+    
+            // Retrieve the correct answer IDs (flatten the nested array)
+            $correctAnswers = $assignmentData->questions->pluck('answers.*.id')->flatten();
+    
+            $correctAnswers = $correctAnswers->toArray();
+            $correctAnswers = array_map('strval', $correctAnswers);
+    
+            $userAnswer = array_values($answers);
+            $userAnswer = array_map('strval', $userAnswer);
+            
+            // Find the matching answers using array_intersect
+            $matchingAnswers = array_intersect($correctAnswers, $userAnswer);
+            // Count the number of matching values
+            $countMatching = count($matchingAnswers);
+            $totalQuestion = count($correctAnswers);
+    
+            $score = ($countMatching / $totalQuestion) * 100;
+            
+            $user = auth()->user();
+            $user = User::findOrFail($user->id);
+    
+            $passed = intval($score) > intval($minimum_score);
+            UserAssignmentLog::create([
+                'user_id' => $user->id,
+                'assignment_id' => $assignment_id,
+                'score' => $score,
+                'status' => (string)(int)$passed,
+                'created_at' => new DateTime('now', new DateTimeZone('Asia/Jakarta')),
+            ]); 
+    
+            if($passed) {
+                $user->courseFinisheds()->syncWithoutDetaching([$course_id]);
+            }
 
-        $correctAnswers = $correctAnswers->toArray();
-        $correctAnswers = array_map('strval', $correctAnswers);
-
-        $userAnswer = array_values($answers);
-        $userAnswer = array_map('strval', $userAnswer);
-        
-        // Find the matching answers using array_intersect
-        $matchingAnswers = array_intersect($correctAnswers, $userAnswer);
-        // Count the number of matching values
-        $countMatching = count($matchingAnswers);
-        $totalQuestion = count($correctAnswers);
-
-        $grade = ($countMatching / $totalQuestion) * 100;
-        // Return or display the result
-        dd([
-            'Grade' => $grade,  // Output: [2, 6]
-            'Count of matching values' => $countMatching // Output: 2
-        ]); 
+            DB::commit();
+            return Redirect::back()->with('success', 'You have finished the test');
+        } catch (\Exception $e) {
+            dd($e);
+            DB::rollBack();
+            return Redirect::back()->withErrors([
+                'error' => $e
+            ])->withInput();
+        }
     }
 }

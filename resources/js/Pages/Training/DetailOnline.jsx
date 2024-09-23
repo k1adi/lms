@@ -10,18 +10,21 @@ const DetailOnline = ({ course }) => {
     { link: route('training.online.index'), text: 'Online' },
 	];
 
+  const { name, code, trainer, description, url_attachment, assignment } = course.data;
+
+
   return (
     <>
       <div className='content-box mb-2'>
-        <Breadcrumb title={course.name} pageName={course.code} prevPage={prevPage} className='mb-1'/>
-        <span>Trainer: {course.trainer}</span>
+        <Breadcrumb title={name} pageName={code} prevPage={prevPage} className='mb-1'/>
+        <span>Trainer: {trainer}</span>
       </div>
     </>
   );
 }
 
 DetailOnline.layout = (page) => (
-	<DashboardLayout title={page.props.course.name} children={page} />
+	<DashboardLayout title={page.props.course.data.name} children={page} />
 );
 
 export default DetailOnline;

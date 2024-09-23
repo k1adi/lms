@@ -8,8 +8,8 @@ import TextInput from '@/Components/TextInput';
 import InputError from '@/Components/InputError';
 import TextArea from '@/Components/TextArea';
 import PrimaryButton from '@/Components/PrimaryButton';
-import convertOptions from '@/Utils/ReactSelectOption';
 import { Plus, Trash2 } from 'lucide-react';
+import CapitalizeWord from '@/Utils/CapitalizeWord';
 
 const Edit = ({ course }) => {
 	const prevPage = [
@@ -17,17 +17,19 @@ const Edit = ({ course }) => {
 		{ link: route('courses.index'), text: 'Courses' },
 	];
 
+	const {name, type, trainer, thumbnail, url_attachment, description, sections} = course;
+
 	const { data, setData, patch, errors, processing } = useForm({
-		name: course.name,
+		name: name,
 		type: {
-			value: course.type,
-			label: course.type.charAt(0).toUpperCase() + course.type.slice(1)
+			value: type,
+			label: CapitalizeWord(type)
 		},
-		trainer: course.trainer,
-		thumbnail: course.thumbnail,
-		url_attachment: course.url_attachment,
-		description: course.description,
-		sections: course.type == 'online' ? course.sections.map(section => ({
+		trainer: trainer,
+		thumbnail: thumbnail,
+		url_attachment: url_attachment,
+		description: description,
+		sections: type == 'online' ? sections.map(section => ({
 			id: section.id,
 			name: section.name,
 			subsections: section.sub_section.map(subsection => ({

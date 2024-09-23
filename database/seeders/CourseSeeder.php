@@ -25,9 +25,10 @@ class CourseSeeder extends Seeder
 
         Course::create([
             'code' => 'PRIOFL0020824',
-            'name' => 'Course 2',
+            'name' => 'Business Management',
             'type' => 'offline',
             'trainer' => 'Trainer 2',
+            'url_attachment' => 'https://docs.google.com/document/d/1mV0kYf7OEt1q37oM5zsLyTb-K9zQSzlMblKn4dOMIq4',
             'description' => 'Offline Course 01'
         ]);
 

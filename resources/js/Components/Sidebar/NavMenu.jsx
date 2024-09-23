@@ -13,14 +13,14 @@ export default function NavMenu({ sidebarExpand, setSidebarExpand}) {
   return (
     <nav className='nav'>
       {/* Sidebar for just dashboard menu */}
-      {(urlPath[1] != 'training' || !urlPath[3]) && (
+      {(urlPath[1] != 'training' || !urlPath[3] || urlPath[2] == 'offline') && (
         <ul className='nav__list top'>
           <DashboardMenu sidebarExpand={sidebarExpand} setSidebarExpand={setSidebarExpand} />                    
         </ul>
       )}
 
       {/* Sidebar for dashbaord and training menu */}
-      {urlPath[1] == 'training' && urlPath[3] && (
+      {urlPath[1] == 'training' &&  (urlPath[2] == 'online' || urlPath[2] == 'test' || urlPath[2] == 'detail') && urlPath[3] && (
         <ul className='nav__list top'>
           <NavGroup>
             {(handleClick, open) => {

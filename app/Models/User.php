@@ -114,4 +114,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(SubSection::class, 'user_progressions', 'user_id', 'sub_section_id');
     }
+
+    public function courseFinisheds(): BelongsToMany
+    {
+        return $this->belongsToMany(Course::class, 'course_finisheds', 'user_id', 'course_id');
+    }
 }

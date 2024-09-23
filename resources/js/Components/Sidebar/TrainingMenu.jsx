@@ -2,7 +2,7 @@ import { usePage } from '@inertiajs/react';
 import NavGroup from './NavGroup';
 import NavLink from './NavLink';
 
-import { BookOpen, BookOpenCheck, Check, ChevronDown } from 'lucide-react';
+import { BookOpen, BookOpenCheck, ChevronDown, SquarePen } from 'lucide-react';
 
 export default function TrainingMenu({ sidebarExpand, setSidebarExpand }) {
   const { url: inertiaUrl } = usePage();
@@ -13,10 +13,12 @@ export default function TrainingMenu({ sidebarExpand, setSidebarExpand }) {
         progression: progress 
       }
     }, 
-    course
+    course: {
+      data: course
+    }
   } = usePage().props;
   const section = course?.sections;
-  console.log(course, 'training menu');
+  console.log(usePage().props, 'prop page training menu');
 
   return (
     <>
@@ -28,7 +30,7 @@ export default function TrainingMenu({ sidebarExpand, setSidebarExpand }) {
       >
         <BookOpenCheck className='absolute right-4 top-1/2 -translate-y-1/2 text-sky-400' />
       </NavLink>
-      {section.map((key, index) => (
+      {section && section.map((key, index) => (
         <NavGroup key={index}>
           {(handleClick, open) => {
             return (
@@ -73,14 +75,16 @@ export default function TrainingMenu({ sidebarExpand, setSidebarExpand }) {
             );
           }}
         </NavGroup>
-      ))}
-      {course.has_assignment && (
+      ))}      
+      {course.assignment && (
         <NavLink
-          link={route('training.test', course.has_assignment.code)}
+          link={route('training.test', course.assignment.code)}
           name='test'
           text='Test'
           active={urlPath[2] == 'test'}
-        />
+        >
+          <SquarePen className='absolute right-4 top-1/2 -translate-y-1/2'/>
+        </NavLink>
       )}
     </>
   )

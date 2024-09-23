@@ -9,6 +9,7 @@ import InputError from '@/Components/InputError';
 import PrimaryButton from '@/Components/PrimaryButton';
 import convertOptions from '@/Utils/ReactSelectOption';
 import { Plus, Trash2 } from 'lucide-react';
+import CapitalizeWord from '@/Utils/CapitalizeWord';
 
 const Edit = ({ assignment, courses }) => {
   const prevPage = [
@@ -29,7 +30,7 @@ const Edit = ({ assignment, courses }) => {
     type: type,
     selectType: {
       value: type,
-      label: type.charAt(0).toUpperCase() + type.slice(1)
+      label: CapitalizeWord(type)
     },
     questions: type == 'knowledge' ? questions.map(item => ({
       id: item.id,

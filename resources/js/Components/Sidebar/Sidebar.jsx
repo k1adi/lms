@@ -51,7 +51,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
     <aside ref={sidebar} className={`app__sidebar lg:static
     lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
       <div className='sidebar__header'>
-        <Link href='/new-dashboard' className='sidebar__logo'>
+        <Link href={route('dashboard')} className='sidebar__logo'>
           <GraduationCap className='inline-block mb-2 me-2' size={44} /> 
           <span className='font-bold'>PRISMA</span>
           <span className='font-thin text-sky-300'>LMS</span>

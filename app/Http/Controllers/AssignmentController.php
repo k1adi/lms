@@ -8,6 +8,8 @@ use App\Http\Requests\UpdateAssignmentRequest;
 use App\Http\Resources\TestDetailResource;
 use App\Models\Assignment;
 use App\Models\Course;
+use App\Models\CourseFinished;
+use App\Models\User;
 use App\Models\UserAssignmentLog;
 use App\Models\UserBuPosition;
 use DateTime;
@@ -15,6 +17,7 @@ use DateTimeZone;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
@@ -210,6 +213,7 @@ class AssignmentController extends Controller
 
     public function storeObservation(CreateObservationRequest $request): RedirectResponse
     {
+        DB::beginTransaction();
         try {
             $validated = $request->validated();
             $validated['created_at'] = new DateTime('now', new DateTimeZone('Asia/Jakarta'));
@@ -221,9 +225,21 @@ class AssignmentController extends Controller
                 'status' => $validated['status'],
                 'created_at' => $validated['created_at'],
             ]);
+
+            // Retrieve the assignment and get the related course
+            $assignment = Assignment::findOrFail($validated['assignment_id']);
+            $course_id = $assignment->course->id; // Get the course ID
+
+            if ($validated['status'] == '1') {
+                $user = auth()->user();
+                $user = User::findOrFail($user->id);
+                $user->courseFinisheds()->syncWithoutDetaching([$course_id]);
+            }
     
+            DB::commit();
             return Redirect::route('tests.index');
         } catch (\Exception $e) {
+            DB::rollBack();
             return Redirect::back()->withErrors([
                 'error' => $e
             ])->withInput();
