@@ -38,11 +38,15 @@ class HandleInertiaRequests extends Middleware
         $progressions = $user ? $user->courseProgress()->pluck('sub_section_id')->toArray() : [];
         $progressions = array_map('strval', $progressions);
 
+        $finisheds = $user ? $user->courseFinisheds()->pluck('course_id')->toArray() : [];
+        $finisheds = array_map('strval', $finisheds);
+
         return [
             ...parent::share($request),
             'auth' => [
                 'user' => $user ? array_merge($user->toArray(), [
-                    'progression' => $progressions
+                    'finisheds' => $finisheds,
+                    'progression' => $progressions,
                 ]) : null,
                 'permissions' => $permissions,
             ],

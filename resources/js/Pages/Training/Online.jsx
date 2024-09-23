@@ -1,13 +1,18 @@
 import React from 'react';
-import { Link, router } from '@inertiajs/react';
+import { router, usePage } from '@inertiajs/react';
 import DashboardLayout from '@/Layouts/DashboardLayout';
 import Breadcrumb from '@/Components/Acessibility/Breadcrumb';
+import { BadgeCheck } from 'lucide-react';
 
 const Online = ({ courses }) => {
   const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
 		{ link: '#', text: 'Training' },
 	];
+
+  const{ auth: { user: { finisheds: pass }}} = usePage().props;
+
+  console.log(pass, 'course finieshed by user');
 
   const handleRowClicked = (code) => {
     router.visit(route('training.online.detail', code));
@@ -38,12 +43,17 @@ const Online = ({ courses }) => {
                   <tr key={index} onClick={() => handleRowClicked(key.code)} className='group cursor-pointer'>
                     <td className='group-hover:text-sky-400'>{index + 1}</td>
                     <td className='group-hover:text-sky-400'>{key.code}</td>
-                    <td className='group-hover:text-sky-400'>{key.name}</td>
+                    <td className='group-hover:text-sky-400'><span>
+                      {pass.includes(key.id.toString()) && (
+                        <BadgeCheck className='inline-block mr-2' />
+                      )}
+                      {key.name}
+                    </span></td>
                     <td className='group-hover:text-sky-400'>{key.type}</td>
                     <td className='group-hover:text-sky-400'>{key.trainer}</td>
                     <td className='group-hover:text-sky-400'>{key.progress} / {key.total_sub_section} ({key.percentage})</td>
                   </tr>
-                )) :
+                  )) :
                 <tr className='text-center'>
                   <td colSpan={6}>Empty data</td>
                 </tr>
