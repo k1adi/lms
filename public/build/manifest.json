@@ -3,49 +3,49 @@
     "file": "assets/DateTimePicker-0f64132a.css",
     "src": "DateTimePicker.css"
   },
-  "_Breadcrumb-a9230718.js": {
-    "file": "assets/Breadcrumb-a9230718.js",
+  "_Breadcrumb-c5e36114.js": {
+    "file": "assets/Breadcrumb-c5e36114.js",
     "imports": [
       "resources/js/app.jsx"
     ]
   },
-  "_DashboardLayout-3c2437e2.js": {
-    "file": "assets/DashboardLayout-3c2437e2.js",
+  "_DashboardLayout-d26b085f.js": {
+    "file": "assets/DashboardLayout-d26b085f.js",
     "imports": [
       "resources/js/app.jsx",
-      "_graduation-cap-8fe0539b.js"
+      "_graduation-cap-88da36b8.js"
     ]
   },
-  "_DateTimePicker-e4e81f2f.js": {
+  "_DateTimePicker-de50e231.js": {
     "css": [
       "assets/DateTimePicker-0f64132a.css"
     ],
-    "file": "assets/DateTimePicker-e4e81f2f.js",
+    "file": "assets/DateTimePicker-de50e231.js",
     "imports": [
       "resources/js/app.jsx"
     ]
   },
-  "_FieldGroup-0913ed8f.js": {
-    "file": "assets/FieldGroup-0913ed8f.js",
+  "_FieldGroup-0212bff1.js": {
+    "file": "assets/FieldGroup-0212bff1.js",
     "imports": [
       "resources/js/app.jsx"
     ]
   },
-  "_GuestLayout-e34997c0.js": {
-    "file": "assets/GuestLayout-e34997c0.js",
+  "_GuestLayout-b310cf03.js": {
+    "file": "assets/GuestLayout-b310cf03.js",
     "imports": [
       "resources/js/app.jsx",
-      "_graduation-cap-8fe0539b.js"
+      "_graduation-cap-88da36b8.js"
     ]
   },
-  "_InputError-6071cbab.js": {
-    "file": "assets/InputError-6071cbab.js",
+  "_InputError-f79bdf5c.js": {
+    "file": "assets/InputError-f79bdf5c.js",
     "imports": [
       "resources/js/app.jsx"
     ]
   },
-  "_InputLabel-2e0807a4.js": {
-    "file": "assets/InputLabel-2e0807a4.js",
+  "_InputLabel-6a204356.js": {
+    "file": "assets/InputLabel-6a204356.js",
     "imports": [
       "resources/js/app.jsx"
     ]
@@ -53,8 +53,8 @@
   "_LocalizationDate-89e7583f.js": {
     "file": "assets/LocalizationDate-89e7583f.js"
   },
-  "_PrimaryButton-cd234c3b.js": {
-    "file": "assets/PrimaryButton-cd234c3b.js",
+  "_PrimaryButton-ff01e887.js": {
+    "file": "assets/PrimaryButton-ff01e887.js",
     "imports": [
       "resources/js/app.jsx"
     ]
@@ -62,137 +62,137 @@
   "_ReactSelectOption-49a86ad9.js": {
     "file": "assets/ReactSelectOption-49a86ad9.js"
   },
-  "_TextArea-4acbb448.js": {
-    "file": "assets/TextArea-4acbb448.js",
+  "_TextArea-a07aff2d.js": {
+    "file": "assets/TextArea-a07aff2d.js",
     "imports": [
       "resources/js/app.jsx"
     ]
   },
-  "_TextInput-423a0223.js": {
-    "file": "assets/TextInput-423a0223.js",
+  "_TextInput-7e668095.js": {
+    "file": "assets/TextInput-7e668095.js",
     "imports": [
       "resources/js/app.jsx"
     ]
   },
-  "_graduation-cap-8fe0539b.js": {
-    "file": "assets/graduation-cap-8fe0539b.js",
+  "_graduation-cap-88da36b8.js": {
+    "file": "assets/graduation-cap-88da36b8.js",
     "imports": [
       "resources/js/app.jsx"
     ]
   },
-  "_pencil-c50db976.js": {
-    "file": "assets/pencil-c50db976.js",
+  "_pencil-e3c68427.js": {
+    "file": "assets/pencil-e3c68427.js",
     "imports": [
-      "_graduation-cap-8fe0539b.js"
+      "_graduation-cap-88da36b8.js"
     ]
   },
-  "_plus-9964a710.js": {
-    "file": "assets/plus-9964a710.js",
+  "_plus-20f6be23.js": {
+    "file": "assets/plus-20f6be23.js",
     "imports": [
-      "_graduation-cap-8fe0539b.js"
+      "_graduation-cap-88da36b8.js"
     ]
   },
-  "_react-select.esm-2ba6cc96.js": {
-    "file": "assets/react-select.esm-2ba6cc96.js",
+  "_react-select.esm-458bcbbf.js": {
+    "file": "assets/react-select.esm-458bcbbf.js",
     "imports": [
       "resources/js/app.jsx"
     ]
   },
-  "_transition-7936467c.js": {
-    "file": "assets/transition-7936467c.js",
+  "_transition-93987ff3.js": {
+    "file": "assets/transition-93987ff3.js",
     "imports": [
       "resources/js/app.jsx"
     ]
   },
-  "_trash-2-3ecbc59d.js": {
-    "file": "assets/trash-2-3ecbc59d.js",
+  "_trash-2-0c23ebbe.js": {
+    "file": "assets/trash-2-0c23ebbe.js",
     "imports": [
-      "_graduation-cap-8fe0539b.js"
+      "_graduation-cap-88da36b8.js"
     ]
   },
   "resources/js/Pages/Access/Course/CourseAccessForm.jsx": {
-    "file": "assets/CourseAccessForm-b27290a3.js",
+    "file": "assets/CourseAccessForm-a8e42639.js",
     "imports": [
       "resources/js/app.jsx",
-      "_react-select.esm-2ba6cc96.js",
-      "_FieldGroup-0913ed8f.js",
+      "_react-select.esm-458bcbbf.js",
+      "_FieldGroup-0212bff1.js",
       "_ReactSelectOption-49a86ad9.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Access/Course/CourseAccessForm.jsx"
   },
   "resources/js/Pages/Access/Course/Edit.jsx": {
-    "file": "assets/Edit-85bc1e44.js",
+    "file": "assets/Edit-4bfe20e4.js",
     "imports": [
       "resources/js/app.jsx",
-      "_react-select.esm-2ba6cc96.js",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_FieldGroup-0913ed8f.js",
-      "_TextInput-423a0223.js",
-      "_PrimaryButton-cd234c3b.js",
+      "_react-select.esm-458bcbbf.js",
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_FieldGroup-0212bff1.js",
+      "_TextInput-7e668095.js",
+      "_PrimaryButton-ff01e887.js",
       "_ReactSelectOption-49a86ad9.js",
-      "_graduation-cap-8fe0539b.js"
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Access/Course/Edit.jsx"
   },
   "resources/js/Pages/Access/Create.jsx": {
-    "file": "assets/Create-6fd0fe88.js",
+    "file": "assets/Create-fe717a00.js",
     "imports": [
       "resources/js/app.jsx",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_PrimaryButton-cd234c3b.js",
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_PrimaryButton-ff01e887.js",
       "resources/js/Pages/Access/Course/CourseAccessForm.jsx",
       "resources/js/Pages/Access/Schedule/ScheduleAccessForm.jsx",
-      "_graduation-cap-8fe0539b.js",
-      "_react-select.esm-2ba6cc96.js",
-      "_FieldGroup-0913ed8f.js",
+      "_graduation-cap-88da36b8.js",
+      "_react-select.esm-458bcbbf.js",
+      "_FieldGroup-0212bff1.js",
       "_ReactSelectOption-49a86ad9.js",
-      "_TextInput-423a0223.js",
+      "_TextInput-7e668095.js",
       "_LocalizationDate-89e7583f.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Access/Create.jsx"
   },
   "resources/js/Pages/Access/Index.jsx": {
-    "file": "assets/Index-164db45c.js",
+    "file": "assets/Index-506e3390.js",
     "imports": [
       "resources/js/app.jsx",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
       "_LocalizationDate-89e7583f.js",
-      "_pencil-c50db976.js",
-      "_graduation-cap-8fe0539b.js"
+      "_pencil-e3c68427.js",
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Access/Index.jsx"
   },
   "resources/js/Pages/Access/Schedule/Edit.jsx": {
-    "file": "assets/Edit-643fc61f.js",
+    "file": "assets/Edit-27b56675.js",
     "imports": [
       "resources/js/app.jsx",
-      "_react-select.esm-2ba6cc96.js",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_FieldGroup-0913ed8f.js",
-      "_TextInput-423a0223.js",
-      "_PrimaryButton-cd234c3b.js",
+      "_react-select.esm-458bcbbf.js",
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_FieldGroup-0212bff1.js",
+      "_TextInput-7e668095.js",
+      "_PrimaryButton-ff01e887.js",
       "_ReactSelectOption-49a86ad9.js",
       "_LocalizationDate-89e7583f.js",
-      "_graduation-cap-8fe0539b.js"
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Access/Schedule/Edit.jsx"
   },
   "resources/js/Pages/Access/Schedule/ScheduleAccessForm.jsx": {
-    "file": "assets/ScheduleAccessForm-76d6d17d.js",
+    "file": "assets/ScheduleAccessForm-67e40b6a.js",
     "imports": [
       "resources/js/app.jsx",
-      "_react-select.esm-2ba6cc96.js",
-      "_TextInput-423a0223.js",
-      "_FieldGroup-0913ed8f.js",
+      "_react-select.esm-458bcbbf.js",
+      "_TextInput-7e668095.js",
+      "_FieldGroup-0212bff1.js",
       "_ReactSelectOption-49a86ad9.js",
       "_LocalizationDate-89e7583f.js"
     ],
@@ -200,696 +200,708 @@
     "src": "resources/js/Pages/Access/Schedule/ScheduleAccessForm.jsx"
   },
   "resources/js/Pages/Auth/ConfirmPassword.jsx": {
-    "file": "assets/ConfirmPassword-6cefc6c0.js",
+    "file": "assets/ConfirmPassword-043b0ae1.js",
     "imports": [
       "resources/js/app.jsx",
-      "_GuestLayout-e34997c0.js",
-      "_InputError-6071cbab.js",
-      "_InputLabel-2e0807a4.js",
-      "_PrimaryButton-cd234c3b.js",
-      "_TextInput-423a0223.js",
-      "_graduation-cap-8fe0539b.js"
+      "_GuestLayout-b310cf03.js",
+      "_InputError-f79bdf5c.js",
+      "_InputLabel-6a204356.js",
+      "_PrimaryButton-ff01e887.js",
+      "_TextInput-7e668095.js",
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Auth/ConfirmPassword.jsx"
   },
   "resources/js/Pages/Auth/ForgotPassword.jsx": {
-    "file": "assets/ForgotPassword-f85545c1.js",
+    "file": "assets/ForgotPassword-1b335e27.js",
     "imports": [
       "resources/js/app.jsx",
-      "_GuestLayout-e34997c0.js",
-      "_InputError-6071cbab.js",
-      "_PrimaryButton-cd234c3b.js",
-      "_TextInput-423a0223.js",
-      "_graduation-cap-8fe0539b.js"
+      "_GuestLayout-b310cf03.js",
+      "_InputError-f79bdf5c.js",
+      "_PrimaryButton-ff01e887.js",
+      "_TextInput-7e668095.js",
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Auth/ForgotPassword.jsx"
   },
   "resources/js/Pages/Auth/Login.jsx": {
-    "file": "assets/Login-089eb65f.js",
+    "file": "assets/Login-62707c22.js",
     "imports": [
       "resources/js/app.jsx",
-      "_GuestLayout-e34997c0.js",
-      "_FieldGroup-0913ed8f.js",
-      "_PrimaryButton-cd234c3b.js",
-      "_TextInput-423a0223.js",
-      "_graduation-cap-8fe0539b.js"
+      "_GuestLayout-b310cf03.js",
+      "_FieldGroup-0212bff1.js",
+      "_PrimaryButton-ff01e887.js",
+      "_TextInput-7e668095.js",
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Auth/Login.jsx"
   },
   "resources/js/Pages/Auth/Register.jsx": {
-    "file": "assets/Register-ff27b8ce.js",
+    "file": "assets/Register-80409501.js",
     "imports": [
       "resources/js/app.jsx",
-      "_GuestLayout-e34997c0.js",
-      "_InputError-6071cbab.js",
-      "_InputLabel-2e0807a4.js",
-      "_PrimaryButton-cd234c3b.js",
-      "_TextInput-423a0223.js",
-      "_graduation-cap-8fe0539b.js"
+      "_GuestLayout-b310cf03.js",
+      "_InputError-f79bdf5c.js",
+      "_InputLabel-6a204356.js",
+      "_PrimaryButton-ff01e887.js",
+      "_TextInput-7e668095.js",
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Auth/Register.jsx"
   },
   "resources/js/Pages/Auth/ResetPassword.jsx": {
-    "file": "assets/ResetPassword-9c82c303.js",
+    "file": "assets/ResetPassword-ad6c9a0c.js",
     "imports": [
       "resources/js/app.jsx",
-      "_GuestLayout-e34997c0.js",
-      "_InputError-6071cbab.js",
-      "_InputLabel-2e0807a4.js",
-      "_PrimaryButton-cd234c3b.js",
-      "_TextInput-423a0223.js",
-      "_graduation-cap-8fe0539b.js"
+      "_GuestLayout-b310cf03.js",
+      "_InputError-f79bdf5c.js",
+      "_InputLabel-6a204356.js",
+      "_PrimaryButton-ff01e887.js",
+      "_TextInput-7e668095.js",
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Auth/ResetPassword.jsx"
   },
   "resources/js/Pages/Auth/VerifyEmail.jsx": {
-    "file": "assets/VerifyEmail-7eaedb2f.js",
+    "file": "assets/VerifyEmail-f997123a.js",
     "imports": [
       "resources/js/app.jsx",
-      "_GuestLayout-e34997c0.js",
-      "_PrimaryButton-cd234c3b.js",
-      "_graduation-cap-8fe0539b.js"
+      "_GuestLayout-b310cf03.js",
+      "_PrimaryButton-ff01e887.js",
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Auth/VerifyEmail.jsx"
   },
   "resources/js/Pages/Bu/Create.jsx": {
-    "file": "assets/Create-dc03b5b0.js",
+    "file": "assets/Create-42ce05ab.js",
     "imports": [
       "resources/js/app.jsx",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_FieldGroup-0913ed8f.js",
-      "_TextInput-423a0223.js",
-      "_PrimaryButton-cd234c3b.js",
-      "_graduation-cap-8fe0539b.js"
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_FieldGroup-0212bff1.js",
+      "_TextInput-7e668095.js",
+      "_PrimaryButton-ff01e887.js",
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Bu/Create.jsx"
   },
   "resources/js/Pages/Bu/Edit.jsx": {
-    "file": "assets/Edit-8dcfc6d1.js",
+    "file": "assets/Edit-18701ad0.js",
     "imports": [
       "resources/js/app.jsx",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_FieldGroup-0913ed8f.js",
-      "_TextInput-423a0223.js",
-      "_PrimaryButton-cd234c3b.js",
-      "_graduation-cap-8fe0539b.js"
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_FieldGroup-0212bff1.js",
+      "_TextInput-7e668095.js",
+      "_PrimaryButton-ff01e887.js",
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Bu/Edit.jsx"
   },
   "resources/js/Pages/Bu/Index.jsx": {
-    "file": "assets/Index-8cc20b14.js",
+    "file": "assets/Index-0434369a.js",
     "imports": [
       "resources/js/app.jsx",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_pencil-c50db976.js",
-      "_trash-2-3ecbc59d.js",
-      "_graduation-cap-8fe0539b.js"
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_pencil-e3c68427.js",
+      "_trash-2-0c23ebbe.js",
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Bu/Index.jsx"
   },
-  "resources/js/Pages/Course/Content.jsx": {
-    "file": "assets/Content-8904df77.js",
-    "imports": [
-      "resources/js/app.jsx",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_graduation-cap-8fe0539b.js"
-    ],
-    "isDynamicEntry": true,
-    "src": "resources/js/Pages/Course/Content.jsx"
-  },
   "resources/js/Pages/Course/Create.jsx": {
-    "file": "assets/Create-e8169d9c.js",
+    "file": "assets/Create-580814f3.js",
     "imports": [
       "resources/js/app.jsx",
-      "_react-select.esm-2ba6cc96.js",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_FieldGroup-0913ed8f.js",
-      "_TextInput-423a0223.js",
-      "_InputError-6071cbab.js",
-      "_TextArea-4acbb448.js",
-      "_PrimaryButton-cd234c3b.js",
-      "_plus-9964a710.js",
-      "_trash-2-3ecbc59d.js",
-      "_graduation-cap-8fe0539b.js"
+      "_react-select.esm-458bcbbf.js",
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_FieldGroup-0212bff1.js",
+      "_TextInput-7e668095.js",
+      "_InputError-f79bdf5c.js",
+      "_TextArea-a07aff2d.js",
+      "_PrimaryButton-ff01e887.js",
+      "_plus-20f6be23.js",
+      "_trash-2-0c23ebbe.js",
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Course/Create.jsx"
   },
-  "resources/js/Pages/Course/DetailOffline.jsx": {
-    "file": "assets/DetailOffline-060c60da.js",
-    "imports": [
-      "resources/js/app.jsx",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_graduation-cap-8fe0539b.js"
-    ],
-    "isDynamicEntry": true,
-    "src": "resources/js/Pages/Course/DetailOffline.jsx"
-  },
-  "resources/js/Pages/Course/DetailOnline.jsx": {
-    "file": "assets/DetailOnline-bbc38eca.js",
-    "imports": [
-      "resources/js/app.jsx",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_graduation-cap-8fe0539b.js"
-    ],
-    "isDynamicEntry": true,
-    "src": "resources/js/Pages/Course/DetailOnline.jsx"
-  },
   "resources/js/Pages/Course/Edit.jsx": {
-    "file": "assets/Edit-8b4fb715.js",
+    "file": "assets/Edit-5da8c51d.js",
     "imports": [
       "resources/js/app.jsx",
-      "_react-select.esm-2ba6cc96.js",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_FieldGroup-0913ed8f.js",
-      "_TextInput-423a0223.js",
-      "_InputError-6071cbab.js",
-      "_TextArea-4acbb448.js",
-      "_PrimaryButton-cd234c3b.js",
-      "_plus-9964a710.js",
-      "_trash-2-3ecbc59d.js",
-      "_graduation-cap-8fe0539b.js"
+      "_react-select.esm-458bcbbf.js",
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_FieldGroup-0212bff1.js",
+      "_TextInput-7e668095.js",
+      "_InputError-f79bdf5c.js",
+      "_TextArea-a07aff2d.js",
+      "_PrimaryButton-ff01e887.js",
+      "_plus-20f6be23.js",
+      "_trash-2-0c23ebbe.js",
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Course/Edit.jsx"
   },
   "resources/js/Pages/Course/Index.jsx": {
-    "file": "assets/Index-3e6014ac.js",
+    "file": "assets/Index-c8cb220e.js",
     "imports": [
       "resources/js/app.jsx",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_pencil-c50db976.js",
-      "_trash-2-3ecbc59d.js",
-      "_graduation-cap-8fe0539b.js"
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_pencil-e3c68427.js",
+      "_trash-2-0c23ebbe.js",
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Course/Index.jsx"
   },
-  "resources/js/Pages/Course/Offline.jsx": {
-    "file": "assets/Offline-4f3915eb.js",
-    "imports": [
-      "resources/js/app.jsx",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_graduation-cap-8fe0539b.js"
-    ],
-    "isDynamicEntry": true,
-    "src": "resources/js/Pages/Course/Offline.jsx"
-  },
-  "resources/js/Pages/Course/Online.jsx": {
-    "file": "assets/Online-ad7936b7.js",
-    "imports": [
-      "resources/js/app.jsx",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_graduation-cap-8fe0539b.js"
-    ],
-    "isDynamicEntry": true,
-    "src": "resources/js/Pages/Course/Online.jsx"
-  },
   "resources/js/Pages/Dashboard.jsx": {
-    "file": "assets/Dashboard-6392e699.js",
+    "file": "assets/Dashboard-5b5d25ef.js",
     "imports": [
       "resources/js/app.jsx",
-      "_DashboardLayout-3c2437e2.js",
-      "_graduation-cap-8fe0539b.js"
+      "_DashboardLayout-d26b085f.js",
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Dashboard.jsx"
   },
   "resources/js/Pages/Dept/Create.jsx": {
-    "file": "assets/Create-314c98b0.js",
+    "file": "assets/Create-d610c479.js",
     "imports": [
       "resources/js/app.jsx",
-      "_react-select.esm-2ba6cc96.js",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_FieldGroup-0913ed8f.js",
-      "_TextInput-423a0223.js",
-      "_PrimaryButton-cd234c3b.js",
+      "_react-select.esm-458bcbbf.js",
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_FieldGroup-0212bff1.js",
+      "_TextInput-7e668095.js",
+      "_PrimaryButton-ff01e887.js",
       "_ReactSelectOption-49a86ad9.js",
-      "_graduation-cap-8fe0539b.js"
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Dept/Create.jsx"
   },
   "resources/js/Pages/Dept/Edit.jsx": {
-    "file": "assets/Edit-00450694.js",
+    "file": "assets/Edit-c903a71b.js",
     "imports": [
       "resources/js/app.jsx",
-      "_react-select.esm-2ba6cc96.js",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_FieldGroup-0913ed8f.js",
-      "_TextInput-423a0223.js",
-      "_PrimaryButton-cd234c3b.js",
+      "_react-select.esm-458bcbbf.js",
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_FieldGroup-0212bff1.js",
+      "_TextInput-7e668095.js",
+      "_PrimaryButton-ff01e887.js",
       "_ReactSelectOption-49a86ad9.js",
-      "_graduation-cap-8fe0539b.js"
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Dept/Edit.jsx"
   },
   "resources/js/Pages/Dept/Index.jsx": {
-    "file": "assets/Index-5d23a582.js",
+    "file": "assets/Index-1faf2e9d.js",
     "imports": [
       "resources/js/app.jsx",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_pencil-c50db976.js",
-      "_trash-2-3ecbc59d.js",
-      "_graduation-cap-8fe0539b.js"
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_pencil-e3c68427.js",
+      "_trash-2-0c23ebbe.js",
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Dept/Index.jsx"
   },
   "resources/js/Pages/Permission/Create.jsx": {
-    "file": "assets/Create-c633adc2.js",
+    "file": "assets/Create-b12c8d56.js",
     "imports": [
       "resources/js/app.jsx",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_FieldGroup-0913ed8f.js",
-      "_TextInput-423a0223.js",
-      "_PrimaryButton-cd234c3b.js",
-      "_graduation-cap-8fe0539b.js"
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_FieldGroup-0212bff1.js",
+      "_TextInput-7e668095.js",
+      "_PrimaryButton-ff01e887.js",
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Permission/Create.jsx"
   },
   "resources/js/Pages/Permission/Edit.jsx": {
-    "file": "assets/Edit-42a83042.js",
+    "file": "assets/Edit-70226e09.js",
     "imports": [
       "resources/js/app.jsx",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_FieldGroup-0913ed8f.js",
-      "_TextInput-423a0223.js",
-      "_PrimaryButton-cd234c3b.js",
-      "_graduation-cap-8fe0539b.js"
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_FieldGroup-0212bff1.js",
+      "_TextInput-7e668095.js",
+      "_PrimaryButton-ff01e887.js",
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Permission/Edit.jsx"
   },
   "resources/js/Pages/Permission/Index.jsx": {
-    "file": "assets/Index-ff410082.js",
+    "file": "assets/Index-a830dabe.js",
     "imports": [
       "resources/js/app.jsx",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_pencil-c50db976.js",
-      "_trash-2-3ecbc59d.js",
-      "_graduation-cap-8fe0539b.js"
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_pencil-e3c68427.js",
+      "_trash-2-0c23ebbe.js",
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Permission/Index.jsx"
   },
   "resources/js/Pages/Position/Create.jsx": {
-    "file": "assets/Create-2b8e334e.js",
+    "file": "assets/Create-9c9e26f0.js",
     "imports": [
       "resources/js/app.jsx",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_FieldGroup-0913ed8f.js",
-      "_TextInput-423a0223.js",
-      "_PrimaryButton-cd234c3b.js",
-      "_graduation-cap-8fe0539b.js"
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_FieldGroup-0212bff1.js",
+      "_TextInput-7e668095.js",
+      "_PrimaryButton-ff01e887.js",
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Position/Create.jsx"
   },
   "resources/js/Pages/Position/Edit.jsx": {
-    "file": "assets/Edit-6df93050.js",
+    "file": "assets/Edit-fdda26ba.js",
     "imports": [
       "resources/js/app.jsx",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_FieldGroup-0913ed8f.js",
-      "_TextInput-423a0223.js",
-      "_PrimaryButton-cd234c3b.js",
-      "_graduation-cap-8fe0539b.js"
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_FieldGroup-0212bff1.js",
+      "_TextInput-7e668095.js",
+      "_PrimaryButton-ff01e887.js",
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Position/Edit.jsx"
   },
   "resources/js/Pages/Position/Index.jsx": {
-    "file": "assets/Index-5a77b712.js",
+    "file": "assets/Index-ec827171.js",
     "imports": [
       "resources/js/app.jsx",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_pencil-c50db976.js",
-      "_trash-2-3ecbc59d.js",
-      "_graduation-cap-8fe0539b.js"
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_pencil-e3c68427.js",
+      "_trash-2-0c23ebbe.js",
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Position/Index.jsx"
   },
   "resources/js/Pages/Profile/Edit.jsx": {
-    "file": "assets/Edit-a48277db.js",
+    "file": "assets/Edit-ab03cce7.js",
     "imports": [
       "resources/js/app.jsx",
-      "_transition-7936467c.js",
+      "_transition-93987ff3.js",
       "resources/js/Pages/Profile/Partials/DeleteUserForm.jsx",
       "resources/js/Pages/Profile/Partials/UpdatePasswordForm.jsx",
       "resources/js/Pages/Profile/Partials/UpdateProfileInformationForm.jsx",
-      "_InputError-6071cbab.js",
-      "_InputLabel-2e0807a4.js",
-      "_TextInput-423a0223.js",
-      "_PrimaryButton-cd234c3b.js"
+      "_InputError-f79bdf5c.js",
+      "_InputLabel-6a204356.js",
+      "_TextInput-7e668095.js",
+      "_PrimaryButton-ff01e887.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Profile/Edit.jsx"
   },
   "resources/js/Pages/Profile/Partials/DeleteUserForm.jsx": {
-    "file": "assets/DeleteUserForm-7363d2dd.js",
+    "file": "assets/DeleteUserForm-7447eeca.js",
     "imports": [
       "resources/js/app.jsx",
-      "_InputError-6071cbab.js",
-      "_InputLabel-2e0807a4.js",
-      "_transition-7936467c.js",
-      "_TextInput-423a0223.js"
+      "_InputError-f79bdf5c.js",
+      "_InputLabel-6a204356.js",
+      "_transition-93987ff3.js",
+      "_TextInput-7e668095.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Profile/Partials/DeleteUserForm.jsx"
   },
   "resources/js/Pages/Profile/Partials/UpdatePasswordForm.jsx": {
-    "file": "assets/UpdatePasswordForm-da5aa7c4.js",
+    "file": "assets/UpdatePasswordForm-66498596.js",
     "imports": [
       "resources/js/app.jsx",
-      "_InputError-6071cbab.js",
-      "_InputLabel-2e0807a4.js",
-      "_PrimaryButton-cd234c3b.js",
-      "_TextInput-423a0223.js",
-      "_transition-7936467c.js"
+      "_InputError-f79bdf5c.js",
+      "_InputLabel-6a204356.js",
+      "_PrimaryButton-ff01e887.js",
+      "_TextInput-7e668095.js",
+      "_transition-93987ff3.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Profile/Partials/UpdatePasswordForm.jsx"
   },
   "resources/js/Pages/Profile/Partials/UpdateProfileInformationForm.jsx": {
-    "file": "assets/UpdateProfileInformationForm-9231fe1b.js",
+    "file": "assets/UpdateProfileInformationForm-f6a58890.js",
     "imports": [
       "resources/js/app.jsx",
-      "_InputError-6071cbab.js",
-      "_InputLabel-2e0807a4.js",
-      "_PrimaryButton-cd234c3b.js",
-      "_TextInput-423a0223.js",
-      "_transition-7936467c.js"
+      "_InputError-f79bdf5c.js",
+      "_InputLabel-6a204356.js",
+      "_PrimaryButton-ff01e887.js",
+      "_TextInput-7e668095.js",
+      "_transition-93987ff3.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Profile/Partials/UpdateProfileInformationForm.jsx"
   },
   "resources/js/Pages/Role/Create.jsx": {
-    "file": "assets/Create-8f536c6b.js",
+    "file": "assets/Create-312ec9ca.js",
     "imports": [
       "resources/js/app.jsx",
-      "_react-select.esm-2ba6cc96.js",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_FieldGroup-0913ed8f.js",
-      "_TextInput-423a0223.js",
-      "_PrimaryButton-cd234c3b.js",
+      "_react-select.esm-458bcbbf.js",
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_FieldGroup-0212bff1.js",
+      "_TextInput-7e668095.js",
+      "_PrimaryButton-ff01e887.js",
       "_ReactSelectOption-49a86ad9.js",
-      "_graduation-cap-8fe0539b.js"
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Role/Create.jsx"
   },
   "resources/js/Pages/Role/Edit.jsx": {
-    "file": "assets/Edit-d97b0607.js",
+    "file": "assets/Edit-8389d221.js",
     "imports": [
       "resources/js/app.jsx",
-      "_react-select.esm-2ba6cc96.js",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_FieldGroup-0913ed8f.js",
-      "_TextInput-423a0223.js",
-      "_PrimaryButton-cd234c3b.js",
+      "_react-select.esm-458bcbbf.js",
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_FieldGroup-0212bff1.js",
+      "_TextInput-7e668095.js",
+      "_PrimaryButton-ff01e887.js",
       "_ReactSelectOption-49a86ad9.js",
-      "_graduation-cap-8fe0539b.js"
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Role/Edit.jsx"
   },
   "resources/js/Pages/Role/Index.jsx": {
-    "file": "assets/Index-7e21b1c1.js",
+    "file": "assets/Index-78646e3f.js",
     "imports": [
       "resources/js/app.jsx",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_pencil-c50db976.js",
-      "_trash-2-3ecbc59d.js",
-      "_graduation-cap-8fe0539b.js"
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_pencil-e3c68427.js",
+      "_trash-2-0c23ebbe.js",
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Role/Index.jsx"
   },
   "resources/js/Pages/Schedule/Create.jsx": {
-    "file": "assets/Create-ad71c833.js",
+    "file": "assets/Create-19803251.js",
     "imports": [
       "resources/js/app.jsx",
-      "_react-select.esm-2ba6cc96.js",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_TextArea-4acbb448.js",
-      "_FieldGroup-0913ed8f.js",
-      "_PrimaryButton-cd234c3b.js",
+      "_react-select.esm-458bcbbf.js",
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_TextArea-a07aff2d.js",
+      "_FieldGroup-0212bff1.js",
+      "_PrimaryButton-ff01e887.js",
       "_ReactSelectOption-49a86ad9.js",
-      "_DateTimePicker-e4e81f2f.js",
-      "_graduation-cap-8fe0539b.js"
+      "_DateTimePicker-de50e231.js",
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Schedule/Create.jsx"
   },
   "resources/js/Pages/Schedule/Edit.jsx": {
-    "file": "assets/Edit-7565da41.js",
+    "file": "assets/Edit-10f8e03c.js",
     "imports": [
       "resources/js/app.jsx",
-      "_react-select.esm-2ba6cc96.js",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_FieldGroup-0913ed8f.js",
-      "_TextArea-4acbb448.js",
-      "_PrimaryButton-cd234c3b.js",
+      "_react-select.esm-458bcbbf.js",
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_FieldGroup-0212bff1.js",
+      "_TextArea-a07aff2d.js",
+      "_PrimaryButton-ff01e887.js",
       "_ReactSelectOption-49a86ad9.js",
-      "_DateTimePicker-e4e81f2f.js",
-      "_graduation-cap-8fe0539b.js"
+      "_DateTimePicker-de50e231.js",
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Schedule/Edit.jsx"
   },
   "resources/js/Pages/Schedule/Index.jsx": {
-    "file": "assets/Index-6f5054bf.js",
+    "file": "assets/Index-855ee980.js",
     "imports": [
       "resources/js/app.jsx",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
       "_LocalizationDate-89e7583f.js",
-      "_pencil-c50db976.js",
-      "_trash-2-3ecbc59d.js",
-      "_graduation-cap-8fe0539b.js"
+      "_pencil-e3c68427.js",
+      "_trash-2-0c23ebbe.js",
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Schedule/Index.jsx"
   },
   "resources/js/Pages/Tes/Create.jsx": {
-    "file": "assets/Create-99e7e34d.js",
+    "file": "assets/Create-f6754a06.js",
     "imports": [
       "resources/js/app.jsx",
-      "_react-select.esm-2ba6cc96.js",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_FieldGroup-0913ed8f.js",
-      "_TextInput-423a0223.js",
-      "_InputError-6071cbab.js",
-      "_DateTimePicker-e4e81f2f.js",
-      "_PrimaryButton-cd234c3b.js",
+      "_react-select.esm-458bcbbf.js",
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_FieldGroup-0212bff1.js",
+      "_TextInput-7e668095.js",
+      "_InputError-f79bdf5c.js",
+      "_DateTimePicker-de50e231.js",
+      "_PrimaryButton-ff01e887.js",
       "_ReactSelectOption-49a86ad9.js",
-      "_plus-9964a710.js",
-      "_trash-2-3ecbc59d.js",
-      "_graduation-cap-8fe0539b.js"
+      "_plus-20f6be23.js",
+      "_trash-2-0c23ebbe.js",
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Tes/Create.jsx"
   },
   "resources/js/Pages/Tes/Edit.jsx": {
-    "file": "assets/Edit-14c1b3c2.js",
+    "file": "assets/Edit-b125d45a.js",
     "imports": [
       "resources/js/app.jsx",
-      "_react-select.esm-2ba6cc96.js",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_FieldGroup-0913ed8f.js",
-      "_TextInput-423a0223.js",
-      "_InputError-6071cbab.js",
-      "_DateTimePicker-e4e81f2f.js",
-      "_PrimaryButton-cd234c3b.js",
+      "_react-select.esm-458bcbbf.js",
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_FieldGroup-0212bff1.js",
+      "_TextInput-7e668095.js",
+      "_InputError-f79bdf5c.js",
+      "_DateTimePicker-de50e231.js",
+      "_PrimaryButton-ff01e887.js",
       "_ReactSelectOption-49a86ad9.js",
-      "_plus-9964a710.js",
-      "_trash-2-3ecbc59d.js",
-      "_graduation-cap-8fe0539b.js"
+      "_plus-20f6be23.js",
+      "_trash-2-0c23ebbe.js",
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Tes/Edit.jsx"
   },
   "resources/js/Pages/Tes/Index.jsx": {
-    "file": "assets/Index-9046d36f.js",
+    "file": "assets/Index-0af7223b.js",
     "imports": [
       "resources/js/app.jsx",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_pencil-c50db976.js",
-      "_trash-2-3ecbc59d.js",
-      "_graduation-cap-8fe0539b.js"
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_pencil-e3c68427.js",
+      "_trash-2-0c23ebbe.js",
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Tes/Index.jsx"
   },
   "resources/js/Pages/Tes/Observation.jsx": {
-    "file": "assets/Observation-8d0dc186.js",
+    "file": "assets/Observation-b6f97f14.js",
     "imports": [
       "resources/js/app.jsx",
-      "_react-select.esm-2ba6cc96.js",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_TextInput-423a0223.js",
-      "_FieldGroup-0913ed8f.js",
-      "_PrimaryButton-cd234c3b.js",
+      "_react-select.esm-458bcbbf.js",
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_TextInput-7e668095.js",
+      "_FieldGroup-0212bff1.js",
+      "_PrimaryButton-ff01e887.js",
       "_ReactSelectOption-49a86ad9.js",
-      "_graduation-cap-8fe0539b.js"
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Tes/Observation.jsx"
   },
   "resources/js/Pages/Tna/Create.jsx": {
-    "file": "assets/Create-1ccf6a5f.js",
+    "file": "assets/Create-5ba201b7.js",
     "imports": [
       "resources/js/app.jsx",
-      "_react-select.esm-2ba6cc96.js",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_FieldGroup-0913ed8f.js",
-      "_TextInput-423a0223.js",
-      "_DateTimePicker-e4e81f2f.js",
-      "_PrimaryButton-cd234c3b.js",
+      "_react-select.esm-458bcbbf.js",
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_FieldGroup-0212bff1.js",
+      "_TextInput-7e668095.js",
+      "_DateTimePicker-de50e231.js",
+      "_PrimaryButton-ff01e887.js",
       "_ReactSelectOption-49a86ad9.js",
-      "_graduation-cap-8fe0539b.js"
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Tna/Create.jsx"
   },
   "resources/js/Pages/Tna/Edit.jsx": {
-    "file": "assets/Edit-a0b3e99a.js",
+    "file": "assets/Edit-0f76542c.js",
     "imports": [
       "resources/js/app.jsx",
-      "_react-select.esm-2ba6cc96.js",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_FieldGroup-0913ed8f.js",
-      "_TextInput-423a0223.js",
-      "_DateTimePicker-e4e81f2f.js",
-      "_PrimaryButton-cd234c3b.js",
+      "_react-select.esm-458bcbbf.js",
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_FieldGroup-0212bff1.js",
+      "_TextInput-7e668095.js",
+      "_DateTimePicker-de50e231.js",
+      "_PrimaryButton-ff01e887.js",
       "_ReactSelectOption-49a86ad9.js",
-      "_graduation-cap-8fe0539b.js"
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Tna/Edit.jsx"
   },
   "resources/js/Pages/Tna/Index.jsx": {
-    "file": "assets/Index-3d85cc34.js",
+    "file": "assets/Index-41bd5aab.js",
     "imports": [
       "resources/js/app.jsx",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_pencil-c50db976.js",
-      "_trash-2-3ecbc59d.js",
-      "_graduation-cap-8fe0539b.js"
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_pencil-e3c68427.js",
+      "_trash-2-0c23ebbe.js",
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Tna/Index.jsx"
   },
-  "resources/js/Pages/User/Create.jsx": {
-    "file": "assets/Create-31d4194a.js",
+  "resources/js/Pages/Training/Content.jsx": {
+    "file": "assets/Content-527e179f.js",
     "imports": [
       "resources/js/app.jsx",
-      "_react-select.esm-2ba6cc96.js",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_FieldGroup-0913ed8f.js",
-      "_TextInput-423a0223.js",
-      "_PrimaryButton-cd234c3b.js",
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_graduation-cap-88da36b8.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/Pages/Training/Content.jsx"
+  },
+  "resources/js/Pages/Training/DetailOffline.jsx": {
+    "file": "assets/DetailOffline-9db5feab.js",
+    "imports": [
+      "resources/js/app.jsx",
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_graduation-cap-88da36b8.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/Pages/Training/DetailOffline.jsx"
+  },
+  "resources/js/Pages/Training/DetailOnline.jsx": {
+    "file": "assets/DetailOnline-db0288fe.js",
+    "imports": [
+      "resources/js/app.jsx",
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_graduation-cap-88da36b8.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/Pages/Training/DetailOnline.jsx"
+  },
+  "resources/js/Pages/Training/Offline.jsx": {
+    "file": "assets/Offline-ae5e9fa2.js",
+    "imports": [
+      "resources/js/app.jsx",
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_graduation-cap-88da36b8.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/Pages/Training/Offline.jsx"
+  },
+  "resources/js/Pages/Training/Online.jsx": {
+    "file": "assets/Online-89c25ee4.js",
+    "imports": [
+      "resources/js/app.jsx",
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_graduation-cap-88da36b8.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/Pages/Training/Online.jsx"
+  },
+  "resources/js/Pages/Training/Test.jsx": {
+    "file": "assets/Test-9caa85b4.js",
+    "imports": [
+      "resources/js/app.jsx",
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_PrimaryButton-ff01e887.js",
+      "_graduation-cap-88da36b8.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/Pages/Training/Test.jsx"
+  },
+  "resources/js/Pages/User/Create.jsx": {
+    "file": "assets/Create-1fc6dbed.js",
+    "imports": [
+      "resources/js/app.jsx",
+      "_react-select.esm-458bcbbf.js",
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_FieldGroup-0212bff1.js",
+      "_TextInput-7e668095.js",
+      "_PrimaryButton-ff01e887.js",
       "_ReactSelectOption-49a86ad9.js",
-      "_plus-9964a710.js",
-      "_trash-2-3ecbc59d.js",
-      "_graduation-cap-8fe0539b.js"
+      "_plus-20f6be23.js",
+      "_trash-2-0c23ebbe.js",
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/User/Create.jsx"
   },
   "resources/js/Pages/User/Edit.jsx": {
-    "file": "assets/Edit-6c8b97f5.js",
+    "file": "assets/Edit-e782fdb8.js",
     "imports": [
       "resources/js/app.jsx",
-      "_react-select.esm-2ba6cc96.js",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_FieldGroup-0913ed8f.js",
-      "_TextInput-423a0223.js",
-      "_PrimaryButton-cd234c3b.js",
+      "_react-select.esm-458bcbbf.js",
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_FieldGroup-0212bff1.js",
+      "_TextInput-7e668095.js",
+      "_PrimaryButton-ff01e887.js",
       "_ReactSelectOption-49a86ad9.js",
-      "_plus-9964a710.js",
-      "_trash-2-3ecbc59d.js",
-      "_graduation-cap-8fe0539b.js"
+      "_plus-20f6be23.js",
+      "_trash-2-0c23ebbe.js",
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/User/Edit.jsx"
   },
   "resources/js/Pages/User/Index.jsx": {
-    "file": "assets/Index-10718c49.js",
+    "file": "assets/Index-f9e16312.js",
     "imports": [
       "resources/js/app.jsx",
-      "_DashboardLayout-3c2437e2.js",
-      "_Breadcrumb-a9230718.js",
-      "_pencil-c50db976.js",
-      "_trash-2-3ecbc59d.js",
-      "_graduation-cap-8fe0539b.js"
+      "_DashboardLayout-d26b085f.js",
+      "_Breadcrumb-c5e36114.js",
+      "_pencil-e3c68427.js",
+      "_trash-2-0c23ebbe.js",
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/User/Index.jsx"
   },
   "resources/js/Pages/Welcome.jsx": {
-    "file": "assets/Welcome-1bd3e2f4.js",
+    "file": "assets/Welcome-674c73bc.js",
     "imports": [
       "resources/js/app.jsx",
-      "_graduation-cap-8fe0539b.js"
+      "_graduation-cap-88da36b8.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Welcome.jsx"
   },
   "resources/js/app.css": {
-    "file": "assets/app-39873922.css",
+    "file": "assets/app-52c2cfe5.css",
     "src": "resources/js/app.css"
   },
   "resources/js/app.jsx": {
     "css": [
-      "assets/app-39873922.css"
+      "assets/app-52c2cfe5.css"
     ],
     "dynamicImports": [
       "resources/js/Pages/Access/Course/CourseAccessForm.jsx",
@@ -907,14 +919,9 @@
       "resources/js/Pages/Bu/Create.jsx",
       "resources/js/Pages/Bu/Edit.jsx",
       "resources/js/Pages/Bu/Index.jsx",
-      "resources/js/Pages/Course/Content.jsx",
       "resources/js/Pages/Course/Create.jsx",
-      "resources/js/Pages/Course/DetailOffline.jsx",
-      "resources/js/Pages/Course/DetailOnline.jsx",
       "resources/js/Pages/Course/Edit.jsx",
       "resources/js/Pages/Course/Index.jsx",
-      "resources/js/Pages/Course/Offline.jsx",
-      "resources/js/Pages/Course/Online.jsx",
       "resources/js/Pages/Dashboard.jsx",
       "resources/js/Pages/Dept/Create.jsx",
       "resources/js/Pages/Dept/Edit.jsx",
@@ -942,12 +949,18 @@
       "resources/js/Pages/Tna/Create.jsx",
       "resources/js/Pages/Tna/Edit.jsx",
       "resources/js/Pages/Tna/Index.jsx",
+      "resources/js/Pages/Training/Content.jsx",
+      "resources/js/Pages/Training/DetailOffline.jsx",
+      "resources/js/Pages/Training/DetailOnline.jsx",
+      "resources/js/Pages/Training/Offline.jsx",
+      "resources/js/Pages/Training/Online.jsx",
+      "resources/js/Pages/Training/Test.jsx",
       "resources/js/Pages/User/Create.jsx",
       "resources/js/Pages/User/Edit.jsx",
       "resources/js/Pages/User/Index.jsx",
       "resources/js/Pages/Welcome.jsx"
     ],
-    "file": "assets/app-a5b99895.js",
+    "file": "assets/app-943a6aa9.js",
     "isEntry": true,
     "src": "resources/js/app.jsx"
   }
