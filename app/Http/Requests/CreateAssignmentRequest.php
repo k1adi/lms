@@ -32,7 +32,7 @@ class CreateAssignmentRequest extends FormRequest
         if ($this->input('type') === 'knowledge') {
             $rules['minimum_score'] = ['required', 'integer', 'min:0', 'max:100'];
             $rules['questions'] = ['required', 'array'];
-            $rules['questions.*.name'] = ['required', 'string'];
+            $rules['questions.*.text'] = ['required', 'string'];
             $rules['questions.*.answers'] = ['required', 'array', 'min:1'];
             $rules['questions.*.answers.*.text'] = ['required', 'string'];
             $rules['questions.*.answers.*.is_correct'] = ['required', 'boolean'];
@@ -68,7 +68,7 @@ class CreateAssignmentRequest extends FormRequest
             return $input->type === 'skill';
         });
 
-        $validator->sometimes('questions.*.name', 'nullable', function($input) {
+        $validator->sometimes('questions.*.text', 'nullable', function($input) {
             return $input->type === 'skill';
         });
         

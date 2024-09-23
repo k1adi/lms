@@ -65,7 +65,7 @@ class AssignmentController extends Controller
 
             if($validated['type'] === 'knowledge') {
                 foreach ($request->input('questions', []) as $questions) {
-                    $question = $assignment->questions()->create(['text' => $questions['name']]);
+                    $question = $assignment->questions()->create(['text' => $questions['text']]);
                     foreach ($questions['answers'] as $answers) {
                         $question->answers()->create($answers);
                     }
@@ -138,7 +138,7 @@ class AssignmentController extends Controller
                     // Update or create the question
                     $question = $assignment->questions()->updateOrCreate(
                         ['id' => $questionData['id'] ?? null],
-                        ['text' => $questionData['name']]
+                        ['text' => $questionData['text']]
                     );
 
                     // Handle answers

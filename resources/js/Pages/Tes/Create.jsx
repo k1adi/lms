@@ -6,7 +6,6 @@ import Breadcrumb from '@/Components/Acessibility/Breadcrumb';
 import FieldGroup from '@/Components/Form/FieldGroup';
 import TextInput from '@/Components/TextInput';
 import InputError from '@/Components/InputError';
-import DateTimePicker from '@/Components/Form/DateTimePicker';
 import PrimaryButton from '@/Components/PrimaryButton';
 import convertOptions from '@/Utils/ReactSelectOption';
 import { Plus, Trash2 } from 'lucide-react';
@@ -20,12 +19,12 @@ const Create = ({ courses }) => {
   const { data, setData, post, errors, processing } = useForm({
     course_id: '',
     selectCourse: '',
-		access_time: '',
+		// access_time: '',
 		minimum_score: '',
     type: '',
     selectType: '',
     questions: [{
-      name:  '',
+      text:  '',
       answers: [
         { text: '', is_correct: '', }
       ],
@@ -54,7 +53,7 @@ const Create = ({ courses }) => {
   };
 
   const handleAddQuestion = () => {
-    setData('questions', [...data.questions, { name: '', answers: [{ text: '', is_correct: '' }]}]);
+    setData('questions', [...data.questions, { text: '', answers: [{ text: '', is_correct: '' }]}]);
   }
 
   const handleRemoveQuestion = (qIndex) => {
@@ -62,17 +61,17 @@ const Create = ({ courses }) => {
     setData('questions', questions);
   }
 
-  const handleAddAnswer = (qIndex) => {
-    const questions = [...data.questions];
-    questions[qIndex].answers.push({ text: '', is_correct: '' });
-    setData('questions', questions);
-  }
+  // const handleAddAnswer = (qIndex) => {
+  //   const questions = [...data.questions];
+  //   questions[qIndex].answers.push({ text: '', is_correct: '' });
+  //   setData('questions', questions);
+  // }
 
-  const handleRemoveAnswer = (qIndex, aIndex) => {
-    const questions = [...data.questions];
-    questions[qIndex].answers = questions[qIndex].answers.filter((_, i) => i !== aIndex);
-    setData('questions', questions);
-  }
+  // const handleRemoveAnswer = (qIndex, aIndex) => {
+  //   const questions = [...data.questions];
+  //   questions[qIndex].answers = questions[qIndex].answers.filter((_, i) => i !== aIndex);
+  //   setData('questions', questions);
+  // }
 
   const submit = (e) => {
 		e.preventDefault();
@@ -146,7 +145,7 @@ const Create = ({ courses }) => {
           </FieldGroup>
 
           {/* Access Time */}
-            <FieldGroup 
+          {/* <FieldGroup 
             label='Access Time'
             name='accessTime'
             error={errors.access_time}
@@ -160,7 +159,7 @@ const Create = ({ courses }) => {
               name='accessTime'
               placeholder='Select access time...'
             />
-          </FieldGroup>
+          </FieldGroup> */}
         </>
         )}
 
@@ -186,17 +185,17 @@ const Create = ({ courses }) => {
         <div className='content-box mt-2' key={qIndex}>
           <FieldGroup
 						label={`Question no. ${qIndex + 1}`}
-						name={`questions.${qIndex}.name`}
-						error={errors[`questions.${qIndex}.name`]}
+						name={`questions.${qIndex}.text`}
+						error={errors[`questions.${qIndex}.text`]}
 					>
 						<div className='flex flex-row items-end gap-x-2'>
 							<TextInput
-								name={`questions.${qIndex}.name`}
+								name={`questions.${qIndex}.text`}
 								className='flex-1 mt-1'
-								value={question.name}
+								value={question.text}
 								onChange={(e) => {
 									const questions = [...data.questions];
-									questions[qIndex].name = e.target.value;
+									questions[qIndex].text = e.target.value;
 									setData('questions', questions);
 								}}
 								placeholder='Question Text...'
@@ -207,52 +206,54 @@ const Create = ({ courses }) => {
 						</div>
 					</FieldGroup>
 
-          <div className='flex flex-row items-center justify-between mt-5 mb-3'>
+          {/* <div className='flex flex-row items-center justify-between mt-5 mb-3'>
 						<h2 className='text--sub-heading'>Answer</h2>
 						<button className='btn-sm btn--primary' type='button' onClick={() => handleAddAnswer(qIndex)}>
 							<Plus size={18} />
 						</button>
-					</div>
+					</div> */}
 
           {/* Answer */}
-          {question.answers.map((answer, aIndex) => (
-            <div className='flex flex-row items-start gap-2 mt-2' key={aIndex}>
-              <button className='btn btn--danger' type='button' onClick={() => handleRemoveAnswer(qIndex, aIndex)}>
-								<Trash2 />
-							</button>
+          {[...Array(3)].map((_, aIndex) => {
+            // Check if the answer already exists, otherwise provide a default empty answer.
+            const answer = question.answers[aIndex] || { text: '', is_correct: false };
 
-              <div className='flex-1'>
-								<TextInput
-									name={`questions.${qIndex}.answers.${aIndex}.name`}
-									className='w-full'
-									value={answer.name}
-									onChange={(e) => {
-										const questions = [...data.questions];
-										questions[qIndex].answers[aIndex].text = e.target.value;
-										setData('questions', questions);
-									}}
-									placeholder='Answer Text...'
-								/>
-								<InputError message={errors[`questions.${qIndex}.answers.${aIndex}.name`]} className='mt-2' />
-							</div>
-              <div className='flex-1'>
-                <label>
-                  <input
-                    type="radio"
-                    name={`questions.${qIndex}.answers.${aIndex}.isCorrect`}
-                    checked={answer.is_correct}
-                    value={answer.is_correct}
-                    onChange={() => {
+            return (
+              <div className='flex flex-row items-center gap-2 mt-2' key={aIndex}>
+                <input
+                  type="checkbox"
+                  name={`questions.${qIndex}.answers.${aIndex}.isCorrect`}
+                  checked={answer.is_correct}
+                  value={answer.is_correct}
+                  onChange={() => {
+                    const questions = [...data.questions];
+                    questions[qIndex].answers = questions[qIndex].answers.map((ans, idx) => ({
+                      ...ans,
+                      is_correct: idx === aIndex,
+                    }));
+                    setData('questions', questions);
+                  }}
+                />
+                <div className='flex-1'>
+                  <TextInput
+                    name={`questions.${qIndex}.answers.${aIndex}.text`}
+                    className='w-full'
+                    value={answer.text}
+                    onChange={(e) => {
                       const questions = [...data.questions];
-                      questions[qIndex].answers.forEach((ans, idx) => ans.is_correct = idx === aIndex);
+                      questions[qIndex].answers[aIndex] = {
+                        ...answer,
+                        text: e.target.value,
+                      };
                       setData('questions', questions);
                     }}
+                    placeholder='Answer Text...'
                   />
-                  Correct
-                </label>
+                  <InputError message={errors[`questions.${qIndex}.answers.${aIndex}.name`]} className='mt-2' />
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       ))}
 
