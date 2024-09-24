@@ -136,7 +136,7 @@ const Create = ({ courses }) => {
 						value={data.thumbnail}
 						onChange={(e) => setData('thumbnail', e.target.value)}
 						autoComplete='thumbnail'
-						placeholder='URL Video...'
+						placeholder='YouTube URL Video...'
 					/>
 				</FieldGroup>
 
@@ -169,7 +169,7 @@ const Create = ({ courses }) => {
 						value={data.description}
 						onChange={(e) => setData('description', e.target.value)}
 						autoComplete='description'
-						placeholder='Description'
+						placeholder='Description...'
 						rows={3}
 					/>
 				</FieldGroup>
