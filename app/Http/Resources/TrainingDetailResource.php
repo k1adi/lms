@@ -16,10 +16,11 @@ class TrainingDetailResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
             'code' => $this->code,
+            'name' => $this->name,
             'type' => $this->type,
             'trainer' => $this->trainer,
+            'thumbnail' => $this->thumbnail,
             'description' => $this->description,
             'url_attachment' => $this->url_attachment,
             // Load sections and subsections only if the course type is 'online'

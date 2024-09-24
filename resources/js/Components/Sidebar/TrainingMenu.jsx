@@ -18,7 +18,8 @@ export default function TrainingMenu({ sidebarExpand, setSidebarExpand }) {
     }
   } = usePage().props;
   const section = course?.sections;
-  console.log(usePage().props, 'prop page training menu');
+
+  console.log(course, 'training menu');
 
   return (
     <>
@@ -76,7 +77,7 @@ export default function TrainingMenu({ sidebarExpand, setSidebarExpand }) {
           }}
         </NavGroup>
       ))}      
-      {course.assignment && (
+      {course.assignment.length != 0 && (
         <NavLink
           link={route('training.test', course.assignment.code)}
           name='test'

@@ -27,7 +27,7 @@ class CreateCourseRequest extends FormRequest
             'name' => ['required', 'string', 'max:150', 'unique:courses,name'],
             'type.value' => ['required', 'in:offline,online'],
             'trainer' => ['required', 'string', 'max:120'],
-            'thumbnail' => ['nullable', 'string'],
+            'thumbnail' => ['nullable', 'url', 'regex:/^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\//i'],
             'url_attachment' => ['nullable', 'url'],
             // 'prerequisite.value' => ['nullable', 'integer', 'exists:courses,id'],
             'description' => ['nullable', 'string']
@@ -65,5 +65,17 @@ class CreateCourseRequest extends FormRequest
         $validator->sometimes('sections.*.subsections.*.url', 'nullable', function ($input) {
             return $input->type === 'offline';
         });
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'thumbnail.regex' => 'The URL must be a valid YouTube link.',
+        ];
     }
 }

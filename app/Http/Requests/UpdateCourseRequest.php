@@ -30,7 +30,7 @@ class UpdateCourseRequest extends FormRequest
             'name' => ['required', 'string', 'max:150', Rule::unique('courses')->ignore($id)],
             'type.value' => ['required', 'in:offline,online'],
             'trainer' => ['required', 'string', 'max:120'],
-            'thumbnail' => ['nullable', 'string'],
+            'thumbnail' => ['nullable', 'url', 'regex:/^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\//i'],
             'url_attachment' => ['nullable', 'url'],
             'prerequisite.value' => ['nullable', 'integer', 'exists:courses,id'],
             'description' => ['nullable', 'string']
@@ -45,16 +45,6 @@ class UpdateCourseRequest extends FormRequest
         }
 
         return $rules;
-
-        // return [
-        //     'name' => ['required', 'string', 'max:150', Rule::unique('courses')->ignore($id)],
-        //     'type' => ['required', 'in:offline,online'],
-        //     'trainer' => ['required', 'string', 'max:120'],
-        //     'thumbnail' => ['nullable', 'string'],
-        //     'url_attachment' => ['nullable', 'url'],
-        //     'prerequisite' => ['nullable', 'integer', 'exists:courses,id'],
-        //     'description' => ['required', 'string']
-        // ];
     }
 
     public function withValidator(Validator $validator)
@@ -78,5 +68,17 @@ class UpdateCourseRequest extends FormRequest
         $validator->sometimes('sections.*.subsections.*.url', 'nullable', function ($input) {
             return $input->type === 'offline';
         });
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'thumbnail.regex' => 'The URL must be a valid YouTube link.',
+        ];
     }
 }

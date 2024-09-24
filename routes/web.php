@@ -10,7 +10,6 @@ use App\Http\Controllers\PositionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ScheduleController;
-use App\Http\Controllers\TestController;
 use App\Http\Controllers\TnaController;
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\UserController;

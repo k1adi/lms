@@ -66,12 +66,16 @@ class TrainingController extends Controller
         // Conditionally load sections.subSection if the course is 'online'
         if ($course->type === 'online') {
             $course->load('sections.subSection');
+            $firstSection = $course->sections->first();
+            $firstSubSection = $firstSection->subSection->first();
         }
 
         $page = ($course->type === 'online') ? 'DetailOnline' : 'DetailOffline';
 
         return Inertia::render("Training/$page", [
             'course' => new TrainingDetailResource($course),
+            'section' => $firstSection->id ?? null,
+            'subSection' => $firstSubSection->id ?? null,
         ]);
     }
 

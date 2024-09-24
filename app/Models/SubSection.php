@@ -19,6 +19,6 @@ class SubSection extends Model
 
     public function progress(): HasMany
     {
-        return $this->hasMany(UserProgression::class, 'sub_section_id');
+        return $this->hasMany(UserProgression::class, 'sub_section_id', 'id');
     }
 }
