@@ -18,7 +18,9 @@ return new class extends Migration
             $table->enum('status', ['0','1']);
             $table->dateTime('created_at');
 
-            $table->primary(['user_id', 'assignment_id']);
+            // Composite primary key including 'created_at' for uniqueness
+            $table->primary(['user_id', 'assignment_id', 'created_at']);
+
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('assignment_id')->references('id')->on('assignments');
         });

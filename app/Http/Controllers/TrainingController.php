@@ -151,13 +151,19 @@ class TrainingController extends Controller
             $user = User::findOrFail($user->id);
     
             $passed = intval($score) > intval($minimum_score);
-            UserAssignmentLog::create([
-                'user_id' => $user->id,
-                'assignment_id' => $assignment_id,
-                'score' => $score,
-                'status' => (string)(int)$passed,
-                'created_at' => new DateTime('now', new DateTimeZone('Asia/Jakarta')),
-            ]); 
+            // UserAssignmentLog::create([
+            //     'user_id' => $user->id,
+            //     'assignment_id' => $assignment_id,
+            //     'score' => $score,
+            //     'status' => (string)(int)$passed,
+            //     'created_at' => new DateTime('now', new DateTimeZone('Asia/Jakarta')),
+            // ]); 
+            
+            $user->assignmentLog()->attach([
+                $assignment_id => [
+                    'score' => $score, 'status' => (string)(int)$passed, 'created_at' => now()
+                ]
+            ]);
     
             if($passed) {
                 $user->courseFinisheds()->syncWithoutDetaching([$course_id]);
