@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from '@inertiajs/react';
-import ReactPlayer from 'react-player/youtube';
 import DashboardLayout from '@/Layouts/DashboardLayout';
 import Breadcrumb from '@/Components/Acessibility/Breadcrumb';
+import VideoPlayer from '@/Components/VideoPlayer';
 
 const DetailOnline = ({ course, section, subSection }) => {
   console.log(course, 'course description');
@@ -23,7 +23,7 @@ const DetailOnline = ({ course, section, subSection }) => {
       </div>
 
       <div className='content-box'>
-        <ReactPlayer url={thumbnail} controls={true}/>
+        <VideoPlayer url={thumbnail} />
         <p className='my-4'>{description}</p>
         
         {url_attachment && (

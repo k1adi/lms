@@ -1,7 +1,7 @@
 import React from 'react';
-import ReactPlayer from 'react-player/youtube';
 import DashboardLayout from '@/Layouts/DashboardLayout';
 import Breadcrumb from '@/Components/Acessibility/Breadcrumb';
+import VideoPlayer from '@/Components/VideoPlayer';
 
 const Content = ({ course, section, lesson }) => {
   const { name, code } = course.data;
@@ -19,7 +19,7 @@ const Content = ({ course, section, lesson }) => {
       </div>
 
       <div className='content-box'>
-        <ReactPlayer url={lesson.url} controls={true}/>
+        <VideoPlayer url={lesson.url} />
       </div>
     </>
   );

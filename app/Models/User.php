@@ -119,4 +119,10 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Course::class, 'course_finisheds', 'user_id', 'course_id');
     }
+
+    public function assignmentLog(): BelongsToMany
+    {
+        return $this->belongsToMany(Assignment::class, 'user_assignment_logs')
+                    ->withPivot('score', 'status', 'created_at');
+    }
 }

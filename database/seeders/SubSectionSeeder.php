@@ -16,7 +16,7 @@ class SubSectionSeeder extends Seeder
         SubSection::create([
             'section_id' => 1,
             'name' => 'Logging',
-            'url' => 'https://youtu.be/1cq9RgHrqvk',
+            'url' => 'https://www.youtube.com/watch?v=1cq9RgHrqvk',
             'type' => 'media',
             'desc' => ''
         ]);
@@ -47,7 +47,7 @@ class SubSectionSeeder extends Seeder
         SubSection::create([
             'section_id' => 4,
             'name' => 'Excel Sub-Section 02',
-            'url' => 'https://youtu.be/8Ob8Hre_SnI',
+            'url' => 'https://www.youtube.com/watch?v=8Ob8Hre_SnI',
             'type' => 'media',
             'desc' => ''
         ]);
