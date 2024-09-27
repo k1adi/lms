@@ -62,7 +62,7 @@ const Index = ({ courses, schedules, auth }) => {
         </div>
       </section>
 
-      <section className='content-box'>
+      {/* <section className='content-box'>
         <div className='flex flex-row items-center justify-between mb-3'>
           <h1 className='text--title'>Schedule Access</h1>
           {auth.permissions.includes('accessible_create') && 
@@ -110,7 +110,7 @@ const Index = ({ courses, schedules, auth }) => {
             </tbody>
           </table>
         </div>
-      </section>
+      </section> */}
     </>
 	);
 }
