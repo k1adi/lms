@@ -116,6 +116,7 @@ class TrainingController extends Controller
         DB::beginTransaction(); // Start the transaction
         try {
             $course_id = $request->input('course_id');
+            $course_code = $request->input('course_code');
             $assignment_id = $request->input('assignment_id');
             $answers = $request->input('answers');
             $assignmentData = Assignment::where('id', $assignment_id)
@@ -162,7 +163,7 @@ class TrainingController extends Controller
             }
 
             DB::commit();
-            return Redirect::back()->with('error', 'Mohon maaf, Anda tidak lulus');
+            return Redirect::route('training.online.detail', $course_code)->with('error', 'Mohon maaf, Anda tidak lulus');;
         } catch (\Exception $e) {
             dd($e);
             DB::rollBack();

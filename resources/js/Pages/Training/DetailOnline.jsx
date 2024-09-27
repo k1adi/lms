@@ -3,8 +3,9 @@ import { Link } from '@inertiajs/react';
 import DashboardLayout from '@/Layouts/DashboardLayout';
 import Breadcrumb from '@/Components/Acessibility/Breadcrumb';
 import VideoPlayer from '@/Components/VideoPlayer';
+import Alert from '@/Components/Alert/Alert';
 
-const DetailOnline = ({ course, section, subSection }) => {
+const DetailOnline = ({ course, section, subSection, flash }) => {
   const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
 		{ link: '#', text: 'Training' },
@@ -16,6 +17,9 @@ const DetailOnline = ({ course, section, subSection }) => {
 
   return (
     <>
+      {flash.error && (
+        <Alert type='error' title='Oops!' message={flash.error} btnText='Coba Lagi!' />
+      )}
       <div className='content-box mb-2'>
         <Breadcrumb title={name} pageName={code} prevPage={prevPage} className='mb-1'/>
         <span>Trainer: {trainer}</span>

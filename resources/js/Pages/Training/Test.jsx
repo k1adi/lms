@@ -4,10 +4,9 @@ import DashboardLayout from '@/Layouts/DashboardLayout';
 import Breadcrumb from '@/Components/Acessibility/Breadcrumb';
 import PrimaryButton from '@/Components/PrimaryButton';
 import CapitalizeWord from '@/Utils/CapitalizeWord';
-import Alert from '@/Components/Alert/Alert';
 
-const Test = ({ assignment, course, flash }) => {
-  const { type, id: courseId } = course.data;
+const Test = ({ assignment, course }) => {
+  const { type, id: courseId, code } = course.data;
 
   const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
@@ -18,6 +17,7 @@ const Test = ({ assignment, course, flash }) => {
   const { data, setData, post, errors, processing, reset } = useForm({
     assignment_id: assignment.id,
     course_id: courseId,
+    course_code: code,
     answers: {},
   });
 
@@ -38,9 +38,6 @@ const Test = ({ assignment, course, flash }) => {
 
   return (
     <>
-      {flash.error && (
-        <Alert type='error' title='Oops!' message={flash.error} btnText='Coba Lagi!' />
-       )}
       <div className='content-box mb-2'>
         <Breadcrumb pageName='Training Test' prevPage={prevPage} className='mb-0' />
       </div>
