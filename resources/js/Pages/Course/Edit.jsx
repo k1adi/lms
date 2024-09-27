@@ -27,7 +27,7 @@ const Edit = ({ course }) => {
 		},
 		trainer: trainer,
 		thumbnail: thumbnail,
-		url_attachment: url_attachment,
+		url_attachment: url_attachment ? url_attachment : '',
 		description: description,
 		sections: type == 'online' ? sections.map(section => ({
 			id: section.id,
@@ -149,7 +149,6 @@ const Edit = ({ course }) => {
 					/>
 				</FieldGroup>
 
-				{/* Course Attachment */}
 				<FieldGroup 
 					label='Attachment'
 					name='url_attachment'
@@ -157,11 +156,11 @@ const Edit = ({ course }) => {
 				>
 					<TextInput
 						type='url'
-						name='url_atachment'
+						name='url_attachment'
 						className="mt-1 block w-full"
-						value={data.url_atachment}
-						onChange={(e) => setData('url_atachment', e.target.value)}
-						autoComplete="url_atachment"
+						value={data.url_attachment}
+						onChange={(e) => setData('url_attachment', e.target.value)}
+						autoComplete="url_attachment"
 						placeholder="URL Attachment..."
 					/>
 				</FieldGroup>

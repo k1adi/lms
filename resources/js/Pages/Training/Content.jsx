@@ -19,7 +19,22 @@ const Content = ({ course, section, lesson }) => {
       </div>
 
       <div className='content-box'>
-        <VideoPlayer url={lesson.url} />
+        {lesson.desc && (
+          <p className='mb-4'> {lesson.desc} </p>
+        )}
+        
+        {lesson.type == 'media' && (
+          <VideoPlayer url={lesson.url} />
+        )}
+
+        {lesson.type == 'file' && (
+            <div>
+              <p className='font-bold mb-1'>Lampiran Pendukung</p>
+              <a href={lesson.url} target='_blank' className='btn btn--primary'>
+                Lihat lampiran
+              </a>
+            </div>
+          )}
       </div>
     </>
   );

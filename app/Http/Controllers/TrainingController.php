@@ -7,10 +7,6 @@ use App\Http\Resources\TrainingDetailResource;
 use App\Models\Assignment;
 use App\Models\Course;
 use App\Models\User;
-use App\Models\UserAssignmentLog;
-use DateTime;
-use DateTimeZone;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
@@ -97,7 +93,7 @@ class TrainingController extends Controller
         ]);
     }
 
-    public function test(string $code): Response
+    public function test(string $code)
     {
         $assignment = Assignment::where('code', $code)->firstOrFail();
         $assignment->load('questions.answers');
@@ -150,14 +146,7 @@ class TrainingController extends Controller
             $user = auth()->user();
             $user = User::findOrFail($user->id);
     
-            $passed = intval($score) > intval($minimum_score);
-            // UserAssignmentLog::create([
-            //     'user_id' => $user->id,
-            //     'assignment_id' => $assignment_id,
-            //     'score' => $score,
-            //     'status' => (string)(int)$passed,
-            //     'created_at' => new DateTime('now', new DateTimeZone('Asia/Jakarta')),
-            // ]); 
+            $passed = intval($score) >= intval($minimum_score);
             
             $user->assignmentLog()->attach([
                 $assignment_id => [
@@ -167,10 +156,12 @@ class TrainingController extends Controller
     
             if($passed) {
                 $user->courseFinisheds()->syncWithoutDetaching([$course_id]);
+                DB::commit();
+                return Redirect::route('training.online.index')->with('success', 'Selamat anda lulus dengan nilai ' . $score);
             }
 
             DB::commit();
-            return Redirect::back()->with('success', 'You have finished the test');
+            return Redirect::back()->with('error', 'Mohon maaf, Anda tidak lulus');
         } catch (\Exception $e) {
             dd($e);
             DB::rollBack();

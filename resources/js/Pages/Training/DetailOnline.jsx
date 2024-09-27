@@ -5,7 +5,6 @@ import Breadcrumb from '@/Components/Acessibility/Breadcrumb';
 import VideoPlayer from '@/Components/VideoPlayer';
 
 const DetailOnline = ({ course, section, subSection }) => {
-  console.log(course, 'course description');
   const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
 		{ link: '#', text: 'Training' },
@@ -23,11 +22,14 @@ const DetailOnline = ({ course, section, subSection }) => {
       </div>
 
       <div className='content-box'>
-        <VideoPlayer url={thumbnail} />
+        {thumbnail && (
+          <VideoPlayer url={thumbnail}/>
+        )}
+
         <p className='my-4'>{description}</p>
         
         {url_attachment && (
-          <div>
+          <div className='mb-4'>
             <p className='font-bold mb-1'>Lampiran Pendukung</p>
             <a href={url_attachment} target='_blank' className='btn btn--primary'>
               Lihat lampiran

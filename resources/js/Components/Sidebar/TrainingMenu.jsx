@@ -18,9 +18,7 @@ export default function TrainingMenu({ sidebarExpand, setSidebarExpand }) {
     }
   } = usePage().props;
   const section = course?.sections;
-
-  console.log(course, 'training menu');
-
+  
   return (
     <>
       <NavLink

@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -19,13 +19,10 @@ class Assignment extends Model
 
     public static function generateCode(): string
     {
-        $date = Carbon::now();
         $testCount = self::withTrashed()->count();
 
         // Generate the code with zero-padded number and month
-        return sprintf("TEST%03d%02d%s", 
-            $testCount + 1, $date->month, $date->format('y')
-        );
+        return sprintf("T%04d",  $testCount + 1);
     }
 
     public function course(): BelongsTo
@@ -42,4 +39,10 @@ class Assignment extends Model
     {
         return $this->hasManyThrough(Answer::class, Question::class);
     }
+
+    public function userLog(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'user_assignment_logs')
+                    ->withPivot('score', 'status', 'created_at');
+    } 
 }

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -30,15 +29,12 @@ class Course extends Model
 
     public static function generateCode($course): string
     {
-        $date = Carbon::now();
-        $type = ($course == 'online') ? 'ONL' : 'OFL';
+        $type = ($course == 'online') ? 'OL' : 'OF';
 
         $courseCount = self::withTrashed()->count();
 
         // Generate the code with zero-padded number and month
-        return sprintf("PRI%s%03d%02d%s", 
-            $type, $courseCount + 1, $date->month, $date->format('y')
-        );
+        return sprintf("%s%04d", $type, $courseCount + 1);
     }
 
     public static function withoutAccess(): Collection

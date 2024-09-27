@@ -4,8 +4,9 @@ import DashboardLayout from '@/Layouts/DashboardLayout';
 import Breadcrumb from '@/Components/Acessibility/Breadcrumb';
 import PrimaryButton from '@/Components/PrimaryButton';
 import CapitalizeWord from '@/Utils/CapitalizeWord';
+import Alert from '@/Components/Alert/Alert';
 
-const Test = ({ assignment, course }) => {
+const Test = ({ assignment, course, flash }) => {
   const { type, id: courseId } = course.data;
 
   const prevPage = [
@@ -14,7 +15,7 @@ const Test = ({ assignment, course }) => {
     { link: route(`training.${type}.index`), text: CapitalizeWord(type) },
 	];
 
-  const { data, setData, post, errors, processing } = useForm({
+  const { data, setData, post, errors, processing, reset } = useForm({
     assignment_id: assignment.id,
     course_id: courseId,
     answers: {},
@@ -32,17 +33,23 @@ const Test = ({ assignment, course }) => {
   const submit = (e) => {
     e.preventDefault();
     post(route('training.test.validate'));
+    reset();
   };
 
   return (
     <>
+      {flash.error && (
+        <Alert type='error' title='Oops!' message={flash.error} btnText='Coba Lagi!' />
+       )}
       <div className='content-box mb-2'>
         <Breadcrumb pageName='Training Test' prevPage={prevPage} className='mb-0' />
       </div>
       <form onSubmit={submit} className='content-box'>
         {assignment.questions.map((question, qIndex) => (
-          <div className='mb-4' key={qIndex}>
-            <p>{qIndex + 1}. {question.text}</p>
+          <div className='mb-6' key={qIndex}>
+
+            <p className='font-bold'>{qIndex + 1}. {question.text}</p>
+            
             {question.answers.map((answer, aIndex) => (
               <div key={aIndex} className='mb-1'>
                 <label name={`${qIndex}.answers.${aIndex}`}>
@@ -60,6 +67,7 @@ const Test = ({ assignment, course }) => {
             {errors.answers && <div className="text-red-500">{errors.answers}</div>}
           </div>
         ))}
+
         <PrimaryButton disabled={processing}>
           Submit
         </PrimaryButton>

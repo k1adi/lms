@@ -3,8 +3,9 @@ import { router, usePage } from '@inertiajs/react';
 import DashboardLayout from '@/Layouts/DashboardLayout';
 import Breadcrumb from '@/Components/Acessibility/Breadcrumb';
 import { BadgeCheck } from 'lucide-react';
+import Alert from '@/Components/Alert/Alert';
 
-const Online = ({ courses }) => {
+const Online = ({ courses, flash }) => {
   const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
 		{ link: '#', text: 'Training' },
@@ -12,14 +13,15 @@ const Online = ({ courses }) => {
 
   const{ auth: { user: { finisheds: pass }}} = usePage().props;
 
-  console.log(pass, 'course finieshed by user');
-
   const handleRowClicked = (code) => {
     router.visit(route('training.online.detail', code));
   }
 
   return (
     <>
+      {flash.success && (
+        <Alert type='success' message={flash.success} />
+      )}
       <div className='content-box mb-2'>
         <Breadcrumb pageName='Online Training' prevPage={prevPage} className='mb-0' />
       </div>
@@ -51,7 +53,7 @@ const Online = ({ courses }) => {
                     </span></td>
                     <td className='group-hover:text-sky-400'>{key.type}</td>
                     <td className='group-hover:text-sky-400'>{key.trainer}</td>
-                    <td className='group-hover:text-sky-400'>{key.progress} / {key.total_sub_section} ({key.percentage})</td>
+                    <td className='group-hover:text-sky-400'>{key.percentage}</td>
                   </tr>
                   )) :
                 <tr className='text-center'>
