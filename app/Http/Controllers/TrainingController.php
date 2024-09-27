@@ -20,7 +20,7 @@ class TrainingController extends Controller
     {
         return Course::where($column, $value)
                ->with(['hasAssignment' => function ($query) {
-                   $query->whereNotNull('id'); // Load only if an assignment exists
+                   $query->whereNotNull('id')->where('type', 'knowledge'); // Load only if an assignment exists
                }])->firstOrFail();
     }
 
