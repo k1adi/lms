@@ -24,10 +24,12 @@ class UpdateScheduleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'course_id.value' => ['required', 'integer', 'exists:courses,id'],
+            'course_id' => ['required', 'integer', 'exists:courses,id'],
             'start_time' => ['required', 'date_format:Y-m-d\TH:i:s.v\Z'],
             'end_time' => ['required', 'date_format:Y-m-d\TH:i:s.v\Z', 'after_or_equal:start_time'],
-            'desc' => ['nullable', 'string']
+            'desc' => ['nullable', 'string'],
+            'user_id' => ['required', 'array', 'min:1'],
+            'user_id.*' => ['integer', 'exists:users,id']
         ];
     }
 

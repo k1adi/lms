@@ -8,7 +8,10 @@ use App\Http\Requests\CreateScheduleRequest;
 use App\Http\Requests\UpdateScheduleRequest;
 use App\Models\Course;
 use App\Models\Schedule;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection as SupportCollection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -33,8 +36,14 @@ class ScheduleController extends Controller
      */
     public function create(): Response
     {
+        $users = User::all()->map(function ($item) {
+            return [ 'value' => $item->id, 'label' => $item->full_name ];
+        });
+        $courses = $this->labelOfflineCourse($this->getOfflineCourse()); 
+
         return Inertia::render('Schedule/Create', [
-            'courses' => $this->getOfflineCourse(),
+            'courses' => $courses,
+            'users' => $users
         ]);
     }
 
@@ -43,16 +52,21 @@ class ScheduleController extends Controller
      */
     public function store(CreateScheduleRequest $request): RedirectResponse
     {
+        DB::beginTransaction(); // Start the transaction
         try {
             $validated = $request->validated();
             $input = $this->createObjectSchedule($validated);
 
             // Insert schedule data to schedule table
-            Schedule::create($input);
+            $schedule = Schedule::create($input);
+            // Sync user_id with schedule_id
+            $schedule->assignUser()->sync($validated['user_id']);
 
+            DB::commit();
             return Redirect::route('schedules.index');
         } 
         catch (\Exception $e) {
+            DB::rollBack();
             return Redirect::back()->withErrors([
                 'error' => $e
             ])->withInput();
@@ -73,10 +87,21 @@ class ScheduleController extends Controller
     public function edit(Schedule $schedule)
     {
         $schedule->load('course');
+        $schedule['users'] = $schedule->assignUser->map(function ($item) {
+            return ['value' => $item->id, 'label' => $item->full_name];
+        });
 
+        // Remove the duplicated `assign_user` key if it exists
+        unset($schedule->assignUser);
+
+        $courses = $this->labelOfflineCourse($this->getOfflineCourse());
+        $users = User::all()->map(function ($item) {
+            return [ 'value' => $item->id, 'label' => $item->full_name ];
+        });
         return Inertia::render('Schedule/Edit', [
             'schedule' => $schedule,
-            'courses' => $this->getOfflineCourse(),
+            'courses' => $courses,
+            'allUser' => $users,
         ]);
     }
 
@@ -85,6 +110,7 @@ class ScheduleController extends Controller
      */
     public function update(UpdateScheduleRequest $request, Schedule $schedule): RedirectResponse
     {
+        DB::beginTransaction(); // Start the transaction
         try {
             $validated = $request->validated();
             $input = $this->createObjectSchedule($validated);
@@ -92,10 +118,14 @@ class ScheduleController extends Controller
             // Update schedule data to schedule table
             $schedule->fill($input);
             $schedule->save();
+            // Sync user_id with schedule_id
+            $schedule->assignUser()->sync($validated['user_id']);
 
+            DB::commit();
             return Redirect::route('schedules.index');
         } 
         catch (\Exception $e) {
+            DB::rollBack();
             return Redirect::back()->withErrors([
                 'error' => $e
             ])->withInput();
@@ -120,10 +150,17 @@ class ScheduleController extends Controller
         return Course::where('type', 'offline')->get();
     }
 
+    public function labelOfflineCourse(Collection $course): SupportCollection
+    {
+        return $course->map(function ($item) {
+            return [ 'value' => $item->id, 'label' => $item->name ];
+        });
+    }
+
     private function createObjectSchedule(array $input): array
     {
         return [
-            'course_id' => $input['course_id']['value'],
+            'course_id' => $input['course_id'],
             'start_time' => convertToJakartaTime($input['start_time']),
             'end_time' => convertToJakartaTime($input['end_time']),
             'desc' => $input['desc']

@@ -6,28 +6,47 @@ import Breadcrumb from '@/Components/Acessibility/Breadcrumb';
 import FieldGroup from '@/Components/Form/FieldGroup';
 import TextArea from '@/Components/TextArea';
 import PrimaryButton from '@/Components/PrimaryButton';
-import convertOptions from '@/Utils/ReactSelectOption';
 import DateTimePicker from '@/Components/Form/DateTimePicker';
 
-const Edit = ({ schedule, courses }) => {
-
+const Edit = ({ schedule, courses, allUser }) => {
   const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
 		{ link: route('schedules.index'), text: 'Schedule' },
 	];
-
-  const startTime = new Date(schedule.start_time);
-  const endTime = new Date(schedule.end_time);
+	const { course_id, course, start_time, end_time, desc, users } = schedule;
+  const startTime = new Date(start_time);
+  const endTime = new Date(end_time);
 
 	const { data, setData, patch, errors, processing } = useForm({
-		course_id: {
-      value: schedule.course.id,
-      label: schedule.course.name
+		course_id: course_id,
+		selectCourse: {
+      value: course.id,
+      label: course.name
     },
+		user_id: users.map((list) => list.value),
+		selectUser: users,
 		start_time: startTime.toISOString(),
     end_time: endTime.toISOString(),
-    desc: schedule.desc
+    desc: desc
 	});
+
+	const handleSelectCourse = (option) => {
+		setData((prevData) => ({
+			...prevData,
+			selectCourse: option,
+			course_id: option.value,
+		}));
+	}
+
+	const handleSelectUser = (option) => {
+		const userIds = option.map((list) => list.value);
+
+		setData((prevData) => ({
+			...prevData,
+			user_id: userIds,
+			selectUser: option,
+		}));
+	}
 
 	const submit = (e) => {
 		e.preventDefault();
@@ -46,9 +65,9 @@ const Edit = ({ schedule, courses }) => {
 					isPrimary={true}
 				>
 					<Select
-            options={convertOptions(courses)}
-            value={data.course_id}
-            onChange={(option) => setData('course_id', option)}
+            options={courses}
+            value={data.selectCourse}
+            onChange={handleSelectCourse}
           />
 				</FieldGroup>
 
@@ -58,7 +77,8 @@ const Edit = ({ schedule, courses }) => {
 					error={errors.start_time}
 					isPrimary={true}
 				>
-					<DateTimePicker 
+					<DateTimePicker
+						minDate='today'
             value={data.start_time}
             currentDate={data.start_time}
             onChange={(value) => setData('start_time', value)}
@@ -76,6 +96,7 @@ const Edit = ({ schedule, courses }) => {
 					isPrimary={true}
 				>
           <DateTimePicker
+						minDate='today'
             value={data.end_time}
             currentDate={data.end_time}
             onChange={(value) => setData('end_time', value)}
@@ -101,6 +122,20 @@ const Edit = ({ schedule, courses }) => {
 						placeholder='Schedule Description...'
 						rows={3}
 					/>
+				</FieldGroup>
+
+				<FieldGroup 
+					label='Users'
+					name='users'
+					error={errors.user_id}
+					isPrimary={true}
+				>
+					<Select
+						isMulti
+            options={allUser}
+            value={data.selectUser}
+            onChange={handleSelectUser}
+          />
 				</FieldGroup>
 
 				<PrimaryButton disabled={processing}>

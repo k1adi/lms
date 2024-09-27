@@ -66,7 +66,6 @@ const Create = ({ courses }) => {
   //   questions[qIndex].answers.push({ text: '', is_correct: '' });
   //   setData('questions', questions);
   // }
-
   // const handleRemoveAnswer = (qIndex, aIndex) => {
   //   const questions = [...data.questions];
   //   questions[qIndex].answers = questions[qIndex].answers.filter((_, i) => i !== aIndex);

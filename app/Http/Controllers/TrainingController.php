@@ -113,6 +113,7 @@ class TrainingController extends Controller
 
     public function testValidate(Request $request)
     {
+        DB::beginTransaction(); // Start the transaction
         try {
             $course_id = $request->input('course_id');
             $assignment_id = $request->input('assignment_id');

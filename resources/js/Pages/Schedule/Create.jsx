@@ -6,10 +6,9 @@ import Breadcrumb from '@/Components/Acessibility/Breadcrumb';
 import TextArea from '@/Components/TextArea';
 import FieldGroup from '@/Components/Form/FieldGroup';
 import PrimaryButton from '@/Components/PrimaryButton';
-import convertOptions from '@/Utils/ReactSelectOption';
 import DateTimePicker from '@/Components/Form/DateTimePicker';
 
-const Create = ({ courses }) => {
+const Create = ({ courses, users }) => {
   const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
 		{ link: route('schedules.index'), text: 'Schedule' },
@@ -17,10 +16,31 @@ const Create = ({ courses }) => {
 
 	const { data, setData, post, errors, processing } = useForm({
 		course_id: '',
+		selectCourse: '',
 		start_time: '',
     end_time: '',
-		desc: ''
+		desc: '',
+		user_id: '',
+		selectUser: '',
 	});
+
+	const handleSelectCourse = (option) => {
+		setData((prevData) => ({
+			...prevData,
+			selectCourse: option,
+			course_id: option.value,
+		}));
+	}
+
+	const handleSelectUser = (option) => {
+		const userIds = option.map((user) => user.value);
+
+		setData((prevData) => ({
+			...prevData,
+			user_id: userIds,
+			selectUser: option,
+		}));
+	}
 
 	const submit = (e) => {
 		e.preventDefault();
@@ -39,9 +59,9 @@ const Create = ({ courses }) => {
 					isPrimary={true}
 				>
 					<Select
-            options={convertOptions(courses)}
-            value={data.course_id}
-            onChange={(option) => setData('course_id', option)}
+            options={courses}
+            value={data.selectCourse}
+            onChange={handleSelectCourse}
           />
 				</FieldGroup>
 
@@ -94,6 +114,20 @@ const Create = ({ courses }) => {
 						placeholder='Schedule Description...'
 						rows={3}
 					/>
+				</FieldGroup>
+
+				<FieldGroup 
+					label='Users'
+					name='users'
+					error={errors.user_id}
+					isPrimary={true}
+				>
+					<Select
+						isMulti
+            options={users}
+            value={data.selectUser}
+            onChange={handleSelectUser}
+          />
 				</FieldGroup>
 
 				<PrimaryButton disabled={processing}>
