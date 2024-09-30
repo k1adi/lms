@@ -25,7 +25,7 @@ class CreateDeptRequest extends FormRequest
         return [
             'bu_id' => ['required', 'array'],
             'bu_id.value' => ['integer', 'exists:bus,id'],
-            'code' => ['required', 'string', 'max:5', 'unique:depts,code'],
+            'code' => ['required', 'string', 'max:5'],
             'name' => ['required', 'string', 'max:50'],
         ];
     }

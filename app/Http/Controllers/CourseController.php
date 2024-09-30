@@ -100,7 +100,7 @@ class CourseController extends Controller
         try {
             $validated = $request->validated();
             $validated['type'] = $validated['type']['value'];
-
+            
             $course->fill($validated);
             $course->save(); // Ensure course is saved before processing sections
 
@@ -142,6 +142,8 @@ class CourseController extends Controller
                                 'section_id' => $section->id,
                                 'name' => $subsectionData['name'],
                                 'url' => $subsectionData['url'],
+                                'type' => $subsectionData['type'],
+                                'desc' => $subsectionData['desc'],
                             ]
                         );
                     }

@@ -28,7 +28,7 @@ const Edit = ({ course }) => {
 		trainer: trainer,
 		thumbnail: thumbnail,
 		url_attachment: url_attachment ? url_attachment : '',
-		description: description,
+		description: description || '',
 		sections: type == 'online' ? sections.map(section => ({
 			id: section.id,
 			name: section.name,
@@ -36,7 +36,13 @@ const Edit = ({ course }) => {
 				id: subsection.id,
 				section_id: subsection.section_id,
 				name: subsection.name,
-				url: subsection.url
+				url: subsection.url,
+				type: subsection.type,
+				selectType: {
+					value: subsection.type,
+					label: CapitalizeWord(subsection.type)
+				},
+				desc: subsection.desc || '',
 			}))
 		})) 
 		: []
@@ -226,40 +232,96 @@ const Edit = ({ course }) => {
 						</button>
 					</div>
 
-					{/* Sub Section List */}
-					{section.subsections.map((subsection, subIndex) => (
+						{/* Sub Section List */}
+						{section.subsections.map((subsection, subIndex) => (
 						<div className='flex flex-row items-start gap-2 mt-2' key={subIndex}>
 							<button className='btn btn--danger' type='button' onClick={() => handleRemoveSubsection(secIndex, subIndex)}>
 								<Trash2 />
 							</button>
-							<div className='flex-1'>
-								<TextInput
-									name={`sections.${secIndex}.subsections.${subIndex}.name`}
-									className="w-full"
-									value={subsection.name}
-									onChange={(e) => {
-										const sections = [...data.sections];
-										sections[secIndex].subsections[subIndex].name = e.target.value;
-										setData('sections', sections);
-									}}
-									placeholder="Name..."
-								/>
-								<InputError message={errors[`sections.${secIndex}.subsections.${subIndex}.name`]} className="mt-2" />
-							</div>
+							<div className='flex-1 flex flex-col'>
+								<div className='mb-3'>
+									<TextInput
+										name={`sections.${secIndex}.subsections.${subIndex}.name`}
+										className='w-full'
+										value={subsection.name}
+										onChange={(e) => {
+											const sections = [...data.sections];
+											sections[secIndex].subsections[subIndex].name = e.target.value;
+											setData('sections', sections);
+										}}
+										placeholder='Name...'
+									/>
+									<InputError message={errors[`sections.${secIndex}.subsections.${subIndex}.name`]} className='mt-2' />
+								</div>
 
-							<div className='flex-1'>
-								<TextInput
-									name={`sections.${secIndex}.subsections.${subIndex}.url`}
-									className="w-full"
-									value={subsection.url}
-									onChange={(e) => {
-										const sections = [...data.sections];
-										sections[secIndex].subsections[subIndex].url = e.target.value;
-										setData('sections', sections);
-									}}
-									placeholder="url..."
-								/>
-								<InputError message={errors[`sections.${secIndex}.subsections.${subIndex}.url`]} className="mt-2" />
+								<div className='flex items-center gap-2'>
+									{/* Subsection Type */}
+									<FieldGroup 
+										error={errors[`sections.${secIndex}.subsections.${subIndex}.type`]}
+									>
+										<Select
+											name={`sections.${secIndex}.subsections.${subIndex}.type`}
+											className='flex-1'
+											value={subsection.selectType}
+											options={[
+												{value: 'media', label: 'Media'},
+												{value: 'file', label: 'File' }
+											]}
+											onChange={(option) => {
+												const sections = [...data.sections];
+												sections[secIndex].subsections[subIndex].type = option.value;
+												sections[secIndex].subsections[subIndex].selectType = option;
+												setData('sections', sections);
+											}}
+											placeholder={'Select Type...'}
+											required
+										/>
+									</FieldGroup>
+
+									{/* Subsection URL */}
+									<div className='flex-1'>
+										<FieldGroup 
+											error={errors[`sections.${secIndex}.subsections.${subIndex}.url`]}
+											isPrimary={true}
+										>
+											<TextInput
+												type='url'
+												name={`sections.${secIndex}.subsections.${subIndex}.url`}
+												className='w-full'
+												value={subsection.url}
+												onChange={(e) => {
+													const sections = [...data.sections];
+													sections[secIndex].subsections[subIndex].url = e.target.value;
+													setData('sections', sections);
+												}}
+												autoComplete='url_sub_section'
+												placeholder='URL...'
+												required
+											/>
+										</FieldGroup>
+									</div>
+								</div>
+
+								<div className='mb-3'>
+									{/* Description */}
+									<FieldGroup 
+										error={errors[`sections.${secIndex}.subsections.${subIndex}.desc`]}
+									>
+										<TextArea
+											id='description'
+											className='mt-1 block w-full'
+											value={subsection.desc}
+											onChange={(e) => {
+												const sections = [...data.sections];
+												sections[secIndex].subsections[subIndex].desc = e.target.value;
+												setData('sections', sections);
+											}}
+											autoComplete='description'
+											placeholder='Description...'
+											rows={3}
+										/>
+									</FieldGroup>
+								</div>
 							</div>
 						</div>
 					))}

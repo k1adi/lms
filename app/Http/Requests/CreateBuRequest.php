@@ -23,7 +23,7 @@ class CreateBuRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code' => ['required', 'string', 'max:7', 'unique:bus,code'],
+            'code' => ['required', 'string', 'max:5', 'unique:bus,code'],
             'name' => ['required', 'string', 'max:50', 'unique:bus,name'],
         ];
     }

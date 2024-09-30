@@ -38,7 +38,9 @@ class CreateCourseRequest extends FormRequest
             $rules['sections.*.name'] = 'required|string|max:100';
             $rules['sections.*.subsections'] = 'required|array|min:1';
             $rules['sections.*.subsections.*.name'] = 'required|string|max:100';
+            $rules['sections.*.subsections.*.type'] = 'required|in:media,file';
             $rules['sections.*.subsections.*.url'] = 'required|url';
+            $rules['sections.*.subsections.*.desc'] = 'nullable|string';
         }
 
         return $rules;
@@ -63,6 +65,14 @@ class CreateCourseRequest extends FormRequest
         });
 
         $validator->sometimes('sections.*.subsections.*.url', 'nullable', function ($input) {
+            return $input->type === 'offline';
+        });
+
+        $validator->sometimes('sections.*.subsections.*.type', 'nullable', function ($input) {
+            return $input->type === 'offline';
+        });
+
+        $validator->sometimes('sections.*.subsections.*.desc', 'nullable', function ($input) {
             return $input->type === 'offline';
         });
     }
