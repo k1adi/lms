@@ -52,7 +52,6 @@ class DeptController extends Controller
 
             return Redirect::route('depts.index');
         } catch (\Exception $e) {
-            dd($e);
             return Redirect::back()->withErrors([
                 'error' => $e
             ])->withInput();
@@ -94,7 +93,6 @@ class DeptController extends Controller
 
             return Redirect::route('depts.index');
         } catch (\Exception $e) {
-            dd($e);
             return Redirect::back()->withErrors([
                 'error' => $e
             ])->withInput();

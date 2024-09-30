@@ -20,7 +20,7 @@ class PositionController extends Controller
     public function index(): Response
     {
         // Authorize the action using Gate
-        Gate::authorize('role_access');
+        Gate::authorize('position_access');
 
         return Inertia::render('Position/Index', [
             'positions' => Position::paginate()
