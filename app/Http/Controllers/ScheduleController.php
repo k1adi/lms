@@ -26,8 +26,24 @@ class ScheduleController extends Controller
         // Authorize the action using Gate
         Gate::authorize('schedule_access');
 
+        // Get the authenticated user
+        $user = auth()->user();
+        $role = $user->hasRole->first()->name;
+
+        // // Check if the user has a specific role, e.g., 'user'
+        if ($role === 'user') {
+            $schedules = Schedule::with(['course'])
+                ->whereHas('assignUser', function ($query) use ($user) {
+                    $query->where('user_id', $user->id);
+                })
+                ->paginate();
+        } else {
+            // For other roles, show all schedules
+            $schedules = Schedule::with(['course'])->paginate();
+        }
+
         return Inertia::render('Schedule/Index', [
-            'schedules' => Schedule::with(['course'])->paginate()
+            'schedules' => $schedules,
         ]);
     }
 
