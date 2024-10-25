@@ -11,7 +11,7 @@ const Online = ({ courses, flash }) => {
 		{ link: '#', text: 'Training' },
 	];
 
-  const{ auth: { user: { finisheds: pass }}} = usePage().props;
+  const{ auth: { user: { finisheds: graduated }}} = usePage().props;
 
   const handleRowClicked = (code) => {
     router.visit(route('training.online.detail', code));
@@ -46,7 +46,7 @@ const Online = ({ courses, flash }) => {
                     <td className='group-hover:text-sky-400'>{index + 1}</td>
                     <td className='group-hover:text-sky-400'>{key.code}</td>
                     <td className='group-hover:text-sky-400'><span>
-                      {pass.includes(key.id.toString()) && (
+                      {graduated.includes(key.id.toString()) && (
                         <BadgeCheck className='inline-block mr-2' />
                       )}
                       {key.name}

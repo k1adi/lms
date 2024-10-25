@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
+use App\Http\Requests\MyProfileUpdateRequest;
+use App\Http\Resources\MyReportResource;
+use App\Models\Course;
+use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -13,6 +16,21 @@ use Inertia\Response;
 
 class ProfileController extends Controller
 {
+    public function index(): Response
+    {
+        $user = auth()->user();
+        $user = User::findOrFail($user->id);
+        $user->load('hasRole');
+
+        $reports = Course::forUserWithPosition(auth()->user())->with('hasAssignment.userLog')->get();
+
+        return Inertia::render('Profile/Index', [
+            'user' => $user,
+            'pivots' => $user->groupPositionsByBu(),
+            'reports' => MyReportResource::collection($reports)
+        ]);
+    }
+
     /**
      * Display the user's profile form.
      */
@@ -27,18 +45,29 @@ class ProfileController extends Controller
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(MyProfileUpdateRequest $request, User $user): RedirectResponse 
     {
-        $request->user()->fill($request->validated());
+        $validated = $request->validated();
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
+        $user->fill($validated);
+        $user->save();
 
-        $request->user()->save();
-
-        return Redirect::route('profile.edit');
+        return Redirect::route('dashboard');
     }
+
+    // public function update(ProfileUpdateRequest $request): RedirectResponse
+    // {
+    //     $request->user()->fill($request->validated());
+
+    //     if ($request->user()->isDirty('email')) {
+    //         $request->user()->email_verified_at = null;
+    //     }
+
+    //     $request->user()->save();
+
+    //     return Redirect::route('profile.edit');
+    // }
+
 
     /**
      * Delete the user's account.

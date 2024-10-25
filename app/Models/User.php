@@ -124,4 +124,14 @@ class User extends Authenticatable
         return $this->belongsToMany(Assignment::class, 'user_assignment_logs')
                     ->withPivot('score', 'status', 'created_at');
     }
+
+    public function groupPositionsByBu()
+    {
+        return $this->buPosition->groupBy('pivot.bu')->map(function ($items, $bu) {
+            return [
+                'bu' => json_decode($bu, true),
+                'positions' => $items->pluck('pivot.position')->toArray(),
+            ];
+        })->values();
+    }
 }

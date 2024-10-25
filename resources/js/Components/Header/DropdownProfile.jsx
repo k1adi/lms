@@ -8,17 +8,15 @@ export default function DropdownProfile() {
       <ul className='dropdown__content'>
         <ToggleTheme />
         <Link
-          href='#'
+          href={route('profile.index')}
           className='dropdown__list'
         >
-          <User /> My Account
+          <User /> Profile
         </Link>
       </ul>
       <Link href={route('logout')} method="post" as="button" className='dropdown__log-out'>
         <LogOut /> Log Out      
       </Link>
-      {/* <button className='dropdown__log-out'>
-      </button> */}
     </div>
   );
 }

@@ -67,14 +67,16 @@ class Course extends Model
         return $this->belongsToMany(Position::class, 'course_accesses', 'course_id', 'position_id');
     }
 
-    public function scopeForUserWithPosition($query, $user, $type)
+    public function scopeForUserWithPosition($query, $user, $type = null)
     {
         $userPositions = $user->buPosition()->pluck('position_id'); // Get user positions
 
-        return $query->where('type', $type)
-                ->whereHas('accesses', function ($query) use ($userPositions) {
-                    $query->whereIn('position_id', $userPositions);
-                });
+        return $query->when($type, function ($query, $type) {
+            $query->where('type', $type);
+        })
+        ->whereHas('accesses', function ($query) use ($userPositions) {
+            $query->whereIn('position_id', $userPositions);
+        });
     }
 
     public function hasAssignment(): HasOne
