@@ -6,10 +6,10 @@ use App\Http\Requests\CreateDeptRequest;
 use App\Http\Requests\UpdateDeptRequest;
 use App\Models\Bu;
 use App\Models\Dept;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -109,5 +109,17 @@ class DeptController extends Controller
 
         $dept->delete();
         return Redirect::back();
+    }
+
+    public function buDept($id): JsonResponse 
+    {
+        $dept = Dept::where('bu_id', $id)->get();
+
+        return response()->json($dept->map(function ($option) {
+            return [
+                'value' => $option->id,
+                'label' => "({$option->code}) - {$option->name}"
+            ];
+        }));
     }
 }

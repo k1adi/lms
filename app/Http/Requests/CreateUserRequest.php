@@ -25,16 +25,16 @@ class CreateUserRequest extends FormRequest
         return [
             'full_name' => ['required', 'string'],
             'username' => ['required', 'string', 'max:100', 'unique:users,username'],
-            'roles' => ['required', 'array'],
-            'roles.*.value' => ['integer', 'exists:roles,id'],
+            'role' => ['required', 'integer', 'exists:roles,id'],
             'email' => ['required', 'email', 'unique:users,email'],
-            'no_hp' => ['required', 'string', 'max:16', 'unique:users,no_hp'],
-            'no_nik' => ['required', 'string', 'max:16', 'unique:users,no_nik'],
+            'no_hp' => ['required', 'string', 'min:10', 'max:16', 'unique:users,no_hp'],
+            'no_nik' => ['required', 'string', 'min:7', 'max:16', 'unique:users,no_nik'],
             'password' => ['required', 'string', 'min:8'],
+
             'pivot' => ['required', 'array', 'min:1'],
-            'pivot.*.bu.value' => ['required', 'integer', 'exists:bus,id'],
-            'pivot.*.position' => ['required', 'array', 'min:1'],
-            'pivot.*.position.*.value' => ['required', 'integer', 'exists:positions,id'],
+            'pivot.*.bu' => ['required', 'integer', 'exists:bus,id'],
+            'pivot.*.positions' => ['required', 'array', 'min:1', 'exists:positions,id'],
+            'pivot.*.depts' => ['required', 'array', 'min:1', 'exists:depts,id'],
         ];
     }
 }

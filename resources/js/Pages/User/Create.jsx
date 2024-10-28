@@ -18,14 +18,20 @@ const Create = ({ bus, roles, positions }) => {
 	const { data, setData, post, errors, processing } = useForm({
 		full_name: '',
     username: '',
-		roles: [],
+		role: [],
+		roleSelected: [],
     email: '',
     no_hp: '',
     no_nik: '',
     password: '',
 		pivot: [{
 			bu: null,
-			position: [],
+			buSelected: null,
+			positions: [],
+			positionSelected: [],
+			depts: [],
+			deptOptions: [],
+			deptSelected: [],
 		}],
 	});
 
@@ -38,6 +44,14 @@ const Create = ({ bus, roles, positions }) => {
     setData('pivot', pivots);
   };
 
+	const handleSelectRole = (option) => {
+		setData((prevData) => ({
+			...prevData,
+			role: option.value,
+			roleSelected: option,
+		}));
+	};
+
 	const submit = (e) => {
 		e.preventDefault();
 		post(route('users.store'))
@@ -47,6 +61,7 @@ const Create = ({ bus, roles, positions }) => {
 		<form onSubmit={submit} className="w-full">
 			<div className='content-box'>
 				<Breadcrumb title='Create User' pageName='Create' prevPage={prevPage} />
+				{/* Full Name */}
 				<FieldGroup 
 					label='Full Name'
 					name='full_name'
@@ -65,6 +80,7 @@ const Create = ({ bus, roles, positions }) => {
 					/>
 				</FieldGroup>
 
+				{/* Username */}
 				<FieldGroup 
 					label='Username'
 					name='username'
@@ -82,6 +98,7 @@ const Create = ({ bus, roles, positions }) => {
 					/>
 				</FieldGroup>
 				
+				{/* Roles */}
 				<FieldGroup 
 					label='Roles'
 					name='role'
@@ -89,13 +106,13 @@ const Create = ({ bus, roles, positions }) => {
 					isPrimary={true}
 				>
 					<Select
-            isMulti
             options={convertOptions(roles)}
-            value={data.roles}
-            onChange={(option) => setData('roles', option)}
+            value={data.roleSelected}
+            onChange={handleSelectRole}
           />
 				</FieldGroup>
 
+				{/* Email */}
 				<FieldGroup 
 					label='User Email'
 					name='email'
@@ -114,6 +131,7 @@ const Create = ({ bus, roles, positions }) => {
 					/>
 				</FieldGroup>
 
+				{/* Phone */}
 				<FieldGroup
 					label='User Phone'
 					name='no_hp'
@@ -131,6 +149,7 @@ const Create = ({ bus, roles, positions }) => {
 					/>
 				</FieldGroup>
 
+				{/* NIK */}
 				<FieldGroup
 					label='User NIK'
 					name='no_nik'
@@ -148,6 +167,7 @@ const Create = ({ bus, roles, positions }) => {
 					/>
 				</FieldGroup>
 
+				{/* Password */}
 				<FieldGroup
 					label='Password'
 					name='password'
@@ -167,8 +187,8 @@ const Create = ({ bus, roles, positions }) => {
 				</FieldGroup>
 
 				<div className='flex justify-between items-center'>
-					<button className='btn btn--primary' type='button' onClick={handleAddPivot}>
-						<Plus className='inline-block mb-1' /> Add Bu Position
+					<button className='btn btn--primary text-black font-semibold' type='button' onClick={handleAddPivot}>
+						<Plus className='inline-block mb-1' /> Add Positioning
 					</button>
 
 					<PrimaryButton disabled={processing}>
@@ -177,9 +197,9 @@ const Create = ({ bus, roles, positions }) => {
 				</div>
 			</div>
 
-			<div className='content-box mt-2'>
-				{data.pivot.map((item, pivotIndex) => (
-					<div className='py-2 border-b border-gray-300' key={pivotIndex}>
+			{data.pivot.map((item, pivotIndex) => (
+				<div className='content-box mt-2 z-0' key={pivotIndex}>
+					<div className='py-2 border-b border-gray-300'>
 						<FieldGroup
 							label='Business Unit'
 							name={`pivot.${pivotIndex}.bu`}
@@ -190,10 +210,18 @@ const Create = ({ bus, roles, positions }) => {
 									name={`pivot.${pivotIndex}.bu`}
 									placeholder={'Select Type...'}
 									options={convertOptions(bus)}
-									value={item.bu}
-									onChange={(option) => {
+									value={item.buSelected}
+									onChange={async (option) => {
 										const bus = [...data.pivot];
-										bus[pivotIndex].bu = option;
+										bus[pivotIndex].bu = option.value;
+										bus[pivotIndex].buSelected = option;
+										bus[pivotIndex].depts = [];
+										bus[pivotIndex].deptSelected = [];
+
+										// Fetch departments by selected bu
+										const response = await axios.get(`/getBuDept/${option.value}`);
+										bus[pivotIndex].deptOptions = response.data; // Store fetched departments
+										
 										setData('pivot', bus);
 									}}
 									className="mt-1 block w-full"
@@ -204,6 +232,7 @@ const Create = ({ bus, roles, positions }) => {
 								</button>
 							</div>
 						</FieldGroup>
+						
 						<FieldGroup
 							label='Position'
 							name={`pivot.${pivotIndex}.position`}
@@ -214,18 +243,40 @@ const Create = ({ bus, roles, positions }) => {
 								name={`pivot.${pivotIndex}.position`}
 								placeholder={'Select Type...'}
 								options={convertOptions(positions)}
-								value={item.position}
+								value={item.positionSelected}
 								onChange={(option) => {
 									const positions = [...data.pivot];
-									positions[pivotIndex].position = option;
+									positions[pivotIndex].positions = option.map((item) => item.value);
+									positions[pivotIndex].positionSelected = option;
 									setData('pivot', positions);
 								}}
 								className="mt-1 block w-full"
 							/>
 						</FieldGroup>
+
+						<FieldGroup
+							label='Department'
+							name={`pivot.${pivotIndex}.dept`}
+							error={errors[`pivot.${pivotIndex}.dept`]}
+						>
+							<Select
+								isMulti
+								name={`pivot.${pivotIndex}.dept`}
+								placeholder={'Select Department...'}
+								options={data.pivot[pivotIndex].deptOptions || []} // Options will be updated after fetching
+								value={item.deptSelected}
+								onChange={(option) => {
+									const depts = [...data.pivot];
+									depts[pivotIndex].depts = option.map((item) => item.value);
+									depts[pivotIndex].deptSelected = option;
+									setData('pivot', depts);
+								}}
+								className="mt-1 block w-full"
+							/>
+						</FieldGroup>
 					</div>
-				))}
-			</div>
+				</div>
+			))}
 		</form>
 	);
 }

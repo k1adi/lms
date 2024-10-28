@@ -33,6 +33,7 @@ const Index = ({ users, auth }) => {
 							<th>Email</th>
 							<th>Role</th>
 							<th>BU</th>
+							<th>Dept</th>
 							<th>Position</th>
 							{(auth.permissions.includes('user_edit') || auth.permissions.includes('user_delete')) && 
 								<th className='table--action'>Action</th>
@@ -48,18 +49,23 @@ const Index = ({ users, auth }) => {
 									<td className='group-hover:text-sky-400'>{key.username}</td>
 									<td className='group-hover:text-sky-400'>{key.email}</td>
 									<td className='break-word'>
-										{key.role.map(list => (
-											<span className={`label label--${list.name.toLowerCase()}`} key={list.name}> {list.name} </span>
+										{key.role.map(role => (
+											<span className={`label label--${role.toLowerCase()}`} key={role}> {role} </span>
 										))}
 									</td>
 									<td className='break-word'>
-										{key.pivot.bu.map(list => (
-											<span className='label label--secondary group-hover:bg-sky-100 group-hover:dark:bg-sky-400' key={list.code}> {list.code} </span>
+										{key.pivot.bu.map(bu => (
+											<span className='label label--secondary group-hover:bg-sky-100 group-hover:dark:bg-sky-400' key={bu}> {bu} </span>
 										))}
 									</td>
 									<td className='break-word'>
-										{key.pivot.positions.map(list => (
-											<span className='label label--secondary group-hover:bg-sky-100 group-hover:dark:bg-sky-400' key={list.name}> {list.name} </span>
+										{key.depts.map(dept => (
+											<span className='label label--secondary group-hover:bg-sky-100 group-hover:dark:bg-sky-400' key={dept}> {dept} </span>
+										))}
+									</td>
+									<td className='break-word'>
+										{key.pivot.positions.map(position => (
+											<span className='label label--secondary group-hover:bg-sky-100 group-hover:dark:bg-sky-400' key={position}> {position} </span>
 										))}
 									</td>
 									{(auth.permissions.includes('user_edit') || auth.permissions.includes('user_delete')) && 

@@ -14,7 +14,8 @@ class UserResource extends JsonResource
             'full_name' => $this->full_name,
             'username' => $this->username,
             'email' => $this->email,
-            'role' => $this->hasRole,
+            'role' => $this->hasRole->pluck('name'),
+            'depts' => $this->hasDepts->pluck('code'),
             'pivot' => $this->BuPositionList(),
         ];
     }
@@ -22,8 +23,8 @@ class UserResource extends JsonResource
     private function BuPositionList()
     {
         return [
-            'bu' => $this->buPosition->pluck('pivot.bu')->unique()->toArray(),
-            'positions' => $this->buPosition->pluck('pivot.position')->unique()->toArray(),
+            'bu' => $this->buPosition->pluck('pivot.bu.code')->unique()->toArray(),
+            'positions' => $this->buPosition->pluck('pivot.position.name')->unique()->toArray(),
         ];
     }
 }

@@ -6,10 +6,12 @@ use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\Bu;
+use App\Models\Dept;
 use App\Models\Position;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
@@ -46,24 +48,25 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(CreateUserRequest $request): RedirectResponse
-    {        
+    {
+        DB::beginTransaction(); // Start the transaction
+
         try{
             $validated = $request->validated();
-
-            // Check the structure of the 'roles' field
-            $roles = array_map(function($role) {
-                return $role['value'];
-            }, $validated['roles']);
             
             // Insert user data to user table
             $user = User::create($validated);
             // Sync user and role to user_role
-            $user->hasRole()->sync($roles);
+            $user->hasRole()->sync($validated['role']);
             // Sync user with bu and position to user_bu_position
             $user->syncBuPosition($validated['pivot']);
+            // Sync user with user_dept
+            $user->syncDepts($validated['pivot']);
 
+            DB::commit();
             return Redirect::route('users.index');
         } catch (\Exception $e) {
+            DB::rollBack();
             return Redirect::back()->withErrors([
                 'error' => $e->getMessage(),
             ])->withInput();
@@ -83,12 +86,13 @@ class UserController extends Controller
      */
     public function edit(User $user): Response
     {
-        $user->load('hasRole');
+        $user->load('hasRole', 'hasDepts');
 
         return Inertia::render('User/Edit', [
             'user' => $user,
             'bus' => Bu::all(),
             'roles' => Role::all(),
+            'depts' => Dept::all(),
             'positions' => Position::all(),
             'pivots' => $this->groupPositionsByBu($user),
         ]);
@@ -99,25 +103,27 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user): RedirectResponse
     {
+        DB::beginTransaction(); // Start the transaction
+
         try {
             $validated = $request->validated();
-
-            // Check the structure of the 'roles' field
-            $roles = array_map(function($role) {
-                return $role['value'];
-            }, $validated['roles']);
             
             // Update user data to user table
             $user->fill($validated);
             $user->save();
             // // Sync user and role to user_role
-            $user->hasRole()->sync($roles);
+            $user->hasRole()->sync($validated['role']);
             $user->buPosition()->detach();
             // Sync user with bu and position to user_bu_position
             $user->syncBuPosition($validated['pivot']);
+            // Sync user with user_dept
+            $user->hasDepts()->detach();
+            $user->syncDepts($validated['pivot']);
 
+            DB::commit();
             return Redirect::route('users.index');
         } catch (\Exception $e) {
+            DB::rollBack();
             return Redirect::back()->withErrors([
                 'error' => $e->getMessage(),
             ])->withInput();

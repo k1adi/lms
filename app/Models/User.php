@@ -86,26 +86,38 @@ class User extends Authenticatable
         return $this->belongsToMany(Schedule::class, 'schedule_accesses', 'user_id', 'schedule_id');
     }
 
+    public function hasDepts(): BelongsToMany
+    {
+        return $this->belongsToMany(Dept::class, 'user_depts', 'user_id', 'dept_id');
+    }
+
     public function syncBuPosition(array $pivot): void
     {
         $syncData = [];
 
         foreach($pivot as $item) {
-            $buId = $item['bu']['value'];
+            $buId = $item['bu'];
 
             if(!isset($syncData[$buId])) {
                 $syncData[$buId] = ['position_id' => []];
             }
 
-            foreach($item['position'] as $position) {
-                $positionId = $position['value'];
-                if (!in_array($positionId, $syncData[$buId]['position_id'])) {
-                    $syncData[$buId]['position_id'][] = $positionId;
+            foreach($item['positions'] as $position) {
+                if (!in_array($position, $syncData[$buId]['position_id'])) {
+                    $syncData[$buId]['position_id'][] = $position;
                     $this->buPosition()->attach([
-                        $buId => ['position_id' => $positionId]
+                        $buId => ['position_id' => $position]
                     ]);
                 }
             }
+        }
+    }
+
+    public function syncDepts(array $pivot): void
+    {
+        foreach($pivot as $item) {
+            $deptId = $item['depts'];
+            $this->hasDepts()->syncWithoutDetaching($deptId);
         }
     }
 
@@ -133,5 +145,10 @@ class User extends Authenticatable
                 'positions' => $items->pluck('pivot.position')->toArray(),
             ];
         })->values();
+    }
+
+    public function tnaReport(): BelongsToMany
+    {
+        return $this->belongsToMany(Tna::class, 'tna_report')->withPivot('course_id');
     }
 }
