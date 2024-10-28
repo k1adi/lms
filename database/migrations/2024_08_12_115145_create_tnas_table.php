@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('tnas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('dept_id');
-            $table->unsignedBigInteger('course_id');
+            $table->unsignedBigInteger('created_by');
+            $table->string('title', 150);
             $table->text('objective');
             $table->integer('participants');
             $table->dateTime('training_time');
@@ -24,7 +25,7 @@ return new class extends Migration
             $table->softDeletes();
 
             $table->foreign('dept_id')->references('id')->on('depts');
-            $table->foreign('course_id')->references('id')->on('courses');
+            $table->foreign('created_by')->references('id')->on('users');
         });
     }
 

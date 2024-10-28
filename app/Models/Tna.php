@@ -14,7 +14,7 @@ class Tna extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['dept_id', 'course_id', 'objective', 'participants', 'training_time', 'location', 'trainer'];
+    protected $fillable = ['dept_id', 'created_by', 'title', 'objective', 'participants', 'training_time', 'location', 'trainer'];
     protected $dates = ['deleted_at'];
 
     public function dept(): BelongsTo 
@@ -27,19 +27,30 @@ class Tna extends Model
         return $this->hasOneThrough(Bu::class, Dept::class, 'id', 'id', 'dept_id', 'bu_id');
     }
 
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by', 'id');
+    }
+
     public function course(): BelongsTo
     {
         return $this->belongsTo(Course::class, 'course_id', 'id');
     }
 
-    public function tnaReport(): BelongsToMany
+    public function tnaReports(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'tna_reports', 'tna_id', 'user_id');
+        return $this->belongsToMany(User::class, 'tna_reports', 'tna_id', 'user_id')
+                    ->withPivot('course_id');
     }
 
     public function users(): HasManyThrough
     {
         return $this->hasManyThrough(User::class, TnaReport::class, 'tna_id', 'id', 'id', 'user_id');
+    }
+
+    public function courses(): HasManyThrough
+    {
+        return $this->hasManyThrough(Course::class, TnaReport::class, 'tna_id', 'id', 'id', 'course_id');
     }
 
     public function positions(string $bu, array $users): Collection

@@ -15,7 +15,8 @@ class TnaSeeder extends Seeder
     {
         Tna::create([
             'dept_id' => 1,
-            'course_id' => 1,
+            'created_by' => 3,
+            'title' => 'First TNA',
             'objective' => 'Mempelajari course online',
             'participants' => 15,
             'training_time' => '2024-08-20 10:00:00',

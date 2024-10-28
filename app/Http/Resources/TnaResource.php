@@ -18,8 +18,8 @@ class TnaResource extends JsonResource
         return [
             'id' => $this->id,
             'bu' => $this->bu->name,
-            'dept' => $this->dept->name,
-            'course' => $this->course->name,
+            'user' => $this->creator->full_name,
+            'title' => $this->title,
             'goal' => $this->objective,
             'start_time' => $this->training_time
         ];

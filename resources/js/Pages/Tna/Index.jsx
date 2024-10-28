@@ -27,8 +27,8 @@ const Index = ({ tnas, auth }) => {
 						<tr>
 							<th className="table__column--number">No.</th>
 							<th>BU</th>
-							<th>Dept</th>
-							<th>Course</th>
+							<th>User</th>
+							<th>Title</th>
 							<th>Goal</th>
 							<th>Start Time</th>
               {(auth.permissions.includes('tna_edit') || auth.permissions.includes('tna_delete')) && 
@@ -42,8 +42,8 @@ const Index = ({ tnas, auth }) => {
 								<tr key={index}>
 									<td>{index + 1}</td>
 									<td>{key.bu}</td>
-									<td>{key.dept}</td>
-									<td>{key.course}</td>
+									<td>{key.user}</td>
+									<td>{key.title}</td>
 									<td>{key.goal}</td>
 									<td>{key.start_time}</td>
 									{(auth.permissions.includes('tna_edit') || auth.permissions.includes('tna_delete')) && 
