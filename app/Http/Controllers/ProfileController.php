@@ -20,7 +20,7 @@ class ProfileController extends Controller
     {
         $user = auth()->user();
         $user = User::findOrFail($user->id);
-        $user->load('hasRole');
+        $user->load('hasRole', 'hasDepts');
 
         $reports = Course::forUserWithPosition(auth()->user())->with('hasAssignment.userLog')->get();
 

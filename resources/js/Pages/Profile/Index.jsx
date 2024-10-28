@@ -13,19 +13,23 @@ const Index = ({ auth, user, pivots, reports }) => {
   const prevPage = [
     { link: route('dashboard'), text: 'Dashboard' },
   ];
+	console.log(auth, 'cek auth user');
 	const graduated = auth.user.finisheds;
 
+	const { full_name, username, has_role, email, no_hp, no_nik, has_depts } = user;
+
   const { data, setData, patch, errors, processing } = useForm({
-		full_name: user.full_name,
-		username: user.username,
-		roles: user.has_role,
-		email: user.email,
-		no_hp: user.no_hp,
-		no_nik: user.no_nik,
+		full_name: full_name,
+		username: username,
+		roles: has_role,
+		email: email,
+		no_hp: no_hp,
+		no_nik: no_nik,
 		password: '',
     pivot: pivots.map(item => ({
 			bu: item.bu.name,
 			position: convertOptions(item.positions),
+			dept: convertOptions(has_depts.filter(dept => dept.bu_id = item.bu.id)),
 		})),
 	});
 
@@ -176,17 +180,25 @@ const Index = ({ auth, user, pivots, reports }) => {
 									disabled={true}
 								/>
 
-								<Select
-									isMulti
-									name={`pivot.${index}.position`}
-									value={item.position}
-									className="mt-1 flex-1"
-									isDisabled={true}
-								/>
+								<div className="flex-1">
+									<Select
+										isMulti
+										name={`pivot.${index}.dept`}
+										value={item.dept}
+										className="mt-1"
+										isDisabled={true}
+									/>
+									<Select
+										isMulti
+										name={`pivot.${index}.position`}
+										value={item.position}
+										className="mt-2"
+										isDisabled={true}
+									/>
+								</div>
 							</div>
 						</FieldGroup>
 					))}
-
 					<PrimaryButton disabled={processing}>
 						Submit
 					</PrimaryButton>
