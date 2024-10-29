@@ -6,14 +6,14 @@ use App\Http\Requests\CreateTnaRequest;
 use App\Http\Requests\UpdateTnaRequest;
 use App\Http\Resources\TnaDetailResource;
 use App\Http\Resources\TnaResource;
-use App\Models\Bu;
 use App\Models\Course;
-use App\Models\Dept;
 use App\Models\Tna;
+use App\Models\User;
 use App\Models\UserBuPosition;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
@@ -38,9 +38,12 @@ class TnaController extends Controller
      */
     public function create(): Response
     {
+        $options = $this->getBuDept();
+        
         return Inertia::render('Tna/Create', [
-            'bus' => Bu::all(),
+            'bus' => $options['bus'],
             'courses' => Course::all(),
+            'depts' => $options['depts'],
         ]);
     }
 
@@ -49,19 +52,18 @@ class TnaController extends Controller
      */
     public function store(CreateTnaRequest $request): RedirectResponse
     {
+        DB::beginTransaction(); // Start the transaction
+
         try {
             $validated = $request->validated();
-
             $input = $this->createObjectTNA($validated);
-            $users = array_map(function ($user) {
-                return $user['value'];
-            }, $validated['users']);
-    
             $tna = Tna::create($input);
-            $tna->tnaReport()->sync($users);
+            $tna->syncTnaReport($validated['courses'], $validated['users']);
 
+            DB::commit();
             return Redirect::route('tnas.index');
         } catch (\Exception $e) {
+            DB::rollBack();
             return Redirect::back()->withErrors([
                 'error' => $e
             ])->withInput();
@@ -82,13 +84,13 @@ class TnaController extends Controller
     public function edit(Tna $tna): Response
     {
         // Load related data
-        $tna->load('dept', 'bu', 'course', 'users');
-        
+        $tna->load('dept', 'bu', 'users', 'courses');
+
         // Get the Business Unit (BU) ID from the related Department
         $buId = $tna->dept->bu_id;
         
         // Get the user IDs related to this TNA via the tnaReport pivot table
-        $userIds = $tna->tnaReport()->pluck('user_id')->toArray();
+        $userIds = $tna->tnaReports()->pluck('user_id')->toArray();
         
         // Get positions related to the BU and users
         $positions = $tna->positions($buId, $userIds);
@@ -100,8 +102,6 @@ class TnaController extends Controller
         // Render the Inertia view with the necessary data
         return Inertia::render('Tna/Edit', [
             'tna' => new TnaDetailResource($tna),
-            'bus' => Bu::all(),
-            'courses' => Course::all(),
             'options' => $options
         ]);
     }
@@ -111,21 +111,22 @@ class TnaController extends Controller
      */
     public function update(UpdateTnaRequest $request, Tna $tna): RedirectResponse
     {
+        DB::beginTransaction(); // Start the transaction
+
         try {
             $validated = $request->validated();
-
             $input = $this->createObjectTNA($validated);
-            $users = array_map(function ($user) {
-                return $user['value'];
-            }, $validated['users']);
-    
+                        
             $tna->fill($input);
             $tna->save();
 
-            $tna->tnaReport()->sync($users);
+            $tna->tnaReports()->detach();
+            $tna->syncTnaReport($validated['courses'], $validated['users']);
 
+            DB::commit();
             return Redirect::route('tnas.index');
         } catch (\Exception $e) {
+            DB::rollBack();
             return Redirect::back()->withErrors([
                 'error' => $e->getMessage(),
             ])->withInput();
@@ -144,8 +145,9 @@ class TnaController extends Controller
     private function createObjectTNA(array $input): array
     {
         return [
-            'dept_id' => $input['dept']['value'],
-            'course_id' => $input['course']['value'],
+            'dept_id' => $input['dept'],
+            'created_by' => auth()->user()->id,
+            'title' => $input['title'],
             'objective' => $input['objective'],
             'participants' => $input['participant'],
             'training_time' => convertToJakartaTime($input['trainingTime']),
@@ -154,42 +156,55 @@ class TnaController extends Controller
         ];
     }
 
-    private function getAllOptions(string $buId, array $positions): array
+    // private function getAllOptions(string $buId, array $positions): array
+    // {
+    //     // Extract position IDs from the positions array
+    //     $positionIds = array_column($positions, 'id');
+
+    //     // Create requests to fetch department positions and users by positions
+    //     $deptPositionRequest = Request::create('/getBuPosition', 'GET', ['buId' => $buId]);
+    //     $userPositionRequest = Request::create('/getUserPosition', 'GET', ['buId' => $buId, 'positions' => $positionIds]);
+
+    //     // Fetch responses from the respective controller methods
+    //     $deptPositionResponse = $this->getDeptPosition($deptPositionRequest);
+    //     $userPositionResponse = $this->getUserPosition($userPositionRequest);
+
+    //     // Extract data from the responses
+    //     $deptPositionData = $deptPositionResponse->getData();
+    //     $userPositionData = $userPositionResponse->getData();
+
+    //     // Return the structured options array
+    //     return [
+    //         'depts' => $deptPositionData->depts,
+    //         'positions' => $deptPositionData->positions,
+    //         'users' => $userPositionData,
+    //     ];
+    // }
+
+    private function getAllOptions(string $buId, array $positions)
     {
         // Extract position IDs from the positions array
         $positionIds = array_column($positions, 'id');
 
         // Create requests to fetch department positions and users by positions
-        $deptPositionRequest = Request::create('/getDeptAndPosition', 'GET', ['buId' => $buId]);
-        $userPositionRequest = Request::create('/getUserByPosition', 'GET', ['buId' => $buId, 'positions' => $positionIds]);
+        $request = Request::create('/getUserPosition', 'GET', ['buId' => $buId, 'positions' => $positionIds]);
+        $result = $this->getUserPosition($request);
+        $response = $result->getData();
 
-        // Fetch responses from the respective controller methods
-        $deptPositionResponse = $this->getDeptPosition($deptPositionRequest);
-        $userPositionResponse = $this->getUserPosition($userPositionRequest);
-
-        // Extract data from the responses
-        $deptPositionData = $deptPositionResponse->getData();
-        $userPositionData = $userPositionResponse->getData();
-
-        // Return the structured options array
+        $options = $this->getBuDept();
+        
         return [
-            'depts' => $deptPositionData->depts,
-            'positions' => $deptPositionData->positions,
-            'users' => $userPositionData,
+            'courses' => Course::all(),
+            'bus' => $options['bus'],
+            'depts' => $options['depts'],
+            'positions' => $response->positions,
+            'users' => $response->users,
         ];
     }
 
     public function getDeptPosition(Request $request): JsonResponse
     {
         $id = $request->query('buId');
-
-        $dept = Dept::where('bu_id', $id)->get();
-        $responseDept = $dept->map(function ($option) {
-            return [
-                'value' => $option->id,
-                'label' => "({$option->code}) - {$option->name}"
-            ];
-        });
 
         $position = UserBuPosition::with('position')
                     ->where('bu_id', $id)->get();
@@ -201,7 +216,6 @@ class TnaController extends Controller
         })->values();
 
         return response()->json([
-            'depts' => $responseDept,
             'positions' => $responsePosition,
         ]);
     }
@@ -221,6 +235,40 @@ class TnaController extends Controller
             ];
         })->values();
 
-        return response()->json($responseUser);
+        $position = UserBuPosition::with('position')
+                    ->where('bu_id', $buId)->get();
+        $responsePosition = $position->unique('position_id')->map(function ($item) {
+            return [
+                'value' => $item->position->id,
+                'label' => $item->position->name
+            ];
+        })->values();
+
+        return response()->json([
+            'users' => $responseUser,
+            'positions' => $responsePosition
+        ]);
+    }
+
+    private function getBuDept(): array
+    {
+        $user = auth()->user();
+        $user = User::findOrFail($user->id);
+
+        $depts = $user->hasDepts->map(function ($item) {
+            return [
+                'bu_id' => $item->bu_id,
+                'value' => $item->id,
+                'label' => $item->name,
+            ];
+        });
+
+        $buOptions = $user->hasDepts()->with('bu:id,code,name')->get()
+        ->pluck('bu')->unique('id')->values();
+
+        return [
+            'depts' => $depts,
+            'bus' => $buOptions
+        ];
     }
 }

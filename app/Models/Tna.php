@@ -32,25 +32,19 @@ class Tna extends Model
         return $this->belongsTo(User::class, 'created_by', 'id');
     }
 
-    public function course(): BelongsTo
-    {
-        return $this->belongsTo(Course::class, 'course_id', 'id');
-    }
-
     public function tnaReports(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'tna_reports', 'tna_id', 'user_id')
-                    ->withPivot('course_id');
+        return $this->belongsToMany(User::class, 'tna_reports', 'tna_id', 'user_id')->withPivot('course_id')->using(TnaReport::class);
     }
 
     public function users(): HasManyThrough
     {
-        return $this->hasManyThrough(User::class, TnaReport::class, 'tna_id', 'id', 'id', 'user_id');
+        return $this->hasManyThrough(User::class, TnaReport::class, 'tna_id', 'id', 'id', 'user_id')->distinct();
     }
 
     public function courses(): HasManyThrough
     {
-        return $this->hasManyThrough(Course::class, TnaReport::class, 'tna_id', 'id', 'id', 'course_id');
+        return $this->hasManyThrough(Course::class, TnaReport::class, 'tna_id', 'id', 'id', 'course_id')->distinct();
     }
 
     public function positions(string $bu, array $users): Collection
@@ -61,5 +55,23 @@ class Tna extends Model
                      ->unique();
 
         return $positions;
+    }
+
+    public function syncTnaReport(array $courses, array $users): void
+    {
+        $syncData = [];
+
+        foreach ($users as $user) {
+            foreach ($courses as $course) {
+                // Structure syncData for each course-user pair
+                $syncData[] = [
+                    'user_id' => $user,
+                    'course_id' => $course
+                ];
+            }
+        }
+
+        // Sync data without detaching existing entries
+        $this->tnaReports()->syncWithoutDetaching($syncData);
     }
 }

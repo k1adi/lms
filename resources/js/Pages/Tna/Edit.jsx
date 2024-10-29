@@ -10,21 +10,37 @@ import DateTimePicker from '@/Components/Form/DateTimePicker';
 import PrimaryButton from '@/Components/PrimaryButton';
 import convertOptions from '@/Utils/ReactSelectOption';
 
-const Edit = ({ tna, bus, courses, options }) => {
+const Edit = ({ tna, options }) => {
   const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
 		{ link: route('tnas.index'), text: 'TNA' },
 	];
-
-  const { course, bu, dept, positions, users, objective, participant, training_time, location, trainer} = tna.data;
+  
+  const { course, bu, dept, position, user, title, objective, participant, training_time, location, trainer} = tna.data;
+  const { courses, bus, depts, positions, users } = options;
   const trainingTime = new Date(training_time);
 
+  const objectValue = (data) => {
+    const arrObject = Object.values(data);
+    return arrObject.map(item => item.value);
+  }
+
+  const arrayValue = (data) => {
+    return data.map(item => item.value);
+  }
+
   const { data, setData, patch, errors, processing } = useForm({
-    course: course,
-		bu: bu,
-		dept: dept,
-    positions: positions,
-    users: users,
+    courses: objectValue(course),
+    courseSelected: Object.values(course),
+		bu: bu.value,
+		buSelected: bu,
+		dept: dept.value,
+    deptSelected: dept,
+    positions:  objectValue(position),
+    positionSelected: Object.values(position),
+    users: objectValue(user),
+    userSelected: Object.values(user),
+    title: title,
     objective: objective,
     participant: participant,
     trainingTime: trainingTime.toISOString(),
@@ -32,31 +48,54 @@ const Edit = ({ tna, bus, courses, options }) => {
     trainer: trainer,
 	});
 
-  const [optionDept, setDept] = useState(options.depts);
-  const [optionPosition, setPosition] = useState(options.positions);
-  const [optionUser, setUser] = useState(options.users);
+  const handleCourseChange = (option) => {
+		const courseId = arrayValue(option);
+
+		setData((prevData) => ({
+			...prevData,
+			courses: courseId,
+			courseSelected: option
+		}));
+	}
+
+	const handleDeptChange = (option) => {
+		setData((prevData) => ({
+			...prevData,
+			dept: option.value,
+			deptSelected: option,
+		}));
+	}
+  const currentDeptOpt = depts.filter(dept => dept.bu_id === data.bu);
+  const [optionDept, setDept] = useState(currentDeptOpt);
+  const [optionPosition, setPosition] = useState(positions);
+  const [optionUser, setUser] = useState(users);
 
   const handleBuChange = async (bu) => {
-    setData('bu', bu);
+		const deptOptions = depts.filter(dept => dept.bu_id === bu.value);
+
     // Reset dependent fields
     setData((prevData) => ({
       ...prevData,
-      dept: '',
+      bu: bu.value,
+			buSelected: bu,
+			dept: '',
+			deptSelected: [],
       positions: [],
+      positionSelected: [],
       users: [],
+      userSelected: [],
     }));
 
 		// Clear the options for departments, positions, and users
-		setDept([]);
-		setPosition([]);
 		setUser([]);
+		setPosition([]);
+    setDept(deptOptions);
     try {
-      const response = await axios.get(route('deptPosition'), {
+      const response = await axios.get(route('buPosition'), {
         params: {buId: bu.value},
       });
 
       if(response.status === 200) {
-        setDept(response.data.depts);
         setPosition(response.data.positions);
       }
       
@@ -66,11 +105,12 @@ const Edit = ({ tna, bus, courses, options }) => {
   }
 
   const handlePositionChange = async (position) => {
-    setData('positions', position);
-    const selectedPosition = position.map(option => option.value);
+    const positionId = arrayValue(position);
 		
 		setData((prevData) => ({
       ...prevData,
+      positions: positionId,
+			positionSelected: position,
       users: [],
     }));
 		setUser([]);
@@ -79,7 +119,7 @@ const Edit = ({ tna, bus, courses, options }) => {
       const response = await axios.get(route('userPosition'), {
         params: {
           buId: data.bu.value,
-          positions: selectedPosition
+          positions: positionId
         },
       });
 
@@ -91,6 +131,21 @@ const Edit = ({ tna, bus, courses, options }) => {
     }
   }
 
+  const handleUserChange = (option) => {
+		const userId = arrayValue(option);
+
+		setData((prevData) => ({
+			...prevData,
+			users: userId,
+			userSelected: option,
+		}));
+	}
+  
+  const handleParticipantChange = (e) => {
+		const value = parseInt(e.target.value);
+		setData('participant', isNaN(value) ? '' : value);
+	}
+
   const submit = (e) => {
 		e.preventDefault();
 		patch(route('tnas.update', tna.data));
@@ -98,7 +153,7 @@ const Edit = ({ tna, bus, courses, options }) => {
 
   return (
     <div className='content-box'>
-      <Breadcrumb title='Create TNA' pageName='Create' prevPage={prevPage} />
+      <Breadcrumb title='Edit TNA' pageName='Edit' prevPage={prevPage} />
 
       <form onSubmit={submit} className='w-full'>
         {/* Select Course */}
@@ -109,9 +164,10 @@ const Edit = ({ tna, bus, courses, options }) => {
           isPrimary={true}
         >
           <Select
+            isMulti
             options={convertOptions(courses)}
-            value={data.course}
-            onChange={(option) => setData('course', option)}
+            value={data.courseSelected}
+            onChange={handleCourseChange}
           />
         </FieldGroup>
 
@@ -124,7 +180,7 @@ const Edit = ({ tna, bus, courses, options }) => {
         >
           <Select
             options={convertOptions(bus)}
-            value={data.bu}
+            value={data.buSelected}
             onChange={handleBuChange}
           />
         </FieldGroup>
@@ -138,10 +194,28 @@ const Edit = ({ tna, bus, courses, options }) => {
         >
           <Select
             options={optionDept}
-            value={data.dept}
-            onChange={(option) => setData('dept', option)}
+            value={data.deptSelected}
+            onChange={handleDeptChange}
           />
         </FieldGroup>
+
+        {/* Input Title */}
+				<FieldGroup 
+					label='Title'
+					name='title'
+					error={errors.title}
+					isPrimary={true}
+				>
+					<TextInput
+						name='title'
+						className="mt-1 block w-full"
+						value={data.title}
+						onChange={(e) => setData('title', e.target.value)}
+						required
+						autoComplete="tna_title"
+						placeholder="TNA Title..."
+					/>
+				</FieldGroup>
 
         {/* Input Objective */}
         <FieldGroup 
@@ -168,14 +242,16 @@ const Edit = ({ tna, bus, courses, options }) => {
           error={errors.participant}
           isPrimary={true}
         >
-          <TextInput
-            name='participant'
+         <TextInput
+            name="participant"
+            type="number"
+            min="0"
+            value={data.participant}
+            onChange={handleParticipantChange}
             className="mt-1 block w-full"
-            value={+data.participant}
-            onChange={(e) => setData('participant', +e.target.value)}
             required
             autoComplete="participant"
-            placeholder="Estimated Total Participants..."
+						placeholder="Estimated Total Participants..."
           />
         </FieldGroup>
 
@@ -237,13 +313,13 @@ const Edit = ({ tna, bus, courses, options }) => {
         <FieldGroup 
           label='Position'
           name='positions'
-          error={errors.positions}
+          error={errors.position}
           isPrimary={true}
         >
           <Select
             isMulti
             options={optionPosition}
-            value={data.positions}
+            value={data.positionSelected}
             onChange={handlePositionChange}
           />
         </FieldGroup>
@@ -258,8 +334,8 @@ const Edit = ({ tna, bus, courses, options }) => {
           <Select
             isMulti
             options={optionUser}
-            value={data.users}
-            onChange={(option) => setData('users', option)}
+            value={data.userSelected}
+            onChange={handleUserChange}
           />
         </FieldGroup>
 

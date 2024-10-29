@@ -78,8 +78,8 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/getBuDept/{id}', [DeptController::class, 'buDept'])->name('bu.dept');
 
     // Get Dept, Position and User for TNA
-    Route::get('/getDeptAndPosition', [TnaController::class, 'getDeptPosition'])->name('deptPosition');
-    Route::get('/getUserByPosition', [TnaController::class, 'getUserPosition'])->name('userPosition');
+    Route::get('/getBuPosition', [TnaController::class, 'getBuPosition'])->name('buPosition');
+    Route::get('/getUserPosition', [TnaController::class, 'getUserPosition'])->name('userPosition');
     
     // Course and Schedule Access
     Route::get('/setting/access', [AccessController::class, 'index'])->name('access.index');

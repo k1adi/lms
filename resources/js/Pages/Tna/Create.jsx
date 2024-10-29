@@ -10,51 +10,77 @@ import DateTimePicker from '@/Components/Form/DateTimePicker';
 import PrimaryButton from '@/Components/PrimaryButton';
 import convertOptions from '@/Utils/ReactSelectOption';
 
-const Create = ({ bus, courses }) => {
+const Create = ({ depts, bus, courses }) => {
   const prevPage = [
 		{ link: route('dashboard'), text: 'Dashboard' },
 		{ link: route('tnas.index'), text: 'TNA' },
 	];
 
   const { data, setData, post, errors, processing } = useForm({
-    course: '',
-		bu: null,
+    courses: [],
+		courseSelected: [],
+		bu: '',
+		buSelected: '',
 		dept: '',
+		deptSelected: '',
     positions: [],
+    positionSelected: [],
     users: [],
+		userSelected: [],
+    title: '',
     objective: '',
     participant: '',
     trainingTime: '',
     location: '',
     trainer: '',
 	});
+	
+	const handleCourseChange = (option) => {
+		const courseId = option.map(item => item.value);
 
-  const [depts, setDept] = useState([]);
+		setData((prevData) => ({
+			...prevData,
+			courses: courseId,
+			courseSelected: option
+		}));
+	}
+
+	const handleDeptChange = (option) => {
+		setData((prevData) => ({
+			...prevData,
+			dept: option.value,
+			deptSelected: option,
+		}));
+	}
+
+  const [deptOpts, setDeptOpts] = useState([]);
   const [positions, setPosition] = useState([]);
   const [users, setUser] = useState([]);
 
   const handleBuChange = async (bu) => {
-    // setData('bu', bu);
+		const deptOptions = depts.filter(dept => dept.bu_id === bu.value);
     // Reset dependent fields
     setData((prevData) => ({
       ...prevData,
-			bu: bu,
-      dept: '',
+			bu: bu.value,
+			buSelected: bu,
+			dept: '',
+			deptSelected: [],
       positions: [],
+      positionSelected: [],
       users: [],
     }));
 
-		// Clear the options for departments, positions, and users
-		setDept([]);
+		setDeptOpts(deptOptions);
+		// Clear the options for positions, and users
 		setPosition([]);
 		setUser([]);
     try {
-      const response = await axios.get(route('deptPosition'), {
+      const response = await axios.get(route('buPosition'), {
         params: {buId: bu.value},
       });
 
       if(response.status === 200) {
-        setDept(response.data.depts);
         setPosition(response.data.positions);
       }
       
@@ -64,30 +90,42 @@ const Create = ({ bus, courses }) => {
   }
 
   const handlePositionChange = async (position) => {
-    setData('positions', position);
-    const selectedPosition = position.map(option => option.value);
+    const positionId = position.map(option => option.value);
 		
 		setData((prevData) => ({
       ...prevData,
+			positions: positionId,
+			positionSelected: position,
       users: [],
     }));
 		setUser([]);
 
-    try {
-      const response = await axios.get(route('userPosition'), {
-        params: {
-          buId: data.bu.value,
-          positions: selectedPosition
-        },
-      });
-
-      if(response.status === 200) {
-        setUser(response.data);
-      }
-    } catch (error) {
-      console.error(error, 'There\'s something was wrong when position change');
-    }
+		if(position.length !== 0) {
+			try {
+				const response = await axios.get(route('userPosition'), {
+					params: {
+						buId: data.bu,
+						positions: positionId
+					},
+				});
+	
+				if(response.status === 200) {
+					setUser(response.data.users);
+				}
+			} catch (error) {
+				console.error(error, 'There\'s something was wrong when position change');
+			}
+		}
   }
+
+	const handleUserChange = (option) => {
+		const userId = option.map(item => item.value);
+		setData((prevData) => ({
+			...prevData,
+			users: userId,
+			userSelected: option,
+		}));
+	}
 
 	const handleParticipantChange = (e) => {
 		const value = parseInt(e.target.value);
@@ -112,9 +150,10 @@ const Create = ({ bus, courses }) => {
 					isPrimary={true}
 				>
 					<Select
+						isMulti
             options={convertOptions(courses)}
-            value={data.course}
-            onChange={(option) => setData('course', option)}
+            value={data.courseSelected}
+            onChange={handleCourseChange}
           />
 				</FieldGroup>
 
@@ -127,7 +166,7 @@ const Create = ({ bus, courses }) => {
 				>
 					<Select
             options={convertOptions(bus)}
-            value={data.bu}
+            value={data.buSelected}
             onChange={handleBuChange}
           />
 				</FieldGroup>
@@ -140,10 +179,28 @@ const Create = ({ bus, courses }) => {
 					isPrimary={true}
 				>
 					<Select
-            options={depts}
-            value={data.dept}
-            onChange={(option) => setData('dept', option)}
+            options={deptOpts}
+            value={data.deptSelected}
+            onChange={handleDeptChange}
           />
+				</FieldGroup>
+
+				{/* Input Title */}
+				<FieldGroup 
+					label='Title'
+					name='title'
+					error={errors.title}
+					isPrimary={true}
+				>
+					<TextInput
+						name='title'
+						className="mt-1 block w-full"
+						value={data.title}
+						onChange={(e) => setData('title', e.target.value)}
+						required
+						autoComplete="tna_title"
+						placeholder="TNA Title..."
+					/>
 				</FieldGroup>
 
         {/* Input Objective */}
@@ -182,15 +239,6 @@ const Create = ({ bus, courses }) => {
             autoComplete="participant"
 						placeholder="Estimated Total Participants..."
           />
-					{/* <TextInput
-						name='participant'
-						className="mt-1 block w-full"
-						value={+data.participant}
-						onChange={(e) => setData('participant', +e.target.value)}
-						required
-						autoComplete="participant"
-						placeholder="Estimated Total Participants..."
-					/> */}
 				</FieldGroup>
 
         {/* Input Start Time */}
@@ -257,7 +305,7 @@ const Create = ({ bus, courses }) => {
 					<Select
             isMulti
             options={positions}
-            value={data.positions}
+            value={data.positionSelected}
             onChange={handlePositionChange}
           />
 				</FieldGroup>
@@ -272,8 +320,8 @@ const Create = ({ bus, courses }) => {
 					<Select
             isMulti
             options={users}
-            value={data.users}
-            onChange={(option) => setData('users', option)}
+            value={data.userSelected}
+            onChange={handleUserChange}
           />
 				</FieldGroup>
 
