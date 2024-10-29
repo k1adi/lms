@@ -34,6 +34,9 @@ class HandleInertiaRequests extends Middleware
         // Get user permissions
         $permissions = $user ? $user->grantPermission()->pluck('name') : [];
 
+        // Get user dept
+        $depts = $user ? $user->hasDepts()->pluck('id') : [];
+
         // Get sub_section_id from user_progressions pivot table
         $progressions = $user ? $user->courseProgress()->pluck('sub_section_id')->toArray() : [];
         $progressions = array_map('strval', $progressions);
@@ -47,6 +50,7 @@ class HandleInertiaRequests extends Middleware
                 'user' => $user ? array_merge($user->toArray(), [
                     'finisheds' => $finisheds,
                     'progression' => $progressions,
+                    'depts' => $depts,
                 ]) : null,
                 'permissions' => $permissions,
             ],

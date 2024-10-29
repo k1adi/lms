@@ -16,8 +16,6 @@
 @import 'components/dropdown';
 @import 'components/breadcrumb';
 
-@import 'pages/login';
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

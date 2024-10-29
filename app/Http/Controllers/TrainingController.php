@@ -165,7 +165,6 @@ class TrainingController extends Controller
             DB::commit();
             return Redirect::route('training.online.detail', $course_code)->with('error', 'Mohon maaf, Anda tidak lulus');;
         } catch (\Exception $e) {
-            dd($e);
             DB::rollBack();
             return Redirect::back()->withErrors([
                 'error' => $e

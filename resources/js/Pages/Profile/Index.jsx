@@ -13,7 +13,6 @@ const Index = ({ auth, user, pivots, reports }) => {
   const prevPage = [
     { link: route('dashboard'), text: 'Dashboard' },
   ];
-	console.log(auth, 'cek auth user');
 	const graduated = auth.user.finisheds;
 
 	const { full_name, username, has_role, email, no_hp, no_nik, has_depts } = user;
