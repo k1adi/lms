@@ -149,6 +149,6 @@ class User extends Authenticatable
 
     public function tnaReport(): BelongsToMany
     {
-        return $this->belongsToMany(Tna::class, 'tna_report')->withPivot('course_id');
+        return $this->belongsToMany(Tna::class, 'tna_reports', 'user_id', 'tna_id')->withPivot('course_id');
     }
 }

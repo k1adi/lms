@@ -131,11 +131,12 @@ export default function DashboardMenu({ sidebarExpand, setSidebarExpand }) {
       }
 
       {/* Reports */}
-      {permissions.includes('report_access') && 
+      {permissions.includes('reports_access') && 
         <NavLink
-          link='#'
+          link={route('report.index')}
           icon={<ClipboardList />}
           text='Reports'
+          active={urlPath[1] == 'reports'}
         />
       }
 

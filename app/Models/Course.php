@@ -88,4 +88,14 @@ class Course extends Model
     {
         return self::whereDoesntHave('hasAssignment')->get();
     }
+
+    public function tnaReport(): BelongsToMany
+    {
+        return $this->belongsToMany(Tna::class, 'tna_reports', 'course_id', 'tna_id')->withPivot('user_id');
+    }
+
+    public function courseReport(): HasMany
+    {
+        return $this->hasMany(TnaReport::class, 'course_id', 'id');
+    }
 }

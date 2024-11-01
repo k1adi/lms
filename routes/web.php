@@ -8,6 +8,7 @@ use App\Http\Controllers\DeptController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\TnaController;
@@ -59,6 +60,10 @@ Route::middleware(['auth', 'verified'])->group(function() {
         '/assignment/tnas' => TnaController::class,
         '/assignment/tests' => AssignmentController::class,
     ]);
+
+    // Report
+    Route::get('/reports', [ReportController::class, 'index'])->name('report.index');
+    Route::get('/reports/{id}', [ReportController::class, 'detail'])->name('report.detail');
 
     // Training
     Route::get('/training/online', [TrainingController::class, 'online'])->name('training.online.index');

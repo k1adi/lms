@@ -44,5 +44,10 @@ class Assignment extends Model
     {
         return $this->belongsToMany(User::class, 'user_assignment_logs')
                     ->withPivot('score', 'status', 'created_at');
-    } 
+    }
+
+    public function assignmentLog(): HasMany
+    {
+        return $this->hasMany(UserAssignmentLog::class, 'assignment_id', 'id');
+    }
 }

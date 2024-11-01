@@ -14,10 +14,12 @@ return new class extends Migration
         Schema::create('tna_reports', function (Blueprint $table) {
             $table->unsignedBigInteger('tna_id');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('course_id');
 
-            $table->primary(['tna_id', 'user_id']);
+            $table->primary(['tna_id', 'user_id', 'course_id']);
             $table->foreign('tna_id')->references('id')->on('tnas');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('course_id')->references('id')->on('courses');
         });
     }
 
