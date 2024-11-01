@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\CourseOnlineResource;
 use App\Http\Resources\TrainingDetailResource;
+use App\Http\Resources\TrainingOnlineResource;
 use App\Models\Assignment;
 use App\Models\Course;
 use App\Models\User;
@@ -38,7 +38,7 @@ class TrainingController extends Controller
                    ->paginate();
 
         return Inertia::render('Training/Online', [
-            'courses' => CourseOnlineResource::collection($courses),
+            'courses' => TrainingOnlineResource::collection($courses),
         ]);
     }
 
@@ -163,7 +163,7 @@ class TrainingController extends Controller
             }
 
             DB::commit();
-            return Redirect::route('training.online.detail', $course_code)->with('error', 'Mohon maaf, Anda tidak lulus');;
+            return Redirect::route('training.online.detail', $course_code)->with('error', 'Mohon maaf, Anda tidak lulus');
         } catch (\Exception $e) {
             DB::rollBack();
             return Redirect::back()->withErrors([

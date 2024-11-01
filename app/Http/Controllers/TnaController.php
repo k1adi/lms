@@ -202,7 +202,7 @@ class TnaController extends Controller
         ];
     }
 
-    public function getDeptPosition(Request $request): JsonResponse
+    public function getBuPosition(Request $request): JsonResponse
     {
         $id = $request->query('buId');
 

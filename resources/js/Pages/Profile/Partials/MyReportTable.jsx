@@ -7,8 +7,8 @@ export default function MyReportTable({graduated, reports}) {
     <table className='table'>
       <thead>
         <tr>
-          <th>Code</th>
           <th>Course</th>
+          <th>Code</th>
           <th className='text-center'>Type</th>
           <th className='text-center'>Attemps</th>
           <th className='text-center'>Score</th>
@@ -20,8 +20,8 @@ export default function MyReportTable({graduated, reports}) {
         {reports.data.length !== 0 ? 
           reports.data.map((key, index) => (
             <tr key={index}>
-              <td>{key.code}</td>
               <td>{key.course}</td>
+              <td>{key.code}</td>
               <td className='text-center'>{CapitalizeWord(key.type)}</td>
               <td className='text-center'>{key.attemps}</td>
               <td className='text-center'>{key.score}</td>

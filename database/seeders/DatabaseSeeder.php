@@ -40,6 +40,9 @@ class DatabaseSeeder extends Seeder
             AssignmentSeeder::class,
             QuestionSeeder::class,
             AnswerSeeder::class,
+
+            UserDeptSeeder::class,
+            TnaReportSeeder::class,
         ]);
     }
 }

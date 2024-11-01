@@ -15,13 +15,24 @@ class TnaSeeder extends Seeder
     {
         Tna::create([
             'dept_id' => 1,
-            'created_by' => 3,
+            'created_by' => 1,
             'title' => 'First TNA',
             'objective' => 'Mempelajari course online',
             'participants' => 15,
-            'training_time' => '2024-08-20 10:00:00',
+            'training_time' => '2024-11-20 10:00:00',
             'location' => 'Darmawan Park',
             'trainer' => 'Trainer A',
+        ]);
+
+        Tna::create([
+            'dept_id' => 4,
+            'created_by' => 2,
+            'title' => 'Second TNA',
+            'objective' => 'Mempelajari course Offline',
+            'participants' => 20,
+            'training_time' => '2024-11-20 10:00:00',
+            'location' => 'Darmawan Park',
+            'trainer' => 'Trainer B',
         ]);
     }
 }
