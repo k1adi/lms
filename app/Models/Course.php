@@ -98,4 +98,14 @@ class Course extends Model
     {
         return $this->hasMany(TnaReport::class, 'course_id', 'id');
     }
+
+    public function courseFinished(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'course_finisheds', 'course_id', 'user_id');
+    }
+
+    public function hasGraduated($userId): bool
+    {
+        return $this->courseFinished()->where('user_id', $userId)->exists();
+    }
 }

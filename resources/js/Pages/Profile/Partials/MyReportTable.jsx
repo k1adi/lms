@@ -3,6 +3,8 @@ import CapitalizeWord from '@/Utils/CapitalizeWord';
 import { BadgeCheck, LoaderIcon } from 'lucide-react';
 
 export default function MyReportTable({graduated, reports}) {
+  console.log(reports, 'my profile report');
+
   return <div className='overflow-x-auto'>
     <table className='table'>
       <thead>
@@ -10,7 +12,7 @@ export default function MyReportTable({graduated, reports}) {
           <th>Course</th>
           <th>Code</th>
           <th className='text-center'>Type</th>
-          <th className='text-center'>Attemps</th>
+          <th className='text-center'>Attempts</th>
           <th className='text-center'>Score</th>
           <th className='text-center'>Test</th>
           <th className='text-center'>Status</th>
@@ -23,7 +25,7 @@ export default function MyReportTable({graduated, reports}) {
               <td>{key.course}</td>
               <td>{key.code}</td>
               <td className='text-center'>{CapitalizeWord(key.type)}</td>
-              <td className='text-center'>{key.attemps}</td>
+              <td className='text-center'>{key.attempts}</td>
               <td className='text-center'>{key.score}</td>
               <td className='text-center'>{key.test}</td>
               <td className='text-center'>

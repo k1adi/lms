@@ -23,7 +23,7 @@ const Index = ({ report }) => {
               <th className="table--number">No.</th>
               <th>Title</th>
               <th>Goal</th>
-              <th className='text-center'>Graduated</th>
+              <th className='text-center'>Passed</th>
               <th className='text-center'>Progress</th>
             </tr>
           </thead>

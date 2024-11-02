@@ -16,13 +16,21 @@ class MyReportResource extends JsonResource
     {
         $hasAssignment = !is_null($this->hasAssignment);
 
+        $user = auth()->user();
+        $userId = $user->id;
+        
+        // Filter `userLog` by the logged-in user
+        $userLogs = $hasAssignment 
+        ? $this->hasAssignment->userLog->where('pivot.user_id', $userId) 
+        : collect();
+
         return [
             'id' => $this->id,
             'code' => $this->code,
             'course' => $this->name,
             'type' => $this->type,
-            'attemps' => $hasAssignment ? count($this->hasAssignment->userLog) : '-',
-            'score' => $hasAssignment ? collect($this->hasAssignment->userLog)->max('pivot.score') : '-',
+            'attempts' => $userLogs->isNotEmpty() ? $userLogs->count() : '0',
+            'score' => $userLogs->isNotEmpty() ? $userLogs->max('pivot.score') : '0',
             'test' => $hasAssignment ? $this->hasAssignment->type : '-',
         ];
     }

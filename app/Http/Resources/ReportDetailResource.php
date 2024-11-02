@@ -124,19 +124,23 @@ class ReportDetailResource extends JsonResource
         $groupedLogs = $logs->groupBy('id');
 
         // Iterate through each `user_id`, including those without logs
-        $userAssignmentLogs = $userIds->map(function ($userId) use ($groupedLogs, $assignment) {
+        $userAssignmentLogs = $userIds->map(function ($userId) use ($groupedLogs, $assignment, $course) {
             // Get the user's name (assuming `full_name` is in the User model)
             $userName = User::find($userId)->full_name;
 
             // Retrieve logs by `user_id`, if they exist
             $userLogs = $groupedLogs->get($userId, collect()); // Use an empty collection if no logs exist
 
+            // Determine if the user has graduated
+            $status = $course->hasGraduated($userId) ? true : false;
+            
             return [
                 'code' => $assignment->code,
                 'user' => $userName,
                 'attempt' => $userLogs->count(), // If no logs, this will be 0
                 'score' => $userLogs->isEmpty() ? 0 : $userLogs->max('pivot.score'), // If no logs, default score is 0
-                'type' => $assignment->type
+                'type' => $assignment->type,
+                'status' => $status
             ];
         });
 
