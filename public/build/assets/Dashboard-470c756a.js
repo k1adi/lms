@@ -1,1 +1,0 @@
-import{j as t}from"./app-4a46fc6f.js";import{D as o}from"./DashboardLayout-479ce328.js";import"./createLucideIcon-9557887a.js";import"./graduation-cap-39a9194c.js";function r(){return t.jsx("div",{className:"content-box",children:t.jsx("h1",{className:"text--title",children:"Dashboard"})})}r.layout=a=>t.jsx(o,{title:"Dashboard",children:a});export{r as default};
